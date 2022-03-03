@@ -1,0 +1,53 @@
+SIZE = 4  # constant size of the board
+
+# create a 2D array of size SIZE x SIZE
+# by simply multiplying the lists by sizes
+# they are all initialized to 0
+arr0 = [[0] * SIZE] * SIZE
+for i in range(SIZE):
+    for j in range(SIZE):
+        print(arr0[i][j], end=' ')
+    print()
+
+'''
+Output:
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+'''
+
+print()
+
+# the same proccess with for loop repeating
+arr1 = [[1] * SIZE for i in range(SIZE)]
+for i in range(SIZE):
+    for j in range(SIZE):
+        print(arr1[i][j], end=' ')
+    print()
+
+'''
+Output:
+1 1 1 1
+1 1 1 1
+1 1 1 1
+1 1 1 1
+'''
+
+print()
+
+# the same proccess with two for loops repeating
+# since there is no list multiplication it is one dimensional
+arr2 = [2 for i in range(SIZE) for j in range(SIZE)]
+for i in range(SIZE):
+    for j in range(SIZE):
+        print(arr2[i*SIZE+j], end=' ')
+    print()
+
+'''
+Output:
+2 2 2 2
+2 2 2 2
+2 2 2 2
+2 2 2 2
+'''
