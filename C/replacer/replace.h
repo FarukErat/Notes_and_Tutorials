@@ -1,5 +1,5 @@
-#ifndef REPLACER_H
-#define REPLACER_H
+#ifndef REPLACE_H
+#define REPLACE_H
 
 #include <string.h> // strlen, strcpy
 
@@ -10,7 +10,7 @@
  * @param rep the substring to be replaced
  * @param with the substring to replace the rep
  */
-void replacer(char text[], char rep[], char with[])
+void replace(char text[], char rep[], char with[])
 {
 	int count = 0;				// to compare the length of rep and with
 	int textLen = strlen(text); // length of text
@@ -64,4 +64,4 @@ void replacer(char text[], char rep[], char with[])
 	return;
 }
 
-#endif // REPLACER_H
+#endif // REPLACE_H
