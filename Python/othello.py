@@ -1,4 +1,3 @@
-# import only system from os
 from os import system, name
 from random import randrange
 from time import sleep
@@ -290,7 +289,7 @@ class Table:
             if flag:
                 print("Invalid move")
                 print("Enter again")
-            row, col = input("Enter row and column: ").split()
+            row, col = input("row and col: ").split()
             # to match array index
             row = int(row) - 1
             col = int(col) - 1
@@ -379,6 +378,8 @@ class Table:
         # print the final result
         print("G A M E   O V E R")
         print("Black: ", blacks, "\nWhite: ", whites)
+        # pause the console
+        input("Press enter to continue")
 
 # instantiate the class
 t = Table()
