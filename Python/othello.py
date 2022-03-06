@@ -1,8 +1,7 @@
 # import only system from os
 from os import system, name
-from random import randint, randrange
+from random import randrange
 from time import sleep
-from numpy import true_divide
 
 # define our clear function
 def clear():
@@ -25,7 +24,7 @@ WHITE = 'W'
 EMPTY = '-'
 LEGAL = '+'
 
-
+# for indexing, coordinates are (row, col)
 class coor:
     def __init__(self, r=0, c=0) -> None:
         self.row = r
@@ -60,12 +59,14 @@ class Table:
         # mark legal moves
         self.marker()
 
+    # check if the coordinate is on the board
     def isOnBoard(self, c):
         if c.row >= 0 and c.row < self.size and c.col >= 0 and c.col < self.size:
             return True
         else:
             return False
 
+    # check if a move is legal
     def isLegal(self, c):
         # if the coordinate is not on the board, then it is not a legal move
         if not self.isOnBoard(c):
@@ -111,6 +112,7 @@ class Table:
                         break
         return False
 
+    # check one has move left at a certain moment
     def hasTileToFlip(self):
         #  all the squares are checked on the board
         for row in range(self.size):
@@ -119,6 +121,7 @@ class Table:
                     return True
         return False
 
+    # flips the legal squares for sent coordinates
     def flipTiles(self, c):
         isValid = False
         curr = coor()
@@ -185,6 +188,7 @@ class Table:
         else:
             print("flipTiles: Illegal move")
 
+    # marks all the legal squares at a certain moment
     def marker(self):
         # unmark all the moves
         for row in range(self.size):
@@ -200,6 +204,7 @@ class Table:
                 if self.isLegal(c):
                     self.board[row][col] = self.legal
 
+    # prints the board with indexes
     def printBoard(self):
         # clear the remaining squares
         clear()
@@ -221,6 +226,7 @@ class Table:
             print(f" {row + 1}", end="")
         print()
 
+    # offering some game modes to the user
     def settings(self):
         # greeting the users
         print("Welcome to Othello Game\n")
@@ -252,6 +258,7 @@ class Table:
         else:
             self.guidance = False
 
+    # returns a random legal move
     def randomMoves(self):
         moves = []
         for row in range(self.size):
@@ -261,19 +268,21 @@ class Table:
                     c.row = row
                     c.col = col
                     moves.append(c)
-        rand = randrange(0, len(moves))
+        rand = randrange(len(moves))
         return moves[rand]
 
+    # processes randomMoves's return
     def cpuPlays(self):
         c = self.randomMoves()
         row = c.row
         col = c.col
-        sleep(1)
+        sleep(0.5)
         print("row: ", row + 1)
         print("col: ", col + 1)
         sleep(0.5)
         return c
 
+    # gets moves from the user
     def userPlays(self):
         c = coor()
         flag = False
@@ -291,6 +300,7 @@ class Table:
                 return (c)
             flag = True
 
+    # sets the turn
     def setTurn(self, turn):
         if turn == BLACK:
             self.turn = BLACK
@@ -302,13 +312,16 @@ class Table:
             print("Invalid turn")
             exit()
 
+    # switches the turn between the players
     def switchTurn(self):
         if self.turn == self.black:
             self.setTurn(self.white)
         else:
             self.setTurn(self.black)
+        # update the legal squares after the switch
         self.marker()
 
+    # the game logic is processed here
     def game(self):
         if (self.size % 2 != 0 or self.size < 2):
             print("The size of the board is not appropriate")
@@ -367,6 +380,7 @@ class Table:
         print("G A M E   O V E R")
         print("Black: ", blacks, "\nWhite: ", whites)
 
-
+# instantiate the class
 t = Table()
+# start the game
 t.game()
