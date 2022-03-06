@@ -281,8 +281,10 @@ class Table:
             if flag:
                 print("Invalid move")
                 print("Enter again")
-            row = int(input("row: ")) - 1
-            col = int(input("col: ")) - 1
+            row, col = input("Enter row and column: ").split()
+            # to match array index
+            row = int(row) - 1
+            col = int(col) - 1
             if self.board[row][col] == self.legal:
                 c.row = row
                 c.col = col
