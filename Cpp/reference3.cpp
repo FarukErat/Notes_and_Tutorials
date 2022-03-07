@@ -35,6 +35,25 @@ _CONSTEXPR20 void swap(_Ty& _Left, _Ty& _Right) noexcept(
 }
 */
 
+// return type can be reference, too
+int& max(int& a, int& b)
+{
+    if (a > b) return a;
+    else return b;
+}
+
+int* min(int* a, int* b)
+{
+    if (a < b) return a;
+    else return b;
+}
+
+void change (int &a, int b)
+{
+    a = 100;
+    b = 200;
+}
+
 // name, value, address
 int main()
 {
@@ -47,6 +66,14 @@ int main()
     // since it is done automatically when the function parameter is reference
     mySwap2(a, b);
     cout << a << ", " << b << endl; // 3, 5
+    // greatest number is set to 2
+    max(a, b) = 2;
+    cout << a << ", " << b << endl; // 3, 2
+    // smallest number is set to 10
+    *min(&a, &b) = 10;
+    cout << a << ", " << b << endl; // 3, 10
+    change(a, b);
+    cout << a << ", " << b << endl; // 100, 10
 
     return 0;
 }
