@@ -6,13 +6,13 @@ namespace SoloLearn
         {
             x = x * x;
         }
+        // with ref keyword, reference and valaue are passed
         static void SqrByRef(ref int x)
         {
             x = x * x;
         }
-        // out parameters are passed by reference
-        // they are the same as ref parameters with the exception
-        // that out parameters should be initialized in the method
+        // with out keyword, only reference is passed
+        // therefore, parameters should be initialized in the method
         static void OnlyAssign(out int x)
         {
             // x = x * x;
