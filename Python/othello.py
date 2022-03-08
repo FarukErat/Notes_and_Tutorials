@@ -379,9 +379,12 @@ class Table:
         print("G A M E   O V E R")
         print("Black: ", blacks, "\nWhite: ", whites)
         # pause the console
-        input("Press enter to continue")
+        input("Press enter to continue\n")
 
-# instantiate the class
-t = Table()
-# start the game
-t.game()
+# if this code is the main code (if this file is run first)
+# then the code above will be run
+if __name__ == "__main__":
+    # instantiate the class
+    t = Table()
+    # start the game
+    t.game()
