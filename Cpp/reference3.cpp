@@ -1,9 +1,21 @@
+/** behavior of references
+ *
+ * at the moment of initialization the address is given to reference
+ * (like a pointer, unlike a variable)
+ *
+ * but the address cannot be changed after initialization
+ * (unlike a pointer, like a variable)
+ *
+ * with math operations, its value can be changed without using "*" operator
+ * (unlike a pointer, like a variable)
+ */
+
 #include <iostream>
 
 using namespace std;
 
 // Here, "*" is used after the type to define a pointer, which holds the address name
-void mySwap1(int* first, int* second)
+void mySwap1(int *first, int *second)
 {
     int temp = *first;
     // However, "*" is used to get the value on the address (dereference)
@@ -18,7 +30,7 @@ void mySwap1(int* first, int* second)
 // therefore, changes made on a reference is made on the initializing variable
 // after defining a reference, it is no different from other variables
 // for instance, "ref++;" does NOT move along the memory but it increases the VALUE on the address
-void mySwap2(int& first, int& second)
+void mySwap2(int &first, int &second)
 {
     int temp = first;
     first = second;
@@ -36,19 +48,27 @@ _CONSTEXPR20 void swap(_Ty& _Left, _Ty& _Right) noexcept(
 */
 
 // return type can be reference, too
-int& max(int& a, int& b)
+// since it is a reference-typed function and returns a reference,
+// the address of the variable is given to the caller, as it is an initializing too
+// it is not necessary to use "&", when passing parameters
+// and not necessary to use "*" when returning values
+int &max(int &a, int &b)
 {
-    if (a > b) return a;
-    else return b;
+    if (a > b)
+        return a;
+    else
+        return b;
 }
 
-int* min(int* a, int* b)
+int *min(int *a, int *b)
 {
-    if (a < b) return a;
-    else return b;
+    if (a < b)
+        return a;
+    else
+        return b;
 }
 
-void change (int &a, int b)
+void change(int &a, int b)
 {
     a = 100;
     b = 200;
