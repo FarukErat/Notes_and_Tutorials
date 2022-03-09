@@ -41,6 +41,7 @@ class Table(QMainWindow):
         super(Table,self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
 
         # passing the constants to the class
         self.size = SIZE
@@ -61,10 +62,10 @@ class Table(QMainWindow):
         self.board = [[self.empty] * self.size for i in range(self.size)]
 
         # fill the 4 central initial squares
-        self.board[self.size//2 - 1][self.size//2] = self.black
-        self.board[self.size//2][self.size//2 - 1] = self.black
-        self.board[self.size//2 - 1][self.size//2 - 1] = self.white
-        self.board[self.size//2][self.size//2] = self.white
+        self.setBoard(self.size//2 - 1, self.size//2, self.black)
+        self.setBoard(self.size//2, self.size//2 - 1, self.black)
+        self.setBoard(self.size//2 - 1, self.size//2 - 1, self.white)
+        self.setBoard(self.size//2, self.size//2, self.white)
 
         # mark legal moves
         self.marker()
@@ -313,6 +314,21 @@ class Table(QMainWindow):
                     return True
         return False
 
+    def setBoard(self, row, col, val):
+        c = coor()
+        c.row = row
+        c.col = col
+        if self.isOnBoard(c) and val == self.black or val == self.white or \
+            val == self.empty or val == self.legal:
+            self.board[row][col] = val
+    
+    def getBoard(self, row, col):
+        if self.isOnBoard(row, col):
+            return self.board[row][col]
+        else:
+            raise Exception("Coordinate is not on the board")
+        
+
     # flips the legal squares for sent coordinates
     def flipTiles(self, c):
         isValid = False
@@ -356,27 +372,27 @@ class Table(QMainWindow):
                     if dir[0] == 0:
                         # assign till c.col
                         while(temp.col != curr.col):
-                            self.board[temp.row][temp.col] = self.turn
+                            self.setBoard(temp.row, temp.col, self.turn)
                             # incrase the number by the delta
                             temp.col += dir[1]
                     # assigning the squares, when the direction is vertical
                     elif dir[1] == 0:
                         # assign till c.row
                         while(temp.row != curr.row):
-                            self.board[temp.row][temp.col] = self.turn
+                            self.setBoard(temp.row, temp.col, self.turn)
                             # incrase the number by the delta
                             temp.row += dir[0]
                     # assigning the squares, when the direction is cross
                     else:
                         # assign till c.row and c.col
                         while temp.row != curr.row and temp.col != curr.col:
-                            self.board[temp.row][temp.col] = self.turn
+                            self.setBoard(temp.row, temp.col, self.turn)
                             # incrase the numbers by the deltas
                             temp.row += dir[0]
                             temp.col += dir[1]
                     break
         if isValid:
-            self.board[c.row][c.col] = self.turn
+            self.setBoard(c.row, c.col, self.turn)
         else:
             print("flipTiles: Illegal move")
 
@@ -386,7 +402,7 @@ class Table(QMainWindow):
         for row in range(self.size):
             for col in range(self.size):
                 if self.board[row][col] == self.legal:
-                    self.board[row][col] = self.empty
+                    self.setBoard(row, col, self.empty)
         # mark the legal moves
         c = coor()
         for row in range(self.size):
@@ -394,29 +410,7 @@ class Table(QMainWindow):
                 c.row = row
                 c.col = col
                 if self.isLegal(c):
-                    self.board[row][col] = self.legal
-
-    # prints the board with indexes
-    def printBoard(self):
-        # clear the remaining squares
-        clear()
-        print(" ", end="")
-        for row in range(self.size):
-            print(f" {row + 1}", end="")
-        print()
-        for row in range(self.size):
-            print(row + 1, end=" ")
-            for col in range(self.size):
-                if not self.guidance:
-                    if self.board[row][col] == self.legal:
-                        print(self.empty, end=" ")
-                        continue
-                print(self.board[row][col], end=" ")
-            print(row + 1)
-        print(" ", end="")
-        for row in range(self.size):
-            print(f" {row + 1}", end="")
-        print()
+                    self.setBoard(row, col, self.legal)
 
     # returns a random legal move
     def randomMoves(self):
