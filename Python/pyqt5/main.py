@@ -6,18 +6,20 @@ import res
 
 from os import system, name
 from random import randrange
-from time import sleep
 
 # define our clear function
+
+
 def clear():
-  
+
     # for windows
     if name == 'nt':
         _ = system('cls')
-  
+
     # for mac and linux(here, os.name is 'posix')
     else:
         _ = system('clear')
+
 
 # constants
 SIZE = 8
@@ -30,6 +32,8 @@ EMPTY = '-'
 LEGAL = '+'
 
 # for indexing, coordinates are (row, col)
+
+
 class coor:
     def __init__(self, r=0, c=0) -> None:
         self.row = r
@@ -38,7 +42,7 @@ class coor:
 
 class Table(QMainWindow):
     def __init__(self) -> None:
-        super(Table,self).__init__()
+        super(Table, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setFixedSize(self.width(), self.height())
@@ -53,7 +57,7 @@ class Table(QMainWindow):
         # black starts the game
         self.turn = self.black
         self.opponent = self.white
-        self.userSide = self.black
+        self.humanSide = self.black
         self.guidance = True
         self.gameMode = 0
         self.delayGuard = True
@@ -70,7 +74,7 @@ class Table(QMainWindow):
         # mark legal moves
         self.marker()
         ##############################################################
-        
+
         # buttons
         self.buttons = [[0] * self.size for i in range(self.size)]
         self.buttons[0][0] = self.ui.pushButton
@@ -215,12 +219,13 @@ class Table(QMainWindow):
                 self.buttons[row][col].clicked.connect(self.clickToCoor)
 
     def clickToCoor(self):
+        # if game mode is 2, cpu will play recursively
         if self.gameMode == 2:
-            self.userSide = self.white
             self.cpuPlays()
-        if self.gameMode == 1 and self.userSide != self.turn and self.delayGuard:
+        # if game mode is 1, and the turn is not human's, cpu will play
+        if self.gameMode == 1 and self.humanSide != self.turn and self.delayGuard:
             self.process(self.cpuPlays())
-            return
+        # if game mode is 1, and the turn is human's, and cpu is not playing(delayGuard is True)
         if self.delayGuard:
             target = self.sender()
             c = coor()
@@ -229,26 +234,60 @@ class Table(QMainWindow):
                     if self.buttons[row][col] == target:
                         c.row = row
                         c.col = col
+                        # if the move is legal, process the move
                         if self.isLegal(c):
                             self.process(c)
-                        if self.gameMode == 1 and self.userSide != self.turn:
+                        # if it is not user's turn, cpu will play
+                        if self.gameMode == 1 and self.turn != self.humanSide:
                             self.process(self.cpuPlays())
-                        return c
-    
+
+    # processes randomMoves's return
+    def cpuPlays(self):
+        self.delayGuard = False
+        self.delayer(1)
+        if self.gameMode == 2:
+            self.process(self.randomMoves())
+            self.cpuPlays()
+        self.delayGuard = True
+        return self.randomMoves()
+
+    def process(self, c):
+        # if move is legal, flip the tiles
+        if self.isLegal(c):
+            self.flipTiles(c)
+            # switch turn
+            self.switchTurn()
+            # update buttons before game is over
+            self.updateBtns()
+            # if the user does not have tile to flip, switch turn
+            if not self.hasTileToFlip():
+                self.switchTurn()
+                # update buttons before game is over
+                self.updateBtns()
+            # if, there is no legal move, game is over
+            if not self.hasTileToFlip():
+                self.delayer(2)
+                exit()
+
     def updateBtns(self):
         for row in range(self.size):
             for col in range(self.size):
                 if self.board[row][col] == self.black:
-                    self.labels[row][col].setPixmap(QtGui.QPixmap(":/buttons/black"))
+                    self.labels[row][col].setPixmap(
+                        QtGui.QPixmap(":/buttons/black"))
                 elif self.board[row][col] == self.white:
-                    self.labels[row][col].setPixmap(QtGui.QPixmap(":/buttons/white"))
+                    self.labels[row][col].setPixmap(
+                        QtGui.QPixmap(":/buttons/white"))
                 elif self.board[row][col] == self.empty:
-                    self.labels[row][col].setPixmap(QtGui.QPixmap(":/buttons/empty"))
+                    self.labels[row][col].setPixmap(
+                        QtGui.QPixmap(":/buttons/empty"))
                 elif self.board[row][col] == self.legal:
                     if self.guidance:
-                        self.labels[row][col].setPixmap(QtGui.QPixmap(":/buttons/legal"))
+                        self.labels[row][col].setPixmap(
+                            QtGui.QPixmap(":/buttons/legal"))
                     else:
-                        self.labels[row][col].setPixmap(QtGui.QPixmap(":/buttons/empty"))
+                        self.labels[row][col].setPixmap(
+                            QtGui.QPixmap(":/buttons/empty"))
 
     ###########################################################################
 
@@ -319,17 +358,17 @@ class Table(QMainWindow):
         c.row = row
         c.col = col
         if self.isOnBoard(c) and val == self.black or val == self.white or \
-            val == self.empty or val == self.legal:
+                val == self.empty or val == self.legal:
             self.board[row][col] = val
-    
+
     def getBoard(self, row, col):
         if self.isOnBoard(row, col):
             return self.board[row][col]
         else:
             raise Exception("Coordinate is not on the board")
-        
 
     # flips the legal squares for sent coordinates
+
     def flipTiles(self, c):
         isValid = False
         curr = coor()
@@ -422,21 +461,10 @@ class Table(QMainWindow):
                     c.row = row
                     c.col = col
                     moves.append(c)
+        if len(moves) == 0:
+            return None
         rand = randrange(len(moves))
         return moves[rand]
-
-    # processes randomMoves's return
-    def cpuPlays(self):
-        self.delayGuard = False
-        if not self.hasTileToFlip():
-            sleep(2)
-            exit()
-        self.delayer(1)
-        if self.gameMode == 2:
-            self.process(self.randomMoves())
-            self.cpuPlays()
-        self.delayGuard = True
-        return self.randomMoves()
 
     # sets the turn
     def setTurn(self, turn):
@@ -449,7 +477,7 @@ class Table(QMainWindow):
         else:
             print("Invalid turn")
             exit()
-    
+
     def setGameMode(self, mode):
         if mode != 0 and mode != 1 and mode != 2:
             raise ValueError("Invalid game mode")
@@ -465,19 +493,6 @@ class Table(QMainWindow):
         # update the legal squares after the switch
         self.marker()
 
-    def process(self, c):
-        if not self.hasTileToFlip:
-            sleep(2)
-            exit()
-        if not self.isLegal(c):
-            return
-        if self.isLegal(c):
-            self.flipTiles(c)
-        self.switchTurn()
-        if not self.hasTileToFlip:
-            self.switchTurn()
-        self.updateBtns()
-
     def delayer(self, delay):
         loop = QtCore.QEventLoop()
         timer = QtCore.QTimer()
@@ -486,12 +501,21 @@ class Table(QMainWindow):
         timer.timeout.connect(loop.quit)
         timer.start()
         loop.exec()
+    
+    def setHumanSide(self, side):
+        if side == self.black or side == self.white:
+            self.humanSide = side
+        else:
+            raise ValueError("Invalid human side")
+
 
 def window():
     app = QApplication(sys.argv)
     win = Table()
     win.setGameMode(1)
+    win.setHumanSide(win.black)
     win.show()
     sys.exit(app.exec_())
+
 
 window()
