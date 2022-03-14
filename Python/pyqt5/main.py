@@ -8,6 +8,8 @@ from os import system, name
 from random import randrange
 
 # define our clear function
+
+
 def clear():
 
     # for windows
@@ -245,11 +247,12 @@ class Table(QMainWindow):
                         # then, if it is not user's turn, cpu will play
                         if self.gameMode == 1 and self.turn != self.humanSide:
                             self.cpuPlays()
+                        return
 
     # processes randomMoves's return
     def cpuPlays(self):
         self.delayGuard = False
-        self.delayer(1)
+        self.delayer(1000)
         if self.gameMode == 2:
             self.process(self.randomMoves())
             self.cpuPlays()
@@ -275,7 +278,7 @@ class Table(QMainWindow):
             # if, there is no legal move, game is over
             if not self.hasTileToFlip():
                 self.delayGuard = False
-                self.delayer(2)
+                self.delayer(2000)
                 exit()
 
     def updateBtns(self):
@@ -505,12 +508,12 @@ class Table(QMainWindow):
     def delayer(self, delay):
         loop = QtCore.QEventLoop()
         timer = QtCore.QTimer()
-        timer.setInterval(delay*1000)
+        timer.setInterval(delay)
         timer.setSingleShot(True)
         timer.timeout.connect(loop.quit)
         timer.start()
         loop.exec()
-    
+
     def setHumanSide(self, side):
         if side == self.black or side == self.white:
             self.humanSide = side
