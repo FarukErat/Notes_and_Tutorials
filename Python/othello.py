@@ -3,15 +3,18 @@ from random import randrange
 from time import sleep
 
 # define our clear function
+
+
 def clear():
-  
+
     # for windows
     if name == 'nt':
         _ = system('cls')
-  
+
     # for mac and linux(here, os.name is 'posix')
     else:
         _ = system('clear')
+
 
 # constants
 SIZE = 8
@@ -24,6 +27,8 @@ EMPTY = '-'
 LEGAL = '+'
 
 # for indexing, coordinates are (row, col)
+
+
 class coor:
     def __init__(self, r=0, c=0) -> None:
         self.row = r
@@ -274,7 +279,7 @@ class Table:
     def cpuPlays(self):
         c = self.randomMoves()
         sleep(0.5)
-        print("row: ", c.row + 1) #TODO: replace with c.row
+        print("row: ", c.row + 1)
         print("col: ", c.col + 1)
         sleep(0.5)
         return c
@@ -378,6 +383,7 @@ class Table:
         print("Black: ", blacks, "\nWhite: ", whites)
         # pause the console
         input("Press enter to continue\n")
+
 
 # if this code is the main code (if this file is run first)
 # then the code above will be run
