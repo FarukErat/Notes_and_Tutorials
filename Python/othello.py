@@ -273,11 +273,9 @@ class Table:
     # processes randomMoves's return
     def cpuPlays(self):
         c = self.randomMoves()
-        row = c.row
-        col = c.col
         sleep(0.5)
-        print("row: ", row + 1)
-        print("col: ", col + 1)
+        print("row: ", c.row + 1) #TODO: replace with c.row
+        print("col: ", c.col + 1)
         sleep(0.5)
         return c
 
