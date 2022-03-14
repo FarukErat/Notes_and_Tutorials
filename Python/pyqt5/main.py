@@ -8,8 +8,6 @@ from os import system, name
 from random import randrange
 
 # define our clear function
-
-
 def clear():
 
     # for windows
@@ -223,10 +221,17 @@ class Table(QMainWindow):
         if self.gameMode == 2:
             self.cpuPlays()
         # if game mode is 1, and the turn is not human's, cpu will play
-        if self.gameMode == 1 and self.humanSide != self.turn and self.delayGuard:
-            self.process(self.cpuPlays())
-        # if game mode is 1, and the turn is human's, and cpu is not playing(delayGuard is True)
-        if self.delayGuard:
+        # this is to call the cpuPlays function
+        elif self.gameMode == 1 and self.turn != self.humanSide:
+            self.cpuPlays()
+            return
+        # only two possible situations:
+        # 1. game mode is 1 and it is human's turn (turn is indicated by delayGuard here)
+        # if delayGuard is True, it means the cpu is not playing, so the human can play
+        # and human clicks a button
+        # and the turn is changed to cpu's
+        # 2. game mode is 0 and human plays continuously
+        elif self.delayGuard:
             target = self.sender()
             c = coor()
             for row in range(self.size):
@@ -237,9 +242,9 @@ class Table(QMainWindow):
                         # if the move is legal, process the move
                         if self.isLegal(c):
                             self.process(c)
-                        # if it is not user's turn, cpu will play
+                        # then, if it is not user's turn, cpu will play
                         if self.gameMode == 1 and self.turn != self.humanSide:
-                            self.process(self.cpuPlays())
+                            self.cpuPlays()
 
     # processes randomMoves's return
     def cpuPlays(self):
@@ -249,7 +254,10 @@ class Table(QMainWindow):
             self.process(self.randomMoves())
             self.cpuPlays()
         self.delayGuard = True
-        return self.randomMoves()
+        self.process(self.randomMoves())
+        # after playing if human does not have move to play, cpu will play again
+        if self.turn != self.humanSide:
+            self.cpuPlays()
 
     def process(self, c):
         # if move is legal, flip the tiles
@@ -266,6 +274,7 @@ class Table(QMainWindow):
                 self.updateBtns()
             # if, there is no legal move, game is over
             if not self.hasTileToFlip():
+                self.delayGuard = False
                 self.delayer(2)
                 exit()
 
