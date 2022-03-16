@@ -219,35 +219,47 @@ class Table(QMainWindow):
                 self.buttons[row][col].clicked.connect(self.clickToCoor)
 
     def clickToCoor(self):
-        # if game mode is 2, cpu will play recursively
-        if self.gameMode == 2:
-            self.cpuPlays()
-        # if game mode is 1, and the turn is not human's, cpu will play
-        # this is to call the cpuPlays function
-        elif self.gameMode == 1 and self.turn != self.humanSide:
-            self.cpuPlays()
+        # prevent the user from clicking when it is not user's turn
+        if not self.delayGuard:
             return
+
+        if self.gameMode == 0:
+            self.humanPlays()
+
         # only two possible situations:
         # 1. game mode is 1 and it is human's turn (turn is indicated by delayGuard here)
         # if delayGuard is True, it means the cpu is not playing, so the human can play
         # and human clicks a button
         # and the turn is changed to cpu's
         # 2. game mode is 0 and human plays continuously
-        elif self.delayGuard:
-            target = self.sender()
-            c = coor()
-            for row in range(self.size):
-                for col in range(self.size):
-                    if self.buttons[row][col] == target:
-                        c.row = row
-                        c.col = col
-                        # if the move is legal, process the move
-                        if self.isLegal(c):
-                            self.process(c)
-                        # then, if it is not user's turn, cpu will play
-                        if self.gameMode == 1 and self.turn != self.humanSide:
-                            self.cpuPlays()
-                        return
+        # if game mode is 1, and the turn is not human's, cpu will play
+        # this is to call the cpuPlays function
+        elif self.gameMode == 1:
+            if self.turn == self.humanSide:
+                self.humanPlays()
+            else:
+                self.cpuPlays()
+
+        # if game mode is 2, cpu will play recursively
+        elif self.gameMode == 2:
+            self.cpuPlays()
+        
+    
+    def humanPlays(self):
+        target = self.sender()
+        c = coor()
+        for row in range(self.size):
+            for col in range(self.size):
+                if self.buttons[row][col] == target:
+                    c.row = row
+                    c.col = col
+                    # if the move is legal, process the move
+                    if self.isLegal(c):
+                        self.process(c)
+                    # then, if it is not user's turn, cpu will play
+                    if self.gameMode == 1 and self.turn != self.humanSide:
+                        self.cpuPlays()
+                    return
 
     # processes randomMoves's return
     def cpuPlays(self):
