@@ -254,8 +254,7 @@ class Table(QMainWindow):
                     c.row = row
                     c.col = col
                     # if the move is legal, process the move
-                    if self.isLegal(c):
-                        self.process(c)
+                    self.process(c)
                     # then, if it is not user's turn, cpu will play
                     if self.gameMode == 1 and self.turn != self.humanSide:
                         self.cpuPlays()
@@ -276,7 +275,7 @@ class Table(QMainWindow):
 
     def process(self, c):
         # if move is legal, flip the tiles
-        if self.isLegal(c):
+        if self.board[c.row][c.col] == self.legal:
             self.flipTiles(c)
             # switch turn
             self.switchTurn()
