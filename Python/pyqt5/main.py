@@ -242,7 +242,8 @@ class Table(QMainWindow):
 
         # if game mode is 2, cpu will play recursively
         elif self.gameMode == 2:
-            self.cpuPlays()
+            while self.hasTileToFlip():
+                self.cpuPlays()
         
     
     def humanPlays(self):
@@ -264,9 +265,6 @@ class Table(QMainWindow):
     def cpuPlays(self):
         self.delayGuard = False
         self.delayer(1000)
-        if self.gameMode == 2:
-            self.process(self.randomMoves())
-            self.cpuPlays()
         self.delayGuard = True
         self.process(self.randomMoves())
         # after playing if human does not have move to play, cpu will play again
@@ -535,7 +533,7 @@ class Table(QMainWindow):
 def window():
     app = QApplication(sys.argv)
     win = Table()
-    win.setGameMode(1)
+    win.setGameMode(2)
     win.setHumanSide(win.black)
     win.show()
     sys.exit(app.exec_())
