@@ -1,5 +1,6 @@
 from othello import Ui_MainWindow
 from menu import Ui_Menu
+from gameover import Ui_GameOver
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
@@ -41,6 +42,21 @@ class coor:
         self.col = c
 
 
+class GameOver(QMainWindow):
+    def __init__(self, black = 0, white = 0) -> None:
+        super(GameOver, self).__init__()
+        self.ui = Ui_GameOver()
+        self.ui.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
+        self.ui.pushButton_screen.setGeometry(QtCore.QRect(0, 0, self.width(), self.height()))
+        self.ui.label_black_score.setText(str(black))
+        self.ui.label_white_score.setText(str(white))
+        if black > white:
+            self.ui.label_winner.setText("Black Wins!")
+        elif black < white:
+            self.ui.label_winner.setText("White Wins!")
+        else:
+            self.ui.label_winner.setText("It's a tie!")
 class Menu(QMainWindow):
     def __init__(self, table) -> None:
         super(Menu, self).__init__()
@@ -313,8 +329,25 @@ class Table(QMainWindow):
             # if, there is no legal move, game is over
             if not self.hasTileToFlip():
                 self.delayGuard = False
-                self.delayer(2000)
-                exit()
+                self.delayer(1000)
+                self.endOfGame()
+
+    def endOfGame(self):
+        black = 0
+        white = 0
+        for row in range(self.size):
+            for col in range(self.size):
+                if self.board[row][col] == self.black:
+                    black += 1
+                elif self.board[row][col] == self.white:
+                    white += 1
+        
+        gameover = GameOver(black, white)
+        self.close()
+        gameover.show()
+        self.delayer(5000)
+        
+
 
     def updateBtns(self):
         for row in range(self.size):
