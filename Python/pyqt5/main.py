@@ -42,23 +42,30 @@ class coor:
 
 
 class Menu(QMainWindow):
-    def __init__(self) -> None:
+    def __init__(self, table) -> None:
         super(Menu, self).__init__()
         self.ui = Ui_Menu()
         self.ui.setupUi(self)
         self.setFixedSize(self.width(), self.height())
         self.table = Table()
-    
-        self.ui.radioButton_H_VS_H.clicked.connect(lambda:self.table.setGameMode(0))
-        self.ui.radioButton_H_VS_P.clicked.connect(lambda:self.table.setGameMode(1))
-        self.ui.radioButton_P_VS_P.clicked.connect(lambda:self.table.setGameMode(2))
-        self.ui.radioButton_black.clicked.connect(lambda:self.table.setHumanSide(self.table.black))
-        self.ui.radioButton_white.clicked.connect(lambda:self.table.setHumanSide(self.table.white))
-        self.ui.pushButton_START.clicked.connect(lambda:self.startGame())
 
-    def startGame(self):
-        self.table.show()
+        self.ui.radioButton_H_VS_H.clicked.connect(
+            lambda: table.setGameMode(0))
+        self.ui.radioButton_H_VS_P.clicked.connect(
+            lambda: table.setGameMode(1))
+        self.ui.radioButton_P_VS_P.clicked.connect(
+            lambda: table.setGameMode(2))
+        self.ui.radioButton_black.clicked.connect(
+            lambda: table.setHumanSide(self.table.black))
+        self.ui.radioButton_white.clicked.connect(
+            lambda: table.setHumanSide(self.table.white))
+        self.ui.pushButton_START.clicked.connect(lambda: self.startGame(table))
+
+    def startGame(self, table):
         self.close()
+        table.show()
+
+
 class Table(QMainWindow):
     def __init__(self) -> None:
         super(Table, self).__init__()
@@ -263,8 +270,7 @@ class Table(QMainWindow):
         elif self.gameMode == 2:
             while self.hasTileToFlip():
                 self.cpuPlays()
-        
-    
+
     def humanPlays(self):
         target = self.sender()
         c = coor()
@@ -551,8 +557,9 @@ class Table(QMainWindow):
 
 def window():
     app = QApplication(sys.argv)
-    win = Menu()
-    win.show()
+    table = Table()
+    menu = Menu(table)
+    menu.show()
     sys.exit(app.exec_())
 
 
