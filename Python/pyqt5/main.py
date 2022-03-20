@@ -43,12 +43,14 @@ class coor:
 
 
 class GameOver(QMainWindow):
-    def __init__(self, black = 0, white = 0) -> None:
+    def __init__(self, black=0, white=0) -> None:
         super(GameOver, self).__init__()
         self.ui = Ui_GameOver()
         self.ui.setupUi(self)
         self.setFixedSize(self.width(), self.height())
-        self.ui.pushButton_screen.setGeometry(QtCore.QRect(0, 0, self.width(), self.height()))
+        self.ui.pushButton_screen.setGeometry(
+            QtCore.QRect(0, 0, self.width(), self.height()))
+        self.ui.pushButton_screen.clicked.connect(lambda: self.close())
         self.ui.label_black_score.setText(str(black))
         self.ui.label_white_score.setText(str(white))
         if black > white:
@@ -57,6 +59,8 @@ class GameOver(QMainWindow):
             self.ui.label_winner.setText("White Wins!")
         else:
             self.ui.label_winner.setText("It's a tie!")
+
+
 class Menu(QMainWindow):
     def __init__(self, table) -> None:
         super(Menu, self).__init__()
@@ -341,13 +345,11 @@ class Table(QMainWindow):
                     black += 1
                 elif self.board[row][col] == self.white:
                     white += 1
-        
+
         gameover = GameOver(black, white)
         self.close()
         gameover.show()
         self.delayer(5000)
-        
-
 
     def updateBtns(self):
         for row in range(self.size):
