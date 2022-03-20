@@ -1,4 +1,5 @@
 from othello import Ui_MainWindow
+from menu import Ui_Menu
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore
@@ -40,6 +41,24 @@ class coor:
         self.col = c
 
 
+class Menu(QMainWindow):
+    def __init__(self) -> None:
+        super(Menu, self).__init__()
+        self.ui = Ui_Menu()
+        self.ui.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
+        self.table = Table()
+    
+        self.ui.radioButton_H_VS_H.clicked.connect(lambda:self.table.setGameMode(0))
+        self.ui.radioButton_H_VS_P.clicked.connect(lambda:self.table.setGameMode(1))
+        self.ui.radioButton_P_VS_P.clicked.connect(lambda:self.table.setGameMode(2))
+        self.ui.radioButton_black.clicked.connect(lambda:self.table.setHumanSide(self.table.black))
+        self.ui.radioButton_white.clicked.connect(lambda:self.table.setHumanSide(self.table.white))
+        self.ui.pushButton_START.clicked.connect(lambda:self.startGame())
+
+    def startGame(self):
+        self.table.show()
+        self.close()
 class Table(QMainWindow):
     def __init__(self) -> None:
         super(Table, self).__init__()
@@ -59,7 +78,7 @@ class Table(QMainWindow):
         self.opponent = self.white
         self.humanSide = self.black
         self.guidance = True
-        self.gameMode = 0
+        self.gameMode = 1
         self.delayGuard = True
 
         # create an empty board
@@ -532,9 +551,7 @@ class Table(QMainWindow):
 
 def window():
     app = QApplication(sys.argv)
-    win = Table()
-    win.setGameMode(2)
-    win.setHumanSide(win.black)
+    win = Menu()
     win.show()
     sys.exit(app.exec_())
 
