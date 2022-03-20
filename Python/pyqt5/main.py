@@ -64,6 +64,7 @@ class Menu(QMainWindow):
     def startGame(self, table):
         self.close()
         table.show()
+        table.clickToCoor()
 
 
 class Table(QMainWindow):
