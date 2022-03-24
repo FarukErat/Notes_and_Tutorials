@@ -23,19 +23,7 @@ def clear():
         _ = system('clear')
 
 
-# constants
-SIZE = 8
-DIRS = [(-1, -1), (-1, 0), (-1, +1),
-        (0, -1),           (0, +1),
-        (+1, -1), (+1, 0), (+1, +1)]
-BLACK = 'B'
-WHITE = 'W'
-EMPTY = '-'
-LEGAL = '+'
-
 # for indexing, coordinates are (row, col)
-
-
 class coor:
     def __init__(self, r=0, c=0) -> None:
         self.row = r
@@ -76,9 +64,9 @@ class Menu(QMainWindow):
         self.ui.radioButton_P_VS_P.clicked.connect(
             lambda: table.setGameMode(2))
         self.ui.radioButton_black.clicked.connect(
-            lambda: table.setHumanSide(self.table.black))
+            lambda: table.setHumanSide(self.table.BLACK))
         self.ui.radioButton_white.clicked.connect(
-            lambda: table.setHumanSide(self.table.white))
+            lambda: table.setHumanSide(self.table.WHITE))
         self.ui.pushButton_START.clicked.connect(lambda: self.startGame(table))
 
     def startGame(self, table):
@@ -95,35 +83,38 @@ class Table(QMainWindow):
         self.setFixedSize(self.width(), self.height())
 
         # passing the constants to the class
-        self.size = SIZE
-        self.black = BLACK
-        self.white = WHITE
-        self.empty = EMPTY
-        self.legal = LEGAL
+        self.SIZE = 8
+        self.EMPTY = 0
+        self.BLACK = 1
+        self.WHITE = 2
+        self.LEGAL = 3
+        self.DIRS = [(-1, -1), (-1, 0), (-1, +1),
+                     (0, -1),           (0, +1),
+                     (+1, -1), (+1, 0), (+1, +1)]
 
         # black starts the game
-        self.turn = self.black
-        self.opponent = self.white
-        self.humanSide = self.black
+        self.turn = self.BLACK
+        self.opponent = self.WHITE
+        self.humanSide = self.BLACK
         self.guidance = True
         self.gameMode = 1
         self.delayGuard = True
 
         # create an empty board
-        self.board = [[self.empty] * self.size for i in range(self.size)]
+        self.board = [[self.EMPTY] * self.SIZE for i in range(self.SIZE)]
 
         # fill the 4 central initial squares
-        self.setBoard(self.size//2 - 1, self.size//2, self.black)
-        self.setBoard(self.size//2, self.size//2 - 1, self.black)
-        self.setBoard(self.size//2 - 1, self.size//2 - 1, self.white)
-        self.setBoard(self.size//2, self.size//2, self.white)
+        self.setBoard(self.SIZE//2 - 1, self.SIZE//2, self.BLACK)
+        self.setBoard(self.SIZE//2, self.SIZE//2 - 1, self.BLACK)
+        self.setBoard(self.SIZE//2 - 1, self.SIZE//2 - 1, self.WHITE)
+        self.setBoard(self.SIZE//2, self.SIZE//2, self.WHITE)
 
         # mark legal moves
         self.marker()
         ##############################################################
 
         # buttons
-        self.buttons = [[0] * self.size for i in range(self.size)]
+        self.buttons = [[0] * self.SIZE for i in range(self.SIZE)]
         self.buttons[0][0] = self.ui.pushButton
         self.buttons[0][1] = self.ui.pushButton_2
         self.buttons[0][2] = self.ui.pushButton_3
@@ -190,7 +181,7 @@ class Table(QMainWindow):
         self.buttons[7][7] = self.ui.pushButton_64
 
         # labels
-        self.labels = [[0] * self.size for i in range(self.size)]
+        self.labels = [[0] * self.SIZE for i in range(self.SIZE)]
         self.labels[0][0] = self.ui.label
         self.labels[0][1] = self.ui.label_2
         self.labels[0][2] = self.ui.label_3
@@ -261,8 +252,8 @@ class Table(QMainWindow):
 
         # to send the the button clicked to clickToCoor func
         # buttons are connected
-        for row in range(self.size):
-            for col in range(self.size):
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
                 self.buttons[row][col].clicked.connect(self.clickToCoor)
 
     def clickToCoor(self):
@@ -295,8 +286,8 @@ class Table(QMainWindow):
     def humanPlays(self):
         target = self.sender()
         c = coor()
-        for row in range(self.size):
-            for col in range(self.size):
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
                 if self.buttons[row][col] == target:
                     c.row = row
                     c.col = col
@@ -319,7 +310,7 @@ class Table(QMainWindow):
 
     def process(self, c):
         # if move is legal, flip the tiles
-        if self.board[c.row][c.col] == self.legal:
+        if self.board[c.row][c.col] == self.LEGAL:
             self.flipTiles(c)
             # switch turn
             self.switchTurn()
@@ -339,31 +330,32 @@ class Table(QMainWindow):
     def endOfGame(self):
         black = 0
         white = 0
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == self.black:
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
+                if self.board[row][col] == self.BLACK:
                     black += 1
-                elif self.board[row][col] == self.white:
+                elif self.board[row][col] == self.WHITE:
                     white += 1
 
         gameover = GameOver(black, white)
         self.close()
         gameover.show()
         self.delayer(5000)
+        exit()
 
     def updateBtns(self):
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == self.black:
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
+                if self.board[row][col] == self.BLACK:
                     self.labels[row][col].setPixmap(
                         QtGui.QPixmap(":/buttons/black"))
-                elif self.board[row][col] == self.white:
+                elif self.board[row][col] == self.WHITE:
                     self.labels[row][col].setPixmap(
                         QtGui.QPixmap(":/buttons/white"))
-                elif self.board[row][col] == self.empty:
+                elif self.board[row][col] == self.EMPTY:
                     self.labels[row][col].setPixmap(
                         QtGui.QPixmap(":/buttons/empty"))
-                elif self.board[row][col] == self.legal:
+                elif self.board[row][col] == self.LEGAL:
                     if self.guidance:
                         self.labels[row][col].setPixmap(
                             QtGui.QPixmap(":/buttons/legal"))
@@ -375,7 +367,7 @@ class Table(QMainWindow):
 
     # check if the coordinate is on the board
     def isOnBoard(self, c):
-        if c.row >= 0 and c.row < self.size and c.col >= 0 and c.col < self.size:
+        if c.row >= 0 and c.row < self.SIZE and c.col >= 0 and c.col < self.SIZE:
             return True
         else:
             return False
@@ -387,12 +379,12 @@ class Table(QMainWindow):
             return False
 
         # non-empty squares cannot be filled, thus it is not a legal move
-        if self.board[c.row][c.col] != self.empty and self.board[c.row][c.col] != self.legal:
+        if self.board[c.row][c.col] != self.EMPTY and self.board[c.row][c.col] != self.LEGAL:
             return False
 
         # for each direction
         curr = coor()
-        for dir in DIRS:
+        for dir in self.DIRS:
             flip = False
             i = 1
             while(True):
@@ -408,8 +400,8 @@ class Table(QMainWindow):
                     break
 
                 # if the square is empty, break
-                if self.board[curr.row][curr.col] == self.empty or\
-                        self.board[curr.row][curr.col] == self.legal:
+                if self.board[curr.row][curr.col] == self.EMPTY or\
+                        self.board[curr.row][curr.col] == self.LEGAL:
                     break
 
                 # if the square is not the same as player's, assign flip true, then continue
@@ -429,9 +421,9 @@ class Table(QMainWindow):
     # check one has move left at a certain moment
     def hasTileToFlip(self):
         #  all the squares are checked on the board
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == self.legal:
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
+                if self.board[row][col] == self.LEGAL:
                     return True
         return False
 
@@ -439,8 +431,8 @@ class Table(QMainWindow):
         c = coor()
         c.row = row
         c.col = col
-        if self.isOnBoard(c) and val == self.black or val == self.white or \
-                val == self.empty or val == self.legal:
+        if self.isOnBoard(c) and val == self.BLACK or val == self.WHITE or \
+                val == self.EMPTY or val == self.LEGAL:
             self.board[row][col] = val
 
     def getBoard(self, row, col):
@@ -455,7 +447,7 @@ class Table(QMainWindow):
         isValid = False
         curr = coor()
         temp = coor()
-        for dir in DIRS:
+        for dir in self.DIRS:
             isFlipped = False
             i = 1
             while(True):
@@ -471,8 +463,8 @@ class Table(QMainWindow):
                     break
 
                 # if the square is empty, the goal is not achieved
-                if self.board[curr.row][curr.col] == self.empty or\
-                        self.board[curr.row][curr.col] == self.legal:
+                if self.board[curr.row][curr.col] == self.EMPTY or\
+                        self.board[curr.row][curr.col] == self.LEGAL:
                     break
 
                 # isFlipped changes to true if there is a tile to flip
@@ -520,25 +512,25 @@ class Table(QMainWindow):
     # marks all the legal squares at a certain moment
     def marker(self):
         # unmark all the moves
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == self.legal:
-                    self.setBoard(row, col, self.empty)
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
+                if self.board[row][col] == self.LEGAL:
+                    self.setBoard(row, col, self.EMPTY)
         # mark the legal moves
         c = coor()
-        for row in range(self.size):
-            for col in range(self.size):
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
                 c.row = row
                 c.col = col
                 if self.isLegal(c):
-                    self.setBoard(row, col, self.legal)
+                    self.setBoard(row, col, self.LEGAL)
 
     # returns a random legal move
     def randomMoves(self):
         moves = []
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == self.legal:
+        for row in range(self.SIZE):
+            for col in range(self.SIZE):
+                if self.board[row][col] == self.LEGAL:
                     c = coor()
                     c.row = row
                     c.col = col
@@ -550,12 +542,12 @@ class Table(QMainWindow):
 
     # sets the turn
     def setTurn(self, turn):
-        if turn == BLACK:
-            self.turn = BLACK
-            self.opponent = WHITE
-        elif turn == WHITE:
-            self.turn = WHITE
-            self.opponent = BLACK
+        if turn == self.BLACK:
+            self.turn = self.BLACK
+            self.opponent = self.WHITE
+        elif turn == self.WHITE:
+            self.turn = self.WHITE
+            self.opponent = self.BLACK
         else:
             print("Invalid turn")
             exit()
@@ -568,10 +560,10 @@ class Table(QMainWindow):
 
     # switches the turn between the players
     def switchTurn(self):
-        if self.turn == self.black:
-            self.setTurn(self.white)
+        if self.turn == self.BLACK:
+            self.setTurn(self.WHITE)
         else:
-            self.setTurn(self.black)
+            self.setTurn(self.BLACK)
         # update the legal squares after the switch
         self.marker()
 
@@ -585,7 +577,7 @@ class Table(QMainWindow):
         loop.exec()
 
     def setHumanSide(self, side):
-        if side == self.black or side == self.white:
+        if side == self.BLACK or side == self.WHITE:
             self.humanSide = side
         else:
             raise ValueError("Invalid human side")
