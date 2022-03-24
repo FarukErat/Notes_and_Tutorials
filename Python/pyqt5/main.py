@@ -84,10 +84,10 @@ class Table(QMainWindow):
 
         # passing the constants to the class
         self.SIZE = 8
-        self.EMPTY = 0
-        self.BLACK = 1
-        self.WHITE = 2
-        self.LEGAL = 3
+        self.EMPTY = '-'
+        self.BLACK = 'B'
+        self.WHITE = 'W'
+        self.LEGAL = '+'
         self.DIRS = [(-1, -1), (-1, 0), (-1, +1),
                      (0, -1),           (0, +1),
                      (+1, -1), (+1, 0), (+1, +1)]
@@ -443,17 +443,17 @@ class Table(QMainWindow):
 
     # flips the legal squares for sent coordinates
 
-    def flipTiles(self, c):
+    def flipTiles(self, move):
         isValid = False
         curr = coor()
-        temp = coor()
+        toFlip = coor()
         for dir in self.DIRS:
             isFlipped = False
             i = 1
             while(True):
                 # multiplying by "i" to move along the directions
-                curr.row = c.row + dir[0] * i
-                curr.col = c.col + dir[1] * i
+                curr.row = move.row + dir[0] * i
+                curr.col = move.col + dir[1] * i
 
                 # i is increased for the next loop
                 i += 1
@@ -479,33 +479,36 @@ class Table(QMainWindow):
                         break
                     isValid = True
                     # temp.row and temp.col are assigned the number along the legal direction
-                    temp.row = c.row + dir[0]
-                    temp.col = c.col + dir[1]
+                    # toFlip is assigned the numbers along the legal direction
+                    # to flip the tiles between curr and move, not including curr and move (curr, move)
+                    # [curr]-----[toFlip]-----[move]
+                    toFlip.row = move.row + dir[0]
+                    toFlip.col = move.col + dir[1]
                     # assigning the squares, when the direction is horizontal
                     if dir[0] == 0:
                         # assign till c.col
-                        while(temp.col != curr.col):
-                            self.setBoard(temp.row, temp.col, self.turn)
+                        while(toFlip.col != curr.col):
+                            self.setBoard(toFlip.row, toFlip.col, self.turn)
                             # incrase the number by the delta
-                            temp.col += dir[1]
+                            toFlip.col += dir[1]
                     # assigning the squares, when the direction is vertical
                     elif dir[1] == 0:
                         # assign till c.row
-                        while(temp.row != curr.row):
-                            self.setBoard(temp.row, temp.col, self.turn)
+                        while(toFlip.row != curr.row):
+                            self.setBoard(toFlip.row, toFlip.col, self.turn)
                             # incrase the number by the delta
-                            temp.row += dir[0]
+                            toFlip.row += dir[0]
                     # assigning the squares, when the direction is cross
                     else:
                         # assign till c.row and c.col
-                        while temp.row != curr.row and temp.col != curr.col:
-                            self.setBoard(temp.row, temp.col, self.turn)
+                        while toFlip.row != curr.row and toFlip.col != curr.col:
+                            self.setBoard(toFlip.row, toFlip.col, self.turn)
                             # incrase the numbers by the deltas
-                            temp.row += dir[0]
-                            temp.col += dir[1]
+                            toFlip.row += dir[0]
+                            toFlip.col += dir[1]
                     break
         if isValid:
-            self.setBoard(c.row, c.col, self.turn)
+            self.setBoard(move.row, move.col, self.turn)
         else:
             print("flipTiles: Illegal move")
 
