@@ -5,10 +5,13 @@ void displayBits(unsigned value);
 
 int main()
 {
-    displayBits(99);       // 00000000 00000000 00000000 01100011
-    displayBits(1);        // 00000000 00000000 00000000 00000001
-    displayBits(32);       // 00000000 00000000 00000000 00100000
-    displayBits(99999999); // 00000101 11110101 11100000 11111111
+    unsigned a = 99996754, b = 12;
+    displayBits(a); // 00000101 11110101 11010100 01010010
+    displayBits(b); // 00000101 11110101 11010100 01010010
+    displayBits(a | b);
+    displayBits(a & b);
+    displayBits(a ^ b);
+    displayBits(~a);
     return 0;
 }
 
