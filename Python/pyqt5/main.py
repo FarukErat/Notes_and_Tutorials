@@ -67,10 +67,15 @@ class Menu(QMainWindow):
             lambda: table.setHumanSide(self.table.BLACK))
         self.ui.radioButton_white.clicked.connect(
             lambda: table.setHumanSide(self.table.WHITE))
+        self.ui.radioButton_guidance_yes.clicked.connect(
+            lambda: table.setGuidance(True))
+        self.ui.radioButton_guidance_no.clicked.connect(
+            lambda: table.setGuidance(False))
         self.ui.pushButton_START.clicked.connect(lambda: self.startGame(table))
 
     def startGame(self, table):
         self.close()
+        table.updateBtns()
         table.show()
         table.clickToCoor()
 
@@ -584,6 +589,9 @@ class Table(QMainWindow):
             self.humanSide = side
         else:
             raise ValueError("Invalid human side")
+
+    def setGuidance(self, guidance):
+        self.guidance = guidance
 
 
 def window():
