@@ -20,9 +20,10 @@ void displayBits(unsigned value)
     // 32 due to the bits of fourByte
     for (c = 1; c <= 32; c++)
     {
-        // value's and fourByte's left-top bits are compared
+        // value's and fourByte's leftmost bits are compared
         putchar(value & fourByte ? '1' : '0');
         // value is shifted by one
+        // 0 is added to the rightmost
         value <<= 1; // value = value << 1;
         // seperate 8 bits(1 byte)
         if (c % 8 == 0)
