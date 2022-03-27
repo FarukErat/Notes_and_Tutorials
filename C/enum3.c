@@ -11,11 +11,12 @@ typedef enum days
     SUN
 } Days;
 
+const char *dayName[] =
+{"", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
 int main()
 {
     Days day;
-    const char *dayName[] = {"", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                             "Saturday", "Sunday"};
     for (day = MON; day <= SUN; day++)
     {
         printf("%d%11s\n", day, dayName[day]);
