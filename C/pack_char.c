@@ -44,6 +44,8 @@ unsigned packChar(char ch1, char ch2)
 TwoChar unpackChar(unsigned value)
 {
     TwoChar result;
+    // the sizes of char and unsigned are different, however, it will NOT affect the result
+    // it overflows and returns the same value as the first character
     unsigned oneByte = 255;    // 2^8 - 1 = 00000000 00000000 00000000 11111111
     result.left = value >> 16; // right shift 16 bits to eliminate the right character
     result.right = value & oneByte;
