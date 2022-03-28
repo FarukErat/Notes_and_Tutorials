@@ -39,7 +39,7 @@ int main()
     printf("Second character: %c\n", unpacked.second);
     printf("Third character : %c\n", unpacked.third);
     printf("Fourth character: %c\n", unpacked.fourth);
-
+    printf("%d\n", packed);
     return 0;
 }
 
