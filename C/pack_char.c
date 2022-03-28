@@ -2,7 +2,8 @@
 #include <conio.h>
 #include <limits.h>
 
-typedef struct {
+typedef struct
+{
     char left;
     char right;
 } TwoChar;
@@ -36,7 +37,7 @@ unsigned packChar(char ch1, char ch2)
 {
     unsigned result = 0;
     // shift ch1 to the left 16 bits and then OR it with ch2 to combine them into one unsigned int
-    result = (ch1 << CHAR_BIT*sizeof(unsigned)/2) | ch2;
+    result = (ch1 << CHAR_BIT * sizeof(unsigned) / 2) | ch2;
     return result;
 }
 
@@ -51,9 +52,9 @@ TwoChar unpackChar(unsigned value)
 
 void displayBits(unsigned value)
 {
-    // CHAR_BIT: number of bits in ch1 byte
+    // CHAR_BIT: number of bits in a byte
     unsigned c;
-    // declare ch1 variable of 32 bits(4 bytes) by shifting 1 by 31
+    // declare a variable of 32 bits(4 bytes) by shifting 1 by 31
     unsigned fourByte = 1 << (CHAR_BIT * sizeof(unsigned) - 1); // 10000000 00000000 00000000 00000000
     // 32 due to the bits of fourByte
     for (c = 1; c <= CHAR_BIT * sizeof(unsigned); c++)
