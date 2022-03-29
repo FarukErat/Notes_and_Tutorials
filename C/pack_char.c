@@ -58,11 +58,11 @@ FourChar unpackChar(unsigned value)
     FourChar result;
     // the sizes of char and unsigned are different, however, it will NOT affect the result
     // it overflows and returns the same value as the first character
-    unsigned oneByte = 255; // 2^8  - 2^0  = 00000000 00000000 00000000 11111111
-    result.first = value >> CHAR_BIT * 3 & oneByte;
-    result.second = value >> CHAR_BIT * 2 & oneByte;
-    result.third = value >> CHAR_BIT & oneByte;
-    result.fourth = value & oneByte;
+    unsigned oneByte = 255;
+    result.first = value >> CHAR_BIT * 3 & oneByte;  // 2^32 - 2^24 = 11111111 00000000 00000000 00000000
+    result.second = value >> CHAR_BIT * 2 & oneByte; // 2^24 - 2^16 = 00000000 11111111 00000000 00000000
+    result.third = value >> CHAR_BIT & oneByte;      // 2^16 - 2^8  = 00000000 00000000 11111111 00000000
+    result.fourth = value & oneByte;                 // 2^8  - 2^0  = 00000000 00000000 00000000 11111111
     return result;
 }
 
