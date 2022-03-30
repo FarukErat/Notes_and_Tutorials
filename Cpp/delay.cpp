@@ -8,8 +8,7 @@
  */
 void delay(unsigned milliseconds)
 {
-    clock_t time_end;
-    time_end = clock() + milliseconds;
+    clock_t time_end = clock() + milliseconds;
     while (clock() < time_end); // wait until time_end
 }
 
