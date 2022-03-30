@@ -1,6 +1,8 @@
 #include <iostream>
 #include <ctime>
 
+using namespace std;
+
 /**
  * @brief delays the program for a given amount of time in milliseconds
  *
