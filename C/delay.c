@@ -16,10 +16,10 @@ int main()
 {
     time_t t;                  // time_t is a data type for time
     time(&t);                  // time() returns the current time in seconds since the Epoch
-    printf("%s\n", ctime(&t)); // ctime() returns a string of the current time and date.
+    printf("The local date and time is: %s\n", ctime(&t)); // ctime() returns a string of the current time and date.
     delay(1000);               // delays the program for 1 second
     time(&t);                  // get the current time
-    printf("%s\n", ctime(&t)); // day of week, month, day of month, hh:mm:ss yyyy
+    printf("The local date and time is: %s\n", ctime(&t)); // day of week, month, day of month, hh:mm:ss yyyy
 
     return 0;
 }
