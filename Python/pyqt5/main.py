@@ -1,4 +1,4 @@
-from othello import Ui_MainWindow
+from reversi import Ui_MainWindow
 from menu import Ui_Menu
 from gameover import Ui_GameOver
 import sys
