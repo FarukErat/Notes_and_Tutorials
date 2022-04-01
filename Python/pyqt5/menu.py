@@ -18,7 +18,7 @@ class Ui_Menu(object):
         self.centralwidget = QtWidgets.QWidget(Menu)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(160, 60, 231, 61))
+        self.label.setGeometry(QtCore.QRect(160, 60, 251, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label.setFont(font)
@@ -116,7 +116,7 @@ class Ui_Menu(object):
     def retranslateUi(self, Menu):
         _translate = QtCore.QCoreApplication.translate
         Menu.setWindowTitle(_translate("Menu", "Menu"))
-        self.label.setText(_translate("Menu", "Welcome to Othello"))
+        self.label.setText(_translate("Menu", "Welcome to Reversi"))
         self.label_2.setText(_translate("Menu", "Choose Game Mode"))
         self.radioButton_H_VS_H.setText(_translate("Menu", "Human VS Human"))
         self.radioButton_H_VS_P.setText(_translate("Menu", "Human VS PC    ----->"))
