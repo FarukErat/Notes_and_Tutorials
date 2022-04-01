@@ -19,7 +19,7 @@
      <rect>
       <x>160</x>
       <y>60</y>
-      <width>231</width>
+      <width>251</width>
       <height>61</height>
      </rect>
     </property>
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Welcome to Othello</string>
+     <string>Welcome to Reversi</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -266,8 +266,8 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>
