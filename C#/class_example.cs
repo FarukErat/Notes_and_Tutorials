@@ -30,7 +30,7 @@ class TestPerson
     static void Main()
     {
         // Call the constructor that has no parameters.
-        var person1 = new Person();
+        Person person1 = new Person();
         Console.WriteLine(person1.Name);
 
         // Call the constructor that has one parameter.
