@@ -2,13 +2,13 @@ namespace SoloLearn
 {
     class Program
     {
-        static int Area(int h, int w)
+        static int Area(int height, int width)
         {
-            return h * w;
+            return height * width;
         }
         static void Main(string[] args)
         {
-            int res = Area(w: 5, h: 8);
+            int res = Area(width: 5, height: 8);
             Console.WriteLine(res); // 40
         }
     }
