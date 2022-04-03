@@ -31,11 +31,12 @@ class coor:
 
 
 class GameOver(QMainWindow):
-    def __init__(self, black=0, white=0) -> None:
+    def __init__(self, pos, black=0, white=0) -> None:
         super(GameOver, self).__init__()
         self.ui = Ui_GameOver()
         self.ui.setupUi(self)
         self.setFixedSize(self.width(), self.height())
+        self.move(pos)
         self.ui.pushButton_screen.setGeometry(
             QtCore.QRect(0, 0, self.width(), self.height()))
         self.ui.pushButton_screen.clicked.connect(lambda: self.close())
@@ -76,6 +77,7 @@ class Menu(QMainWindow):
     def startGame(self, table):
         self.close()
         table.updateBtns()
+        table.move(self.pos())
         table.show()
         table.clickToCoor()
 
@@ -342,7 +344,7 @@ class Table(QMainWindow):
                 elif self.board[row][col] == self.WHITE:
                     white += 1
 
-        gameover = GameOver(black, white)
+        gameover = GameOver(self.pos(), black, white)
         self.close()
         gameover.show()
         self.delayer(5000)
