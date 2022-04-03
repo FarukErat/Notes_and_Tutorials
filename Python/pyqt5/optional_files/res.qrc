@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="buttons">
+        <file alias="black">/res/black.bmp</file>
+        <file alias="white">/res/white.bmp</file>
+        <file alias="empty">/res/empty.bmp</file>
+        <file alias="legal_black">/res/legal_black.bmp</file>
+        <file alias="legal_white">/res/legal_white.bmp</file>
+    </qresource>
+</RCC>
