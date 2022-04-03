@@ -362,8 +362,12 @@ class Table(QMainWindow):
                         QtGui.QPixmap(":/buttons/empty"))
                 elif self.board[row][col] == self.LEGAL:
                     if self.guidance:
-                        self.labels[row][col].setPixmap(
-                            QtGui.QPixmap(":/buttons/legal"))
+                        if self.turn == self.BLACK:
+                            self.labels[row][col].setPixmap(
+                                QtGui.QPixmap(":/buttons/legal_black"))
+                        else:
+                            self.labels[row][col].setPixmap(
+                                QtGui.QPixmap(":/buttons/legal_white"))
                     else:
                         self.labels[row][col].setPixmap(
                             QtGui.QPixmap(":/buttons/empty"))
