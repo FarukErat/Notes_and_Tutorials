@@ -2,7 +2,7 @@ from reversi import Ui_MainWindow
 from menu import Ui_Menu
 from gameover import Ui_GameOver
 import sys
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import QtGui, QtCore
 import res
 
