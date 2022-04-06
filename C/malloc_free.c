@@ -11,7 +11,9 @@ int main()
     puts("enter the number of elements");
     scanf("%d",&element);
 
-    array = (int*)malloc(sizeof(int)*element); //it gives the pointer a free memory address
+    // malloc returns the number of bytes passed as unsigned integer argument
+    // a cast operator is used to get desired type from void pointer type
+    array = (int*)malloc(sizeof(int)*element);
 
     puts("enter the elements");
 
