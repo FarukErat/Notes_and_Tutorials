@@ -25,7 +25,7 @@ public class Person
         return Name;
     }
 }
-class TestPerson
+/*public*/ class TestPerson // class name does not have to match file name
 {
     // Main method is the entry point for all C# programs.
     // Being static, it can be called without creating an instance of the class.
