@@ -27,6 +27,8 @@ public class Person
 }
 class TestPerson
 {
+    // Main method is the entry point for all C# programs.
+    // Being static, it can be called without creating an instance of the class.
     static void Main()
     {
         // Call the constructor that has no parameters.
