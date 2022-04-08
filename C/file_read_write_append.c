@@ -1,4 +1,4 @@
-#include <stdio.h>  // no need to explain why
+#include <stdio.h>
 
 void readFromFile(char *filename);
 void writeToFile(char *filename, char *buffer);
