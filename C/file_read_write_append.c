@@ -1,5 +1,4 @@
 #include <stdio.h>  // no need to explain why
-#include <string.h> // for strlen
 
 void readFromFile(char *filename);
 void writeToFile(char *filename, char *buffer);
