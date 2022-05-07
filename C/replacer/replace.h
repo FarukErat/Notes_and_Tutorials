@@ -1,67 +1,67 @@
+// taken from https://stackoverflow.com/questions/779875/what-function-is-to-replace-a-substring-from-a-string-in-c
+
 #ifndef REPLACE_H
 #define REPLACE_H
 
-#include <string.h> // strlen, strcpy
+#include <string.h> // strlen(), strcpy()
+#include <stdlib.h> // malloc(), free()
 
 /**
- * @brief replace all occurences of a substring in a string by reference
+ * @brief replaces all occurences of a substring in a string by reference
+ * ----------------------------------------------------------------------
+ * ! You must free the result if result is non-NULL.
  *
- * @param text the string to be modified
+ * @param orig the string to be modified
  * @param rep the substring to be replaced
  * @param with the substring to replace the rep
  */
-void replace(char text[], char rep[], char with[])
+char *str_replace(char *orig, char *rep, char *with)
 {
-	int count = 0;				// to compare the length of rep and with
-	int textLen = strlen(text); // length of text
-	int repLen = strlen(rep);	// length of the text to be replaced
-	int withLen = strlen(with); // length of the text to replace with
-	char copyText[textLen];		// copy of text to save a copy for later use
-	strcpy(copyText, text);
-	for (int i = 0; i < textLen; i++)
+	char *result;  // the return string
+	char *ins;	   // the next insert point
+	char *tmp;	   // varies
+	int len_rep;   // length of rep (the string to remove)
+	int len_with;  // length of with (the string to replace rep with)
+	int len_front; // distance between rep and end of last rep
+	int count;	   // number of replacements
+
+	// sanity checks and initialization
+	if (!orig || !rep)
+		return NULL;
+	len_rep = strlen(rep);
+	if (len_rep == 0)
+		return NULL; // empty rep causes infinite loop during count
+	if (!with)
+		with = "";
+	len_with = strlen(with);
+
+	// count the number of replacements needed
+	ins = orig;
+	for (count = 0; tmp = strstr(ins, rep); ++count)
 	{
-		// check if the new text occur in the old text
-		for (int j = 0; j < repLen; j++)
-		{
-			if (text[i + j] == rep[j])
-			{
-				count++;
-			}
-		}
-		// if count matches the old text length then replace the old text with the new text
-		if (count == repLen)
-		{
-			// alter the occurence of the old text with the new text
-			for (int j = 0; j < withLen; j++)
-			{
-				text[i + j] = with[j];
-			}
-			// if the lengths do not match then shift the text accordingly
-			if (withLen != repLen)
-			{
-				int diff = withLen - repLen;
-				// increment the text length by the difference
-				textLen += diff;
-				// the shift will not be done before the occurence of the old text
-				// that is why (i + newLen) is subtracted from the text length
-				// to shift the string terminator, 1 is added
-				for (int j = 0; j < textLen - (i + withLen) + 1; j++)
-				{
-					// (i + newLen) is where the shift will start and j is to iterate through the text
-					// copyText is the string that remains unchanged from the previous operation
-					// the uncganged part starts at i + oldLen in the copyText
-					text[(i + withLen) + j] = copyText[(i + repLen) + j];
-				}
-			}
-			strcpy(copyText, text);
-			// iterate i to skip the replaced text
-			// -1 to cancel the increment in the for loop
-			i += withLen - 1;
-		}
-		// reset count
-		count = 0;
+		ins = tmp + len_rep;
 	}
-	return;
+
+	tmp = result = malloc(strlen(orig) + (len_with - len_rep) * count + 1);
+
+	if (!result)
+		return NULL;
+
+	// first time through the loop, all the variable are set correctly
+	// from here on,
+	// tmp points to the end of the result string
+	// ins points to the next occurrence of rep in orig
+	// orig points to the remainder of orig after "end of rep"
+	while (count--)
+	{
+		ins = strstr(orig, rep);
+		len_front = ins - orig;
+		tmp = strncpy(tmp, orig, len_front) + len_front;
+		tmp = strcpy(tmp, with) + len_with;
+		orig += len_front + len_rep; // move to next "end of rep"
+	}
+	strcpy(tmp, orig);
+	return result;
 }
 
 #endif // REPLACE_H
