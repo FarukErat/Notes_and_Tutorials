@@ -102,18 +102,13 @@ void deleteStack(StackNodePtr *topPtr)
 }
 
 /**
- * @brief gets choice in range [1,4] and returns
+ * @brief gets a character from the user, converts it to an integer and returns it.
  *
  * @return int
  */
 int getChoice()
 {
     int choice = getche() - '0';
-    if (choice < 1 || choice > 4)
-    {
-        printf("\nInvalid choice. Please enter again.\n");
-        return getChoice();
-    }
     putchar('\n');
     return choice;
 }
@@ -150,6 +145,7 @@ int main()
             deleteStack(&topPtr);
             return 0;
         default:
+            printf("Invalid choice. Please enter again.\n");
             break;
         }
     }
