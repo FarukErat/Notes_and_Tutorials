@@ -103,7 +103,7 @@ void deleteStack(StackNodePtr *topPtr)
 
 /**
  * @brief gets a character from the user, converts it to an integer and returns it.
- *
+ * Hence, convinient only for the range [0, 9].
  * @return int
  */
 int getChoice()
