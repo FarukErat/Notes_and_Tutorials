@@ -44,4 +44,4 @@ def convert_to_base(num, base):
 
 
 # prints '5 10 0' since 975 = 5 * 13^2 + 10 * 13^1 + 0 * 13^0
-print(convert_to_base(975, 2)) 
+print(convert_to_base(975, 13)) 
