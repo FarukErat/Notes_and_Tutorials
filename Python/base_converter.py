@@ -32,6 +32,8 @@ def decimal_to_any_base(num, base):
 
 # converts the passed number to desired base
 def convert_to_base(num, base):
+    if base < 2:  # if the base is less than 2
+        return "Base must be greater than 1"  # return error message
     digits = decimal_to_any_base(num, base)  # convert the number to base
     len_num = len(digits)  # number of digits
     output = ""  # output string"""
@@ -42,4 +44,4 @@ def convert_to_base(num, base):
 
 
 # prints '5 10 0' since 975 = 5 * 13^2 + 10 * 13^1 + 0 * 13^0
-print(convert_to_base(975, 13)) 
+print(convert_to_base(975, 2)) 
