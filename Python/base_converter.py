@@ -1,3 +1,10 @@
+'''
+an alternative solution for
+print(int("1010", 2))  # 1x2^3 + 0x2^2 + 1x2^1 + 0x2^0
+print(int("1010", 8))  # 1x8^3 + 0x8^2 + 1x8^1 + 0x8^0
+print(int("1010", 10))  # 1x10^3 + 0x10^2 + 1x10^1 + 0x10^0
+'''
+
 # increases the rightmost digit of passed list by one
 def increase_num_by_one(digits, base):
     digits_len = len(digits)  # length of the list
