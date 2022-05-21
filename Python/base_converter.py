@@ -42,3 +42,9 @@ def dec_to_base(num, base):
 num = int(input("Enter an integer: "))
 base = int(input("Enter a base: "))
 print(dec_to_base(num, base))
+
+'''
+Enter an integer: 9462
+Enter a base: 57
+[2, 52, 0]
+'''
