@@ -32,15 +32,13 @@ def dec_to_base(num, base):
     '''converts the passed number to desired base as a list'''
     if base < 2:  # if the base is less than 2
         return "Base must be greater than 1"  # return error message
+    num = abs(num)  # get the absolute value of the number
     digits = [0] * digit_num(num, base)  # list of digits
     for i in range(num):  # for each digit
         digits = inc_by_one(digits, base)  # increase the digit by one
     return digits  # return the list
 
 
-# prints '5 10 0' since 975 = 5 * 13^2 + 10 * 13^1 + 0 * 13^0
-print(dec_to_base(975, 13))
-
-base = randint(2, 20)  # random base
-num = randrange(1000)  # random number
-print("num = ", num, "base = ", base, " =>", dec_to_base(num, base))
+num = int(input("Enter an integer: "))
+base = int(input("Enter a base: "))
+print(dec_to_base(num, base))
