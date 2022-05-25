@@ -1,3 +1,5 @@
+// this way works only with functions with same return type and parameters
+
 #include <iostream>
 
 using namespace std;
