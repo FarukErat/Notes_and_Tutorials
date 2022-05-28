@@ -1,29 +1,32 @@
-// this way works only with functions with same return type and parameters
-
 #include <stdio.h>
 
-void first(int num1, int num2)
+float add(int a, int b)
 {
-    printf("First function called with %d and %d\n", num1, num2);
+    return a + b;
 }
 
-void second(int num1, int num2)
+float sub(int a, int b)
 {
-    printf("Second function called with %d and %d\n", num1, num2);
+    return a - b;
 }
 
-void third(int num1, int num2)
+float mul(int a, int b)
 {
-    printf("Third function called with %d and %d\n", num1, num2);
+    return a * b;
+}
+
+float div(int a, int b)
+{
+    return a / b;
 }
 
 int main()
 {
-    // create a list to store functions
-    void (*funcs[])(int, int) = {first, second, third};
-    funcs[1](0, 5); // call second function with 0 and 5
-    funcs[0](3, 1); // call first function with 3 and 1
-    funcs[2](7, 2); // call third function with 7 and 5
+    float (*calc[])(int, int) = {add, sub, mul, div};
+    for (int i = 0; i < 4; i++)
+    {
+        printf("%.2f\n", calc[i](1, 2));
+    }
 
     return 0;
 }
