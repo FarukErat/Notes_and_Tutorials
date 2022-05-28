@@ -1,24 +1,9 @@
 #include <stdio.h>
 
-float add(int a, int b)
-{
-    return a + b;
-}
-
-float sub(int a, int b)
-{
-    return a - b;
-}
-
-float mul(int a, int b)
-{
-    return a * b;
-}
-
-float div(int a, int b)
-{
-    return a / b;
-}
+float add(int a, int b) { return a + b; }
+float sub(int a, int b) { return a - b; }
+float mul(int a, int b) { return a * b; }
+float div(int a, int b) { return a / b; }
 
 int main()
 {
