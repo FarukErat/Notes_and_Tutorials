@@ -9,7 +9,7 @@ from random import randint, randrange
 
 
 def digit_num(num, base):
-    ''''returns the number of digits required to represent the passed number over the passed base'''
+    '''returns the number of digits required to represent the passed number over the passed base'''
     count = 0  # number of digits
     while num:  # while the number is not 0
         num //= base  # divide the number by the base
