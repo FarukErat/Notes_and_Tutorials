@@ -8,6 +8,15 @@ print(int("1010", 10))  # 1x10^3 + 0x10^2 + 1x10^1 + 0x10^0
 from random import randint, randrange
 
 
+def digit_num(num, base):
+    ''''returns the number of digits required to represent the passed number over the passed base'''
+    count = 0  # number of digits
+    while num:  # while the number is not 0
+        num //= base  # divide the number by the base
+        count += 1  # and increase the count
+    return count  # return the count
+
+
 def inc_by_one(digits, base):
     '''increases the rightmost digit of passed list by one'''
     digits_len = len(digits)  # length of the list
@@ -17,15 +26,6 @@ def inc_by_one(digits, base):
         i -= 1  # and decrease the index
     digits[i] += 1  # otherwise increase the digit
     return digits  # return the list
-
-
-def digit_num(num, base):
-    ''''returns the number of digits required to represent the passed number over the passed base'''
-    count = 0  # number of digits
-    while num:  # while the number is not 0
-        num //= base  # divide the number by the base
-        count += 1  # and increase the count
-    return count  # return the count
 
 
 def dec_to_base(num, base):
@@ -39,12 +39,7 @@ def dec_to_base(num, base):
     return digits  # return the list
 
 
-num = int(input("Enter an integer: "))
-base = int(input("Enter a base: "))
-print(dec_to_base(num, base))
-
-'''
-Enter an integer: 9462
-Enter a base: 57
-[2, 52, 0]
-'''
+if __name__ == "__main__":
+    num = int(input("Enter an integer: "))
+    base = int(input("Enter a base: "))
+    print(dec_to_base(num, base))
