@@ -103,7 +103,7 @@ class Table(QMainWindow):
         self.turn = self.BLACK
         self.opponent = self.WHITE
         self.humanSide = self.BLACK
-        self.guidance = True
+        self.guidance = False
         self.gameMode = 1
         self.delayGuard = True
 
