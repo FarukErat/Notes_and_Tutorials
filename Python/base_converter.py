@@ -5,8 +5,6 @@ print(int("1010", 8))  # 1x8^3 + 0x8^2 + 1x8^1 + 0x8^0
 print(int("1010", 10))  # 1x10^3 + 0x10^2 + 1x10^1 + 0x10^0
 '''
 
-from random import randint, randrange
-
 
 def digit_num(num, base):
     '''returns the number of digits required to represent the passed number over the passed base'''
