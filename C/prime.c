@@ -3,40 +3,37 @@
 
 int main()
 {
-    // defining a variable to hold non-negative integers when dealing with huge numbers
-    // in case of negative input, it is signed
-    long long signed number;
-    int i;
-    int check;
+    long long unsigned number;
+    int lastDivider;
     int power = 0;
-
     printf("Enter an integer: ");
     scanf("%lld", &number);
 
-    // check if the number is less than 2
     if (number < 2)
     {
-        printf("The number does not have a prime factorization\n");
+        printf("The number must be equal to or greater than 2.\n");
         printf("Press any key to exit...");
         getch();
         return 0;
     }
 
     printf("Prime Factors\n");
-    for (i = 2; number != 1; i++)
+    printf("-------------\n");
+    for (int divider = 2; number != 1; divider++)
     {
-        if (number % i == 0)
+        if (number % divider == 0)
         {
             power++;
-            number /= i;
+            number /= divider;
             if (power == 1)
             {
-                printf("%d", i);
+                printf("%d", divider);
             }
-            check = i--;
+            lastDivider = divider;
+            --divider;
         }
 
-        if (check == i)
+        if (lastDivider == divider)
         {
             if (power != 1)
             {
@@ -50,6 +47,7 @@ int main()
     {
         printf(" ^ %d", power);
     }
+    printf("\n-------------");
     printf("\nPress any key to exit...");
     getch();
     return 0;
