@@ -24,7 +24,7 @@ while num != 1:
         pow = 0
     divider += 1
 if pow != 1:
-    result += " ^" + str(pow) + '\n'
+    result += " ^ " + str(pow) + '\n'
 print("Prime Factors")
 print("-------------")
 print(result)
