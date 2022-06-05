@@ -41,7 +41,7 @@ int main()
 
         if (lastDivider == divider)
         {
-            if (power != 1)
+            if (power > 1)
             {
                 printf(" ^ %d", power);
             }
@@ -49,7 +49,7 @@ int main()
             power = 0;
         }
     }
-    if (power != 1)
+    if (power > 1)
     {
         printf(" ^ %d", power);
     }
