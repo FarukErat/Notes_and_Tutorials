@@ -3,7 +3,7 @@ def prime_factor(number):
     last_divider = 1
     factors = []
     powers = []
-    while divider <= number:
+    while number != 1:
         if number % divider == 0:
             number = number // divider
             if divider != last_divider:
