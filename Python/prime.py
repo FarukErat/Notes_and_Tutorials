@@ -3,18 +3,29 @@ def prime_factor(number):
     last_divider = 1
     factors = []
     powers = []
-    while number != 1:
-        if number % divider == 0:
-            number = number // divider
-            if divider != last_divider:
-                factors.append(divider)
-                powers.append(1)
-            else:
-                powers[-1] += 1
-            last_divider = divider
-        else:
-            divider += 1
     result = []
+    if number == 0:
+        factors.append(0)
+        powers.append(1)
+    elif number == 1:
+        factors.append(1)
+        powers.append(1)
+    else:
+        if number < 0:
+            number = -number
+            factors.append(-1)
+            powers.append(1)
+        while number != 1:
+            if number % divider == 0:
+                number = number // divider
+                if divider != last_divider:
+                    factors.append(divider)
+                    powers.append(1)
+                else:
+                    powers[-1] += 1
+                last_divider = divider
+            else:
+                divider += 1
     for i in range(len(factors)):
         result.append((factors[i], powers[i]))
     return result
