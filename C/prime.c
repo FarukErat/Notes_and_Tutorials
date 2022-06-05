@@ -7,14 +7,20 @@ int main()
     int lastDivider;
     int power = 0;
     printf("Enter an integer: ");
-    scanf("%lld", &number);
+    if (scanf("%lld", &number) != 1)
+    {
+        printf("Invalid input.\n");
+        printf("Press any key to exit...");
+        getch();
+        return 1;
+    }
 
     if (number < 2)
     {
         printf("The number must be equal to or greater than 2.\n");
         printf("Press any key to exit...");
         getch();
-        return 0;
+        return 1;
     }
 
     printf("Prime Factors\n");
