@@ -17,6 +17,16 @@ int main()
         return 1;
     }
 
+    if (number == -1)
+    {
+        printf("-------------\n");
+        printf("-1\n");
+        printf("-------------\n");
+        printf("Press any key to exit...");
+        getch();
+        return 0;
+    }
+
     printf("Prime Factors\n");
     printf("-------------");
     if (number < 0)
