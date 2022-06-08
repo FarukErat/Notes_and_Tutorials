@@ -8,7 +8,7 @@ int main()
     int lastDivider = 1;
     int power = 0;
 
-    printf("Enter an integer: ");
+    printf("Prime Factors of ");
     if (scanf("%lld", &number) != 1)
     {
         printf("Invalid input.\n");
@@ -27,7 +27,6 @@ int main()
         return 0;
     }
 
-    printf("Prime Factors\n");
     printf("-------------");
     if (number < 0)
     {
