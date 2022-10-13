@@ -9,4 +9,4 @@ function person(name, age) {
 var p = new person("David", 21);
 p.changeName("John");
 
-document.write(p.name);
+console.log(p.name);
