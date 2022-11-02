@@ -3,7 +3,7 @@
 
 int main()
 {
-    long long int number;
+    long long int number, halfWay;
     int divider = 2;
     int lastDivider = 1;
     int power = 0;
@@ -37,6 +37,9 @@ int main()
         printf("\n-1");
     }
 
+    // an end-point for the loop since there cannot be a factor greater than half of the number
+    halfWay = number / 2;
+
     // main loop
     while (number != 1)
     {
@@ -45,6 +48,7 @@ int main()
         {
             // if so divide the number by the divider
             number = number / divider;
+
             // increase the power of the divider if it is the same as the last divider
             if (divider == lastDivider)
                 power++;
@@ -56,13 +60,19 @@ int main()
                 if (power > 1)
                     printf(" ^ %d", power);
                 printf("\n%d", divider);
+
                 // since the divider is a new divisor, the power is 1
                 power = 1;
             }
         }
+
         // iterate the divider
         else
+        {
             divider++;
+            if (divider > halfWay)
+                divider = number;
+        }
     }
 
     // print the last exponent if not 1
