@@ -1,15 +1,25 @@
 #include <stdio.h>
 
+// x++
+int postIncrement(int x)
+{
+    int temp = x;
+    x = x + 1;
+    return temp;
+}
+
+// ++x
+int preIncrement(int x)
+{
+    x = x + 1;
+    return x;
+}
+
 int main()
 {
-    int i = 0;
-    int j = 0;
-
-    // int temp = i; i = i + 1; return temp;
-    printf("%d\n", i++); // 0
-
-    // j = j + 1; return j;
-    printf("%d\n", ++j); // 1
+    int x = 5;
+    printf("x = %d, x++ = %d, ++x = %d", x, postIncrement(x), preIncrement(x));
+    // x = 5, x++ = 5, ++x = 6
 
     return 0;
 }
