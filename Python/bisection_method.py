@@ -31,4 +31,19 @@ def bisection(f, lower, upper, tol=1e-8, maxiter=100):
     raise RuntimeError("Maximum number of iterations exceeded")
 
 
-print(bisection(lambda x: x**2 - 8, 0, 4))
+def square_root(x):
+    return bisection(lambda y: y**2 - x, 0, x)
+
+
+for i in range(1, 10):
+    print("square root of", i, ":", square_root(i))
+
+# square root of 1 : 0.9999999962747097
+# square root of 2 : 1.4142135605216026
+# square root of 3 : 1.732050810009241
+# square root of 4 : 2.0
+# square root of 5 : 2.2360679786652327
+# square root of 6 : 2.4494897425174713
+# square root of 7 : 2.6457513100467622
+# square root of 8 : 2.8284271247684956
+# square root of 9 : 3.000000001396984
