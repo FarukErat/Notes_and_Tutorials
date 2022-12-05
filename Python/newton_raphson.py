@@ -12,5 +12,6 @@ def square_root(x):
     return new_rap(lambda y: y**2 - x, x)
 
 
-for i in range(1, 10):
-    print("square root of", i, ":", square_root(i))
+if __name__ == "__main__":
+    for i in range(1, 10):
+        print("square root of", i, ":", square_root(i))
