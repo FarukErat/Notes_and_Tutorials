@@ -1,8 +1,8 @@
-def new_cot_integ(func, lower, upper, n):
-    h = (upper - lower) / n
+def new_cot_integ(func, lower, upper, slice):
+    h = (upper - lower) / slice
     x = lower
     sum = 0
-    for i in range(n):
+    for i in range(slice):
         sum += func(x) + 4 * func(x + h / 2) + func(x + h)
         x += h
     return sum * h / 6
