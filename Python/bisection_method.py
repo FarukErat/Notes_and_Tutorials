@@ -5,7 +5,7 @@ def bisection(f, lower, upper, tol=1e-8, maxiter=100):
     ----------
     f : function
         Function to find root of.
-    a, b : float
+    lower, upper : float
         Interval to search for root.
     tol : float
         Tolerance for stopping criterion.
@@ -18,7 +18,7 @@ def bisection(f, lower, upper, tol=1e-8, maxiter=100):
         Estimated root location.
     """
     if f(upper)*f(lower) > 0:
-        raise ValueError("f(a) and f(b) must have different signs")
+        raise ValueError("f(upper) and f(lower) must have different signs")
     for i in range(maxiter):
         mid = (lower + upper)/2
         fm = f(mid)
