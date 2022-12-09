@@ -1,0 +1,26 @@
+body {
+    background-image:url(https://i.pinimg.com/originals/92/c5/b2/92c5b20f647f2b2d546ee54131f18148.gif);
+     height:600px;
+     width:350px;
+       
+   }
+   
+   button{
+   
+       background-color:green;
+       border-width:0;
+       font-size:15px;
+   }
+   
+   input{
+       background:none;
+       color: green;
+       border: 1px solid rgba(0,0,0,0.5);
+       font-size: 20px;
+       border-color:green;
+   }
+   #hack{
+       font-color: green;
+       font-size: 20px;
+       background-color:green;
+   }
