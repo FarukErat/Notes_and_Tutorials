@@ -447,8 +447,11 @@ class Table(QMainWindow):
             self.board[row][col] = val
 
     def getBoard(self, row, col):
-        if self.isOnBoard(row, col):
-            return self.board[row][col]
+        c = coor()
+        c.row = row
+        c.col = col
+        if self.isOnBoard(c):
+            return self.board[c.row][c.col]
         else:
             raise Exception("Coordinate is not on the board")
 
