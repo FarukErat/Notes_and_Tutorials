@@ -1,0 +1,30 @@
+body {
+    background: url("http://ramflisa.url.ph/Bilder/binary.jpg");
+    background-size:cover;
+    background-color:black;
+    
+ }
+ textarea {
+    color:green;
+    background-color:black;
+    outline:none;
+    margin-left:25px;  
+    font-size:15px;
+    height:300px;
+    width:250px;
+ }
+ div {
+    height:200px;
+    width:250px;
+ }
+ #header {
+    width:255px;
+    height:25px;
+    background-color:darkgrey;
+    margin-left:25px;
+    margin-top:30px;
+    border:1px solid black;
+    color:red;
+    font-size:20px;
+ }
+ 
