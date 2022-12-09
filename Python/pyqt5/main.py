@@ -439,10 +439,7 @@ class Table(QMainWindow):
         return False
 
     def setBoard(self, row, col, val):
-        c = coor()
-        c.row = row
-        c.col = col
-        if self.isOnBoard(c) and val == self.BLACK or val == self.WHITE or \
+        if self.isOnBoard(coor(row, col)) and val == self.BLACK or val == self.WHITE or \
                 val == self.EMPTY or val == self.LEGAL:
             self.board[row][col] = val
 
