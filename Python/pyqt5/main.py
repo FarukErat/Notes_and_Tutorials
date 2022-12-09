@@ -292,14 +292,11 @@ class Table(QMainWindow):
 
     def humanPlays(self):
         target = self.sender()
-        c = coor()
         for row in range(self.SIZE):
             for col in range(self.SIZE):
                 if self.buttons[row][col] == target:
-                    c.row = row
-                    c.col = col
                     # if the move is legal, process the move
-                    self.process(c)
+                    self.process(coor(row, col))
                     # then, if it is not user's turn, cpu will play
                     if self.gameMode == 1 and self.turn != self.humanSide:
                         self.cpuPlays()
@@ -444,11 +441,8 @@ class Table(QMainWindow):
             self.board[row][col] = val
 
     def getBoard(self, row, col):
-        c = coor()
-        c.row = row
-        c.col = col
-        if self.isOnBoard(c):
-            return self.board[c.row][c.col]
+        if self.isOnBoard(coor(row, col)):
+            return self.board[row][col]
         else:
             raise Exception("Coordinate is not on the board")
 
@@ -531,12 +525,9 @@ class Table(QMainWindow):
                 if self.board[row][col] == self.LEGAL:
                     self.setBoard(row, col, self.EMPTY)
         # mark the legal moves
-        c = coor()
         for row in range(self.SIZE):
             for col in range(self.SIZE):
-                c.row = row
-                c.col = col
-                if self.isLegal(c):
+                if self.isLegal(coor(row, col)):
                     self.setBoard(row, col, self.LEGAL)
 
     # returns a random legal move
@@ -545,10 +536,7 @@ class Table(QMainWindow):
         for row in range(self.SIZE):
             for col in range(self.SIZE):
                 if self.board[row][col] == self.LEGAL:
-                    c = coor()
-                    c.row = row
-                    c.col = col
-                    moves.append(c)
+                    moves.append(coor(row, col))
         if len(moves) == 0:
             return None
         rand = randrange(len(moves))
