@@ -33,11 +33,11 @@ class Program
                     table[i, j] = ' ';
                 }
             }
-            body.Add(new Point(15, 38));
-            body.Add(new Point(15, 39));
-            body.Add(new Point(15, 40));
-            body.Add(new Point(15, 41));
-            body.Add(new Point(15, 42));
+            body.Add(new Point(TABLE_ROWS / 2, TABLE_COLS / 2 - 2));
+            body.Add(new Point(TABLE_ROWS / 2, TABLE_COLS / 2 - 1));
+            body.Add(new Point(TABLE_ROWS / 2, TABLE_COLS / 2));
+            body.Add(new Point(TABLE_ROWS / 2, TABLE_COLS / 2 + 1));
+            body.Add(new Point(TABLE_ROWS / 2, TABLE_COLS / 2 + 2));
             for (int i = 1; i < body.Count; i++)
             {
                 table[body[i].Row, body[i].Col] = '*';
@@ -51,6 +51,7 @@ class Program
             Point newHead = new Point(head.Row + DIRECTIONS[direction, 0], head.Col + DIRECTIONS[direction, 1]);
             if (newHead.Row < 0 || newHead.Row >= TABLE_ROWS || newHead.Col < 0 || newHead.Col >= TABLE_COLS)
             {
+                Console.Clear();
                 Console.WriteLine("Out of bounds!\nGame over!");
                 Console.WriteLine("Score: {0}", length - 5);
                 Console.WriteLine("Press any key to exit...");
@@ -59,6 +60,7 @@ class Program
             }
             if (table[newHead.Row, newHead.Col] == '*')
             {
+                Console.Clear();
                 Console.WriteLine("You ate yourself!\nGame over!");
                 Console.WriteLine("Score: {0}", length - 5);
                 Console.WriteLine("Press any key to exit...");
