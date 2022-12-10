@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
 class Program
 {
     const int TABLE_ROWS = 30;
@@ -35,7 +38,7 @@ class Program
             body.Add(new Point(15, 40));
             body.Add(new Point(15, 41));
             body.Add(new Point(15, 42));
-            for (int i = 0; i < body.Count; i++)
+            for (int i = 1; i < body.Count; i++)
             {
                 table[body[i].Row, body[i].Col] = '*';
             }
@@ -134,13 +137,12 @@ class Program
         public void AddFood()
         {
             Random random = new Random();
-            int row = random.Next(1, TABLE_ROWS - 1);
-            int col = random.Next(1, TABLE_ROWS - 1);
-            while (table[row, col] != ' ')
+            int row, col;
+            do
             {
-                row = random.Next(0, TABLE_ROWS);
-                col = random.Next(0, TABLE_COLS);
-            }
+                row = random.Next(1, TABLE_ROWS - 1);
+                col = random.Next(1, TABLE_ROWS - 1);
+            } while (table[row, col] != ' ');
             table[row, col] = '$';
             Console.SetCursorPosition(col, row);
             Console.Write('$');
