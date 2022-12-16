@@ -72,24 +72,34 @@ class VirtualMouse:
                 for hand in hands:
                     landmarks = hand.landmark
                     for id, landmark in enumerate(landmarks):
-                        x = int(landmark.x*frame_width)
-                        y = int(landmark.y*frame_height)
 
                         if id == 0:  # if the landmark is the wrist
+                            x = int(landmark.x*frame_width)
+                            y = int(landmark.y*frame_height)
+
                             cv2.circle(img=frame, center=(x, y), radius=10,
                                        color=(0, 255, 255))
+
                             self.wrist_x = self.screen_width/frame_width*x
                             self.wrist_y = self.screen_height/frame_height*y
 
                         if id == 4:  # if the landmark is the thumb
+                            x = int(landmark.x*frame_width)
+                            y = int(landmark.y*frame_height)
+
                             cv2.circle(img=frame, center=(x, y), radius=10,
                                        color=(0, 255, 255))
+
                             self.thumb_x = self.screen_width/frame_width*x
                             self.thumb_y = self.screen_height/frame_height*y
 
                         if id == 8:  # if the landmark is the index finger
+                            x = int(landmark.x*frame_width)
+                            y = int(landmark.y*frame_height)
+
                             cv2.circle(img=frame, center=(x, y), radius=10,
                                        color=(0, 255, 255))
+
                             self.index_x = self.screen_width/frame_width*x
                             self.index_y = self.screen_height/frame_height*y
                             self.handle_detection()
