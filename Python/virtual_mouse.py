@@ -21,20 +21,23 @@ class VirtualMouse:  # for creating the virtual mouse class
         self.cap.release()  # for releasing the video capture
         cv2.destroyAllWindows()  # for destroying all the windows
 
-    # TODO: configure the distance by using the wrist
-    def distance(self):  # for calculating the distance between the thumb and the index finger
-        return int(((self.index_y - self.thumb_y)**2 + (self.index_x - self.thumb_x)**2)**0.5)
+    def relative_distance(self):
+        mid_x = (self.index_x + self.thumb_x)/2
+        mid_y = (self.index_y + self.thumb_y)/2
+        wrist_distance = ((mid_y - self.wrist_y)**2 + (mid_x - self.wrist_x)**2)**0.5
+        finger_distance = ((self.index_y - self.thumb_y)**2 + (self.index_x - self.thumb_x)**2)**0.5
+        return wrist_distance / finger_distance
 
     def handle_detection(self):
-        print('\routside', self.distance(), '      ', end='')
+        print('\routside', self.relative_distance(), '      ', end='')
         # if the distance between the thumb and the index finger is less than 20
-        if self.distance() < 50:
+        if self.relative_distance() > 4:
             pyautogui.click()  # for clicking the mouse
             pyautogui.sleep(1)  # for waiting for 1 second
         # if the distance between the thumb and the index finger is less than 100
-        elif self.distance() < 80:
+        elif self.relative_distance() > 2:
             pass  # dead zone
-        elif self.distance() < 200:
+        elif self.relative_distance() > 1.5:
             # for moving the mouse
             pyautogui.moveTo((self.index_x + self.thumb_x)/2,
                              (self.index_y + self.thumb_y)/2)
@@ -90,6 +93,7 @@ class VirtualMouse:  # for creating the virtual mouse class
 
             cv2.imshow('Virtual Mouse', frame)  # for displaying the frame
             cv2.waitKey(1)  # for waiting for 1 millisecond
+
 
 if __name__ == '__main__':  # if the file is run directly
     vm = VirtualMouse()  # for creating the virtual mouse object
