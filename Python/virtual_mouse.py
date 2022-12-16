@@ -29,7 +29,7 @@ class VirtualMouse:  # for creating the virtual mouse class
         return wrist_distance / finger_distance
 
     def handle_detection(self):
-        print('\routside', self.relative_distance(), '      ', end='')
+        print('\rrelative distance:', self.relative_distance(), '      ', end='')
         # if the distance between the thumb and the index finger is less than 20
         if self.relative_distance() > 4:
             pyautogui.click()  # for clicking the mouse
