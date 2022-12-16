@@ -26,10 +26,13 @@ class VirtualMouse:
     def relative_distance(self):
         mid_x = (self.index_x + self.thumb_x)/2
         mid_y = (self.index_y + self.thumb_y)/2
+
         wrist_distance = ((mid_y - self.wrist_y)**2 +
                           (mid_x - self.wrist_x)**2)**0.5
+
         finger_distance = ((self.index_y - self.thumb_y) **
                            2 + (self.index_x - self.thumb_x)**2)**0.5
+
         return wrist_distance / finger_distance
 
     def handle_detection(self):
@@ -62,8 +65,7 @@ class VirtualMouse:
             frame = cv2.flip(frame, 1)
             frame_height, frame_width, _ = frame.shape
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            output = self.hand_detector.process(
-                rgb_frame)
+            output = self.hand_detector.process(rgb_frame)
             hands = output.multi_hand_landmarks
 
             if hands:
@@ -73,25 +75,24 @@ class VirtualMouse:
                         x = int(landmark.x*frame_width)
                         y = int(landmark.y*frame_height)
 
-                        if id == 8:  # if the landmark is the index finger
+                        if id == 0:  # if the landmark is the wrist
                             cv2.circle(img=frame, center=(x, y), radius=10,
                                        color=(0, 255, 255))
-                            self.index_x = self.screen_width/frame_width*x
-                            self.index_y = self.screen_height/frame_height*y
-                            self.handle_detection()
+                            self.wrist_x = self.screen_width/frame_width*x
+                            self.wrist_y = self.screen_height/frame_height*y
 
                         if id == 4:  # if the landmark is the thumb
                             cv2.circle(img=frame, center=(x, y), radius=10,
                                        color=(0, 255, 255))
                             self.thumb_x = self.screen_width/frame_width*x
                             self.thumb_y = self.screen_height/frame_height*y
-                            self.handle_detection()
 
-                        if id == 0:  # if the landmark is the wrist
+                        if id == 8:  # if the landmark is the index finger
                             cv2.circle(img=frame, center=(x, y), radius=10,
                                        color=(0, 255, 255))
-                            self.wrist_x = self.screen_width/frame_width*x
-                            self.wrist_y = self.screen_height/frame_height*y
+                            self.index_x = self.screen_width/frame_width*x
+                            self.index_y = self.screen_height/frame_height*y
+                            self.handle_detection()
 
             cv2.imshow('Virtual Mouse', frame)
             cv2.waitKey(1)
