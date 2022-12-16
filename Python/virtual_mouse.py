@@ -10,6 +10,8 @@ class VirtualMouse:  # for creating the virtual mouse class
         self.drawing_utils = mp.solutions.drawing_utils  # for drawing the hand
 
         self.screen_width, self.screen_height = pyautogui.size()
+        self.wrist_y = 0  # for storing the y coordinate of the wrist
+        self.wrist_x = 0  # for storing the x coordinate of the wrist
         self.index_y = 0  # for storing the y coordinate of the index finger
         self.thumb_y = 0  # for storing the y coordinate of the thumb
         self.index_x = 0  # for storing the x coordinate of the index finger
@@ -19,17 +21,18 @@ class VirtualMouse:  # for creating the virtual mouse class
         self.cap.release()  # for releasing the video capture
         cv2.destroyAllWindows()  # for destroying all the windows
 
+    # TODO: configure the distance by using the wrist
     def distance(self):  # for calculating the distance between the thumb and the index finger
         return int(((self.index_y - self.thumb_y)**2 + (self.index_x - self.thumb_x)**2)**0.5)
 
     def handle_detection(self):
         print('\routside', self.distance(), '      ', end='')
         # if the distance between the thumb and the index finger is less than 20
-        if self.distance() < 40:
+        if self.distance() < 50:
             pyautogui.click()  # for clicking the mouse
             pyautogui.sleep(1)  # for waiting for 1 second
         # if the distance between the thumb and the index finger is less than 100
-        elif self.distance() < 70:
+        elif self.distance() < 80:
             pass  # dead zone
         elif self.distance() < 200:
             # for moving the mouse
@@ -77,12 +80,16 @@ class VirtualMouse:  # for creating the virtual mouse class
                             self.thumb_y = self.screen_height/frame_height*y
                             self.handle_detection()
 
+                        if id == 0:  # if the landmark is the wrist
+                            cv2.circle(img=frame, center=(x, y), radius=10,
+                                       color=(0, 255, 255))  # for drawing the circle
+                            # for getting the x coordinate of the wrist
+                            self.wrist_x = self.screen_width/frame_width*x
+                            # for getting the y coordinate of the wrist
+                            self.wrist_y = self.screen_height/frame_height*y
+
             cv2.imshow('Virtual Mouse', frame)  # for displaying the frame
             cv2.waitKey(1)  # for waiting for 1 millisecond
-
-    def calibrate(self):
-        pass
-
 
 if __name__ == '__main__':  # if the file is run directly
     vm = VirtualMouse()  # for creating the virtual mouse object
