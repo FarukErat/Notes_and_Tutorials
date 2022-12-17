@@ -32,9 +32,8 @@ void main() {
   Student mehmet = Student(name: "mehmet", age: 19);
   Class first = Class(name: "first", students: [ali, mehmet]);
   Teacher yusuf = Teacher(age: 35, name: "yusuf", ownedClasses: [first]);
-  print(
-      '${yusuf.ownedClasses![0].students![0].name}, ${yusuf.ownedClasses![0].students![0].age}');
-  print(
-      '${yusuf.ownedClasses![0].students![1].name}, ${yusuf.ownedClasses![0].students![1].age}');
   yusuf.readPdf();
+  for (int i = 0; i < yusuf.ownedClasses![0].students!.length; i++) {
+    print('${yusuf.ownedClasses![0].students![i].name}, ${yusuf.ownedClasses![0].students![i].age}');
+  }
 }
