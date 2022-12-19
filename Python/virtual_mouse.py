@@ -76,7 +76,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(0, 0, 255))
+                                       color=(255, 0, 0))
 
                             self.wrist_x = self.screen_width/frame_width*x
                             self.wrist_y = self.screen_height/frame_height*y
@@ -96,7 +96,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(255, 0, 0))
+                                       color=(0, 0, 255))
 
                             self.index_x = self.screen_width/frame_width*x
                             self.index_y = self.screen_height/frame_height*y
