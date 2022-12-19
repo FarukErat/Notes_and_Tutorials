@@ -19,11 +19,31 @@ class VirtualMouse:
         self.index_y = 0
         self.index_x = 0
 
+        self.mode = 0
+        '''
+        0: no action
+        1: left click
+        2: move cursor
+        3: right click
+        '''
+        self.mode_colors = ((0, 0, 255), (255, 0, 0), (0, 255, 0),
+                            (0, 255, 255))
+        '''
+        0: red
+        1: blue
+        2: green
+        3: yellow
+        '''
+
     def __del__(self):
         self.cap.release()
         cv2.destroyAllWindows()
 
     def relative_distance(self):
+        '''
+        returns the ratio
+        (distance between the wrist and the middle of the finger tips) / (distance between the finger tips)
+        '''
         mid_x = (self.index_x + self.thumb_x)/2
         mid_y = (self.index_y + self.thumb_y)/2
 
@@ -36,23 +56,35 @@ class VirtualMouse:
         return wrist_distance / finger_distance
 
     def handle_detection(self):
+        '''
+        left click (4, ...]
+        dead zone  (3.5, 4]
+        move cursor(2, 3.5]
+        dead zone  (1.8, 2]
+        right click (..., 1.8]
+        '''
         if self.relative_distance() > 4:
+            self.mode = 1
             print('\rleft click :', self.relative_distance(), ' '*20, end='')
             pyautogui.click()
             pyautogui.sleep(1)
 
-        elif self.relative_distance() > 3:
+        elif self.relative_distance() > 3.5:
+            self.mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
 
-        elif self.relative_distance() > 2.5:
+        elif self.relative_distance() > 2:
+            self.mode = 2
             print('\rmove cursor:', self.relative_distance(), ' '*20, end='')
             pyautogui.moveTo((self.index_x + self.thumb_x)/2,
                              (self.index_y + self.thumb_y)/2)
 
-        elif self.relative_distance() > 1.5:
+        elif self.relative_distance() > 1.8:
+            self.mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
 
         else:
+            self.mode = 3
             print('\rright click:', self.relative_distance(), ' '*20, end='')
             pyautogui.click(button='right')
             pyautogui.sleep(1)
@@ -76,7 +108,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(0, 0, 255))
+                                       color=self.mode_colors[self.mode])
 
                             self.wrist_x = self.screen_width/frame_width*x
                             self.wrist_y = self.screen_height/frame_height*y
@@ -86,7 +118,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(0, 255, 0))
+                                       color=self.mode_colors[self.mode])
 
                             self.thumb_x = self.screen_width/frame_width*x
                             self.thumb_y = self.screen_height/frame_height*y
@@ -96,7 +128,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(255, 0, 0))
+                                       color=self.mode_colors[self.mode])
 
                             self.index_x = self.screen_width/frame_width*x
                             self.index_y = self.screen_height/frame_height*y
