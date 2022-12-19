@@ -14,10 +14,10 @@ class VirtualMouse:
         # coordinates of the landmarks
         self.wrist_y = 0
         self.wrist_x = 0
-        self.index_y = 0
         self.thumb_y = 0
-        self.index_x = 0
         self.thumb_x = 0
+        self.index_y = 0
+        self.index_x = 0
 
     def __del__(self):
         self.cap.release()
@@ -43,16 +43,14 @@ class VirtualMouse:
 
         elif self.relative_distance() > 3:
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            pass
 
-        elif self.relative_distance() > 2:
+        elif self.relative_distance() > 2.5:
             print('\rmove cursor:', self.relative_distance(), ' '*20, end='')
             pyautogui.moveTo((self.index_x + self.thumb_x)/2,
                              (self.index_y + self.thumb_y)/2)
 
         elif self.relative_distance() > 1.5:
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            pass
 
         else:
             print('\rright click:', self.relative_distance(), ' '*20, end='')
@@ -78,7 +76,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(0, 255, 255))
+                                       color=(0, 0, 255))
 
                             self.wrist_x = self.screen_width/frame_width*x
                             self.wrist_y = self.screen_height/frame_height*y
@@ -88,7 +86,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(0, 255, 255))
+                                       color=(0, 255, 0))
 
                             self.thumb_x = self.screen_width/frame_width*x
                             self.thumb_y = self.screen_height/frame_height*y
@@ -98,7 +96,7 @@ class VirtualMouse:
                             y = int(landmark.y*frame_height)
 
                             cv2.circle(img=frame, center=(x, y), radius=10,
-                                       color=(0, 255, 255))
+                                       color=(255, 0, 0))
 
                             self.index_x = self.screen_width/frame_width*x
                             self.index_y = self.screen_height/frame_height*y
