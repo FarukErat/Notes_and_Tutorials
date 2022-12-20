@@ -7,7 +7,7 @@ class VirtualMouse:
     def __init__(self):
         # getting necessary objects and variables
         self.cap = cv2.VideoCapture(0)
-        self.hand_detector = mp.solutions.hands.Hands()
+        self.hand_detector = mp.solutions.hands.Hands()  # type: ignore
         self.screen_width, self.screen_height = pyautogui.size()
 
         # coordinates of the landmarks
