@@ -97,6 +97,7 @@ class VirtualMouse:
             hands = self.hand_detector.process(rgb_frame).multi_hand_landmarks
 
             if hands:
+                # get the first hand detected to avoid focus on the wrong hand
                 hand = hands[hands.__len__()-1]
                 landmarks = hand.landmark
 
