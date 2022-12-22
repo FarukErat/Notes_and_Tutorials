@@ -10,6 +10,9 @@ class VirtualMouse:
         self.hand_detector = mp.solutions.hands.Hands()  # type: ignore
         self.screen_width, self.screen_height = pyautogui.size()
 
+        # pyautogui.FAILSAFE = False
+        pyautogui.PAUSE = 0
+
         # coordinates of the landmarks
         self.wrist_y = 0
         self.wrist_x = 0
