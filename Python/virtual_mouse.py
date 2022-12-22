@@ -83,7 +83,8 @@ class VirtualMouse:
             self.mode = 2
             print('\rmove cursor:', self.relative_distance(), ' '*20, end='')
             pyautogui.moveTo((self.index_x + self.thumb_x)/2,
-                             (self.index_y + self.thumb_y)/2)
+                             (self.index_y + self.thumb_y)/2,
+                             duration=0.15)
             self.clicked = False
 
         elif self.relative_distance() > 1.8:
