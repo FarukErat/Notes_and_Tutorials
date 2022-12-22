@@ -98,8 +98,7 @@ class VirtualMouse:
 
             if hands:
                 # get the first hand detected to avoid focus on the wrong hand
-                hand = hands[hands.__len__()-1]
-                landmarks = hand.landmark
+                landmarks = hands[hands.__len__()-1].landmark
 
                 # wrist
                 landmark = landmarks[0]
