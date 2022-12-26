@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 class Program
 {
-    const int TABLE_ROWS = 30;
-    const int TABLE_COLS = 80;
+    const int TABLE_ROWS = 10;
+    const int TABLE_COLS = 20;
     // right, down, left, up
     static readonly int[,] DIRECTIONS = new int[,] { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
     class Point
