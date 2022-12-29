@@ -86,7 +86,13 @@ class VirtualMouse:
         right click (..., 1.8]
         '''
         rel_dist = self.relative_distance()
-        if rel_dist > 4:
+
+        if rel_dist > 7:
+            self.mode = 0
+            print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
+            self.clicked = False
+
+        elif rel_dist > 4:
             self.mode = 1
             print('\rleft click :', self.relative_distance(), ' '*20, end='')
             if not self.clicked:
