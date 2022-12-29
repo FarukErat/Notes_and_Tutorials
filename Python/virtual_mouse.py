@@ -85,19 +85,20 @@ class VirtualMouse:
         dead zone  (1.8, 2]
         right click (..., 1.8]
         '''
-        if self.relative_distance() > 4:
+        rel_dist = self.relative_distance()
+        if rel_dist > 4:
             self.mode = 1
             print('\rleft click :', self.relative_distance(), ' '*20, end='')
             if not self.clicked:
                 pyautogui.click()
                 self.clicked = True
 
-        elif self.relative_distance() > 3.5:
+        elif rel_dist > 3.5:
             self.mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
             self.clicked = False
 
-        elif self.relative_distance() > 2:
+        elif rel_dist > 2:
             self.mode = 2
             print('\rmove cursor:', self.relative_distance(), ' '*20, end='')
             pyautogui.moveTo((self.index_x + self.thumb_x)/2,
@@ -105,7 +106,7 @@ class VirtualMouse:
                              duration=0.15)
             self.clicked = False
 
-        elif self.relative_distance() > 1.8:
+        elif rel_dist > 1.8:
             self.mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
             self.clicked = False
