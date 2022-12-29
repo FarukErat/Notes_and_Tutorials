@@ -59,6 +59,24 @@ class VirtualMouse:
 
         return wrist_distance / finger_distance
 
+    def closest_hand(self, hands):
+        if len(hands) == 0:
+            return None
+
+        def distance(landmark):
+            return ((landmark[0].x - landmark[5].x)**2 +
+                    (landmark[0].y - landmark[5].y)**2)**0.5
+
+        largest_hand = hands[0]
+        largest_distance = distance(largest_hand.landmark)
+
+        for hand in hands:
+            if distance(hand.landmark) > largest_distance:
+                largest_hand = hand
+                largest_distance = distance(hand.landmark)
+
+        return largest_hand
+
     def handle_detection(self):
         '''
         left click (4, ...]
@@ -109,7 +127,7 @@ class VirtualMouse:
 
             if hands:
                 # get the first hand detected to avoid focus on the wrong hand
-                landmarks = hands[hands.__len__()-1].landmark
+                landmarks = self.closest_hand(hands).landmark  # type: ignore
 
                 # wrist
                 landmark = landmarks[0]
