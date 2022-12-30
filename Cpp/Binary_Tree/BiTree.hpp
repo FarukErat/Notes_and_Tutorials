@@ -25,6 +25,7 @@ public:
     void insert(T);
     void remove(T data);
     void display(Node<T> *root);
+    void display() { display(root); }
     void search(T data);
 
     Node<T> *getRoot() { return root; }
