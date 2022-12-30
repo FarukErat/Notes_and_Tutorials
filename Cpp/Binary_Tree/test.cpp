@@ -13,10 +13,10 @@ int main()
     tree.insert(4);
     tree.insert(6);
     tree.insert(8);
-    tree.display(tree.getRoot());
+    tree.display();
     cout << endl;
     tree.remove(5);
-    tree.display(tree.getRoot());
+    tree.display();
     cout << endl;
     tree.search(5);
 
