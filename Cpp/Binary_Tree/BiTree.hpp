@@ -1,3 +1,7 @@
+#pragma once
+#ifndef BI_TREE_HPP
+#define BI_TREE_HPP
+
 #include <iostream>
 
 template <typename T>
@@ -260,3 +264,5 @@ void BinaryTree<T>::search(T data)
 
     std::cout << "Data found" << std::endl;
 }
+
+#endif // BI_TREE_HPP
