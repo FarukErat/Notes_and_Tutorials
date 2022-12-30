@@ -14,6 +14,11 @@ int main()
     tree.insert(6);
     tree.insert(8);
     tree.display(tree.getRoot());
+    cout << endl;
+    tree.remove(5);
+    tree.display(tree.getRoot());
+    cout << endl;
+    tree.search(5);
 
     return 0;
 }
