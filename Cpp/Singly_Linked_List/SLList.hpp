@@ -18,11 +18,17 @@ class SLL
 private:
     Node<T> *head = nullptr;
     int size = 0;
+    bool boundCheck(int index);
 
 public:
+    SLL(){};
+    SLL(std::initializer_list<T> const l);
+    ~SLL();
+
     int getSize() const { return size; }
 
     void add(T data);
+    void append(T data);
     void remove(int index);
     void insert(T data, int index);
 
@@ -30,9 +36,53 @@ public:
 
     T &operator[](int index);
 
+    void operator=(SLL<T> &list);
+    void operator=(std::initializer_list<T> const l);
+
+    void operator+=(T data);
+    void operator+=(SLL<T> &list);
+    void operator+=(std::initializer_list<T> const l);
+
     template <typename U>
     friend std::ostream &operator<<(std::ostream &os, const SLL<U> &list);
+    template <typename U>
+    friend std::istream &operator>>(std::istream &is, SLL<U> &list);
 };
+
+template <typename T>
+bool SLL<T>::boundCheck(int index)
+{
+    Node<T> *iter = head;
+    for (int i = 0; i < index; i++)
+    {
+        if (iter == NULL)
+        {
+            return false;
+        }
+        iter = iter->next;
+    }
+    return true;
+}
+
+template <typename T>
+SLL<T>::SLL(std::initializer_list<T> const l)
+{
+    for (auto &i : l)
+    {
+        append(i);
+    }
+}
+
+template <typename T>
+SLL<T>::~SLL()
+{
+    while (head != nullptr)
+    {
+        Node<T> *temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
 
 template <typename T>
 void SLL<T>::add(T data)
@@ -41,6 +91,28 @@ void SLL<T>::add(T data)
     newNode->data = data;
     newNode->next = head;
     head = newNode;
+    size++;
+}
+
+template <typename T>
+void SLL<T>::append(T data)
+{
+    Node<T> *newNode = new Node<T>;
+    newNode->data = data;
+    newNode->next = nullptr;
+    if (head == nullptr)
+    {
+        head = newNode;
+    }
+    else
+    {
+        Node<T> *iter = head;
+        while (iter->next != nullptr)
+        {
+            iter = iter->next;
+        }
+        iter->next = newNode;
+    }
     size++;
 }
 
@@ -147,6 +219,66 @@ T &SLL<T>::operator[](int index)
     }
 }
 
+template <typename T>
+void SLL<T>::operator=(SLL<T> &list)
+{
+    while (head != nullptr)
+    {
+        Node<T> *temp = head;
+        head = head->next;
+        delete temp;
+    }
+    size = 0;
+    Node<T> *current = list.head;
+    while (current != nullptr)
+    {
+        append(current->data);
+        current = current->next;
+    }
+}
+
+template <typename T>
+void SLL<T>::operator=(std::initializer_list<T> const l)
+{
+    while (head != nullptr)
+    {
+        Node<T> *temp = head;
+        head = head->next;
+        delete temp;
+    }
+    size = 0;
+    for (auto &i : l)
+    {
+        append(i);
+    }
+}
+
+template <typename T>
+void SLL<T>::operator+=(T data)
+{
+    append(data);
+}
+
+template <typename T>
+void SLL<T>::operator+=(SLL<T> &list)
+{
+    Node<T> *current = list.head;
+    while (current != nullptr)
+    {
+        append(current->data);
+        current = current->next;
+    }
+}
+
+template <typename T>
+void SLL<T>::operator+=(std::initializer_list<T> const l)
+{
+    for (auto &i : l)
+    {
+        append(i);
+    }
+}
+
 template <typename U>
 std::ostream &operator<<(std::ostream &os, const SLL<U> &list)
 {
@@ -157,6 +289,15 @@ std::ostream &operator<<(std::ostream &os, const SLL<U> &list)
         current = current->next;
     }
     return os;
+}
+
+template <typename T>
+std::istream &operator>>(std::istream &is, SLL<T> &list)
+{
+    T data;
+    is >> data;
+    list.append(data);
+    return is;
 }
 
 #endif // SLL_HPP
