@@ -1,10 +1,12 @@
 # an implementation of composite trapezoidal rule for integration
 
 def integrate(f, start, finish, n=1000):
+    if n < 2:
+        return "n must be greater than 2"
     h = (finish - start) / n
     sum = f(start) + f(finish)
     for i in range(1, n):
-        sum += 2 * f(start + h * i)
+        sum += 2 * f(start + h*i)
     return sum * h / 2
 
 
