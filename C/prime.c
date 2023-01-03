@@ -3,10 +3,13 @@
 
 int main()
 {
-    long long unsigned number;
-    int lastDivider;
+    long long int number, halfWay;
+    int divider = 2;
+    int lastDivider = 1;
     int power = 0;
-    printf("Enter an integer: ");
+
+    // get the number from the user and check if the assignment was successful
+    printf("Prime Factors of ");
     if (scanf("%lld", &number) != 1)
     {
         printf("Invalid input.\n");
@@ -15,46 +18,70 @@ int main()
         return 1;
     }
 
-    if (number < 2)
+    // special case for -1, 0 and 1
+    if (number == -1 || number == 0 || number == 1)
     {
-        printf("The number must be equal to or greater than 2.\n");
+        printf("-------------\n");
+        printf("%d\n", number);
+        printf("-------------\n");
         printf("Press any key to exit...");
         getch();
-        return 1;
+        return 0;
     }
 
-    printf("Prime Factors\n");
-    printf("-------------\n");
-    for (int divider = 2; number != 1; divider++)
+    // convert negative numbers to positive and print the sign
+    printf("-------------");
+    if (number < 0)
     {
+        number = -number;
+        printf("\n-1");
+    }
+
+    // an end-point for the loop since there cannot be a factor greater than half of the number
+    halfWay = number / 2;
+
+    // main loop
+    while (number != 1)
+    {
+        // check if the divider is a factor of the number
         if (number % divider == 0)
         {
-            power++;
-            number /= divider;
-            if (power == 1)
+            // if so divide the number by the divider
+            number = number / divider;
+
+            // increase the power of the divider if it is the same as the last divider
+            if (divider == lastDivider)
+                power++;
+            else
             {
-                printf("%d", divider);
+                // if not, there is a new divisor
+                // update the last divider and print the exponent of the previous divider
+                lastDivider = divider;
+                if (power > 1)
+                    printf(" ^ %d", power);
+                printf("\n%d", divider);
+
+                // since the divider is a new divisor, the power is 1
+                power = 1;
             }
-            lastDivider = divider;
-            --divider;
         }
 
-        if (lastDivider == divider)
+        // iterate the divider
+        else
         {
-            if (power > 1)
-            {
-                printf(" ^ %d", power);
-            }
-            printf("\n");
-            power = 0;
+            divider++;
+            if (divider > halfWay)
+                divider = number;
         }
     }
+
+    // print the last exponent if not 1
     if (power > 1)
-    {
         printf(" ^ %d", power);
-    }
+
     printf("\n-------------");
     printf("\nPress any key to exit...");
     getch();
+
     return 0;
 }
