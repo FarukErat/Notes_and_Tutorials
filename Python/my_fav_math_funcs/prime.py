@@ -36,7 +36,7 @@ def print_factor(number):
     factors = prime_factor(number)
     for i in range(len(factors)):
         print(factors[i][0], end="")
-        if factors[i][1] > 1:
+        if factors[i][1] != 1:
             print(" ^", factors[i][1], end="")
         print()
 
