@@ -11,7 +11,7 @@ int main()
     int power = 0;
 
     // get the number from the user and check if the assignment was successful
-    printf("Prime Factors of ");
+    printf("Enter a number to factorize: ");
     if (scanf("%lld", &number) != 1)
     {
         printf("Invalid input.\n");
@@ -20,19 +20,21 @@ int main()
         return 1;
     }
 
+    printf("Prime Factors of %d\n", number);
+
     // special case for -1, 0 and 1
     if (number == -1 || number == 0 || number == 1)
     {
-        printf("-------------\n");
+        printf("----------------\n");
         printf("%d\n", number);
-        printf("-------------\n");
+        printf("----------------\n");
         printf("Press any key to exit...");
         getch();
         return 0;
     }
 
     // convert negative numbers to positive and print the sign
-    printf("-------------");
+    printf("----------------");
     if (number < 0)
     {
         number = -number;
@@ -81,7 +83,7 @@ int main()
     if (power > 1)
         printf(" ^ %d", power);
 
-    printf("\n-------------");
+    printf("\n----------------");
     printf("\nPress any key to exit...");
     getch();
 
