@@ -37,6 +37,7 @@ int main()
         printf("\n-1");
     }
 
+    halfWay = number / 2;
     // main loop
     while (number != 1)
     {
@@ -46,7 +47,6 @@ int main()
             // if so divide the number by the divider
             number = number / divider;
 
-            // an end-point for the loop since there cannot be a factor greater than half of the number
             halfWay = number / 2;
 
             // increase the power of the divider if it is the same as the last divider
