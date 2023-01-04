@@ -4,6 +4,8 @@
 int main()
 {
     long long int number, halfWay;
+    // halfWay is an end-point for the loop
+    // since there cannot be a factor greater than half of the number
     int divider = 2;
     int lastDivider = 1;
     int power = 0;
