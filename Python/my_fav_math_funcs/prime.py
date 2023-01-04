@@ -1,4 +1,5 @@
 def prime_factor(number):
+    halfWay = number // 2
     divider = 2
     last_divider = 1
     factors = []
@@ -14,6 +15,7 @@ def prime_factor(number):
         while number != 1:
             if number % divider == 0:
                 number = number // divider
+                halfWay = number // 2
                 if divider != last_divider:
                     factors.append(divider)
                     powers.append(1)
@@ -22,6 +24,8 @@ def prime_factor(number):
                     powers[-1] += 1
             else:
                 divider += 1
+                if divider > halfWay:
+                    divider = number
     result = []
     for i in range(len(factors)):
         result.append((factors[i], powers[i]))
