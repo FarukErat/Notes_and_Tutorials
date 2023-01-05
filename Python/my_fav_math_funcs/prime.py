@@ -1,8 +1,5 @@
-import math
-
-
 def prime_factor(number):
-    end_search = math.sqrt(number)
+    end_search = number**0.5
     divider = 2
     last_divider = 1
     factors = []
@@ -18,7 +15,7 @@ def prime_factor(number):
         while number != 1:
             if number % divider == 0:
                 number = number // divider
-                end_search = math.sqrt(number)
+                end_search = number**0.5
                 if divider != last_divider:
                     factors.append(divider)
                     powers.append(1)
