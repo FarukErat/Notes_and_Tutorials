@@ -2,14 +2,16 @@
 #include <conio.h>
 #include <math.h>
 
+typedef long long int lli;
+
 int main()
 {
-    long long int number, endSearch;
+    lli number, endSearch;
     // endSearch is an end-point for the loop
     // since pairs of factors are found, the loop can stop at the square root of the number
-    int divider = 2;
-    int lastDivider = 1;
-    int power = 0;
+    lli divider = 2;
+    lli lastDivider = 1;
+    unsigned power = 0;
 
     // get the number from the user and check if the assignment was successful
     printf("Enter a number to factorize: ");
@@ -27,7 +29,7 @@ int main()
     if (number == -1 || number == 0 || number == 1)
     {
         printf("----------------\n");
-        printf("%d\n", number);
+        printf("%lld\n", number);
         printf("----------------\n");
         printf("Press any key to exit...");
         getch();
@@ -63,7 +65,7 @@ int main()
                 lastDivider = divider;
                 if (power > 1)
                     printf(" ^ %d", power);
-                printf("\n%d", divider);
+                printf("\n%lld", divider);
 
                 // since the divider is a new divisor, the power is 1
                 power = 1;
