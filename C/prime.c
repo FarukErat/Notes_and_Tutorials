@@ -21,7 +21,7 @@ int main()
         return 1;
     }
 
-    printf("Prime Factors of %d\n", number);
+    printf("Prime Factors of %lld\n", number);
 
     // special case for -1, 0 and 1
     if (number == -1 || number == 0 || number == 1)
