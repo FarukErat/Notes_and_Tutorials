@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <conio.h>
+#include <math.h>
 
 int main()
 {
-    long long int number, halfWay;
-    // halfWay is an end-point for the loop
-    // since there cannot be a factor greater than half of the number
+    long long int number, endSearch;
+    // endSearch is an end-point for the loop
+    // since pairs of factors are found, the loop can stop at the square root of the number
     int divider = 2;
     int lastDivider = 1;
     int power = 0;
@@ -41,7 +42,7 @@ int main()
         printf("\n-1");
     }
 
-    halfWay = number / 2;
+    endSearch = sqrt(number);
     // main loop
     while (number != 1)
     {
@@ -50,8 +51,7 @@ int main()
         {
             // if so divide the number by the divider
             number = number / divider;
-
-            halfWay = number / 2;
+            endSearch = sqrt(number);
 
             // increase the power of the divider if it is the same as the last divider
             if (divider == lastDivider)
@@ -74,7 +74,7 @@ int main()
         else
         {
             divider++;
-            if (divider > halfWay)
+            if (divider > endSearch)
                 divider = number;
         }
     }
