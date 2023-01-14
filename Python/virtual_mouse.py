@@ -4,6 +4,32 @@ import pyautogui  # for controlling the mouse
 
 
 class VirtualMouse:
+    # coordinates of the landmarks
+    _wrist_y = 0
+    _wrist_x = 0
+    _thumb_y = 0
+    _thumb_x = 0
+    _index_y = 0
+    _index_x = 0
+
+    _clicked = False
+
+    _mode = 0
+    '''
+    0: no action
+    1: left click
+    2: move cursor
+    3: right click
+    '''
+    _mode_colors = ((0, 0, 255), (255, 0, 0), (0, 255, 0),
+                    (0, 255, 255))
+    '''
+    0: red
+    1: blue
+    2: green
+    3: yellow
+    '''
+
     def __init__(self):
         # getting necessary objects and variables
         self.cap = cv2.VideoCapture(0)
@@ -12,32 +38,6 @@ class VirtualMouse:
 
         # pyautogui.FAILSAFE = False
         pyautogui.PAUSE = 0
-
-        # coordinates of the landmarks
-        self.wrist_y = 0
-        self.wrist_x = 0
-        self.thumb_y = 0
-        self.thumb_x = 0
-        self.index_y = 0
-        self.index_x = 0
-
-        self.clicked = False
-
-        self.mode = 0
-        '''
-        0: no action
-        1: left click
-        2: move cursor
-        3: right click
-        '''
-        self.mode_colors = ((0, 0, 255), (255, 0, 0), (0, 255, 0),
-                            (0, 255, 255))
-        '''
-        0: red
-        1: blue
-        2: green
-        3: yellow
-        '''
 
     def __del__(self):
         self.cap.release()
@@ -48,14 +48,14 @@ class VirtualMouse:
         returns the ratio
         (distance between the wrist and the middle of the finger tips) / (distance between the finger tips)
         '''
-        mid_x = (self.index_x + self.thumb_x)/2
-        mid_y = (self.index_y + self.thumb_y)/2
+        mid_x = (self._index_x + self._thumb_x)/2
+        mid_y = (self._index_y + self._thumb_y)/2
 
-        wrist_distance = ((mid_y - self.wrist_y)**2 +
-                          (mid_x - self.wrist_x)**2)**0.5
+        wrist_distance = ((mid_y - self._wrist_y)**2 +
+                          (mid_x - self._wrist_x)**2)**0.5
 
-        finger_distance = ((self.index_y - self.thumb_y) **
-                           2 + (self.index_x - self.thumb_x)**2)**0.5
+        finger_distance = ((self._index_y - self._thumb_y) **
+                           2 + (self._index_x - self._thumb_x)**2)**0.5
 
         return wrist_distance / finger_distance
 
@@ -88,41 +88,41 @@ class VirtualMouse:
         rel_dist = self.relative_distance()
 
         if rel_dist > 7:
-            self.mode = 0
+            self._mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            self.clicked = False
+            self._clicked = False
 
         elif rel_dist > 4:
-            self.mode = 1
+            self._mode = 1
             print('\rleft click :', self.relative_distance(), ' '*20, end='')
-            if not self.clicked:
+            if not self._clicked:
                 pyautogui.click()
-                self.clicked = True
+                self._clicked = True
 
         elif rel_dist > 3.5:
-            self.mode = 0
+            self._mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            self.clicked = False
+            self._clicked = False
 
         elif rel_dist > 2:
-            self.mode = 2
+            self._mode = 2
             print('\rmove cursor:', self.relative_distance(), ' '*20, end='')
-            pyautogui.moveTo((self.index_x + self.thumb_x)/2,
-                             (self.index_y + self.thumb_y)/2,
+            pyautogui.moveTo((self._index_x + self._thumb_x)/2,
+                             (self._index_y + self._thumb_y)/2,
                              duration=0.15)
-            self.clicked = False
+            self._clicked = False
 
         elif rel_dist > 1.8:
-            self.mode = 0
+            self._mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            self.clicked = False
+            self._clicked = False
 
         else:
-            self.mode = 3
+            self._mode = 3
             print('\rright click:', self.relative_distance(), ' '*20, end='')
-            if not self.clicked:
+            if not self._clicked:
                 pyautogui.click(button='right')
-                self.clicked = True
+                self._clicked = True
 
     def run(self):
         while True:
@@ -142,10 +142,10 @@ class VirtualMouse:
                 y = int(landmark.y*frame_height)
 
                 cv2.circle(img=frame, center=(x, y), radius=10,
-                           color=self.mode_colors[self.mode])
+                           color=self._mode_colors[self._mode])
 
-                self.wrist_x = self.screen_width/frame_width*x
-                self.wrist_y = self.screen_height/frame_height*y
+                self._wrist_x = self.screen_width/frame_width*x
+                self._wrist_y = self.screen_height/frame_height*y
 
                 # thumb
                 landmark = landmarks[4]
@@ -153,10 +153,10 @@ class VirtualMouse:
                 y = int(landmark.y*frame_height)
 
                 cv2.circle(img=frame, center=(x, y), radius=10,
-                           color=self.mode_colors[self.mode])
+                           color=self._mode_colors[self._mode])
 
-                self.thumb_x = self.screen_width/frame_width*x
-                self.thumb_y = self.screen_height/frame_height*y
+                self._thumb_x = self.screen_width/frame_width*x
+                self._thumb_y = self.screen_height/frame_height*y
 
                 # index
                 landmark = landmarks[8]
@@ -164,10 +164,10 @@ class VirtualMouse:
                 y = int(landmark.y*frame_height)
 
                 cv2.circle(img=frame, center=(x, y), radius=10,
-                           color=self.mode_colors[self.mode])
+                           color=self._mode_colors[self._mode])
 
-                self.index_x = self.screen_width/frame_width*x
-                self.index_y = self.screen_height/frame_height*y
+                self._index_x = self.screen_width/frame_width*x
+                self._index_y = self.screen_height/frame_height*y
 
                 self.handle_detection()
 
