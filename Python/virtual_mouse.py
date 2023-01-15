@@ -90,19 +90,26 @@ class VirtualMouse:
         if rel_dist > 7:
             self._mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            self._clicked = False
+            if self._clicked:
+                pyautogui.mouseUp()
+                self._clicked = False
 
         elif rel_dist > 4:
             self._mode = 1
             print('\rleft click :', self.relative_distance(), ' '*20, end='')
             if not self._clicked:
-                pyautogui.click()
+                pyautogui.mouseDown()
                 self._clicked = True
+            pyautogui.moveTo((self._index_x + self._thumb_x)/2,
+                             (self._index_y + self._thumb_y)/2,
+                             duration=0.15)
 
         elif rel_dist > 3.5:
             self._mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            self._clicked = False
+            if self._clicked:
+                pyautogui.mouseUp()
+                self._clicked = False
 
         elif rel_dist > 2:
             self._mode = 2
@@ -110,12 +117,16 @@ class VirtualMouse:
             pyautogui.moveTo((self._index_x + self._thumb_x)/2,
                              (self._index_y + self._thumb_y)/2,
                              duration=0.15)
-            self._clicked = False
+            if self._clicked:
+                pyautogui.mouseUp()
+                self._clicked = False
 
         elif rel_dist > 1.8:
             self._mode = 0
             print('\rdead zone  :', self.relative_distance(), ' '*20, end='')
-            self._clicked = False
+            if self._clicked:
+                pyautogui.mouseUp()
+                self._clicked = False
 
         else:
             self._mode = 3
