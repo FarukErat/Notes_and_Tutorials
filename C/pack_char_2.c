@@ -9,7 +9,7 @@ char *unpackChar(long long unsigned packed);
 int main()
 {
     char input[8];
-    printf("Enter 4 characters : ");
+    printf("Enter 8 characters : ");
     for (size_t i = 0; i < 8; i++)
     {
         input[i] = getche();
