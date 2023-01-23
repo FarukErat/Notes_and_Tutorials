@@ -24,5 +24,8 @@ public class LearnStatic {
     public static void main(String args[]) {
         LearnStatic.MyNestedClass obj = new LearnStatic.MyNestedClass();
         obj.disp();
+        // LearnStatic: Static block initialized.
+        // MyNestedClass: Constructor called.
+        // GeeksforGeeks
     }
 }
