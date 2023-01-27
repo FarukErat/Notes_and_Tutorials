@@ -1,24 +1,42 @@
 #include <stdio.h>
 
+enum day
+{
+    monday = 1,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday
+};
+
 int main()
 {
-	int x;
+    int counter = 1;
 
-	printf("day no: ");
-	scanf("%d",&x);
+    switch (saturday)
+    {
+    case 1:
+        counter++;
+    case 2:
+        counter++;
+    case 3:
+        counter++;
+    case 4:
+        counter++;
+    case 5:
+        printf("There are %d days until the weekend.\n", counter);
+        break;
+    case 6:
+        counter++;
+    case 7:
+        printf("You have %d days to relax.\n", counter);
+        break;
+    default:
+        printf("Invalid day.\n");
+        break;
+    }
 
-	switch (x)
-	{
-		case 1:printf("monday"); break;
-		case 2:printf("tuesday"); break;
-		case 3:printf("wednesday"); break;
-		case 4:printf("thursday"); break;
-		case 5:printf("friday"); break;
-		case 6:printf("saturday"); break;
-		case 7:printf("sunday"); break;
-
-		default: printf("you entered wrongly");
-	}
-	
-	return 0;
+    return 0;
 }
