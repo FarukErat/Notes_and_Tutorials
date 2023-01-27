@@ -1,3 +1,5 @@
+// 2D array handled in one for loop
+
 #include <stdio.h>
 #include <stdlib.h>
 
