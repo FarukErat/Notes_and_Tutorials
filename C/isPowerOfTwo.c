@@ -17,7 +17,7 @@ however, zero will also lead to 1, so we need to check if n is zero due to a sim
 
 00000000 = 0
 &
-10000001 = 1
+10000001 = -1
 = 0 // be careful here because 0 is not a power of two
 
 10000001 = -1
