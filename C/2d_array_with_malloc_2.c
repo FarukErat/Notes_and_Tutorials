@@ -1,3 +1,5 @@
+// 1D array used as 2D array
+
 #include <stdio.h>
 #include <stdlib.h>
 
