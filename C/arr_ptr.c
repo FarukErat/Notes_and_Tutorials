@@ -1,3 +1,5 @@
+// handling 2D array with only one for loop
+
 #include <stdio.h>
 
 #define ROW 3
