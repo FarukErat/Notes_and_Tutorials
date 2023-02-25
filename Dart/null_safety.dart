@@ -16,8 +16,10 @@ class Car {
   Therefore, the compiler will throw an error.
 
   If we declare a variable with a question mark after the type,
-  the type of the variable becomes nullable, (int? = nullable int)
+  the type of the variable becomes nullable,
   which means it can be assigned null value.
+  If a variable or parameter is nullable,
+  it can have a value of either its declared type or null.
   Therefore, the compiler will not throw an error,
   and the variable will be assigned null value by default,
   when the variable is not initialized.
