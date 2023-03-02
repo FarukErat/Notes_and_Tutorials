@@ -10,7 +10,7 @@ typedef struct
 int main(void)
 {
     Film film = {"Contact", "Robert Zemeckis", 1997};
-    char *fileName = "C:\\Users\\faruk\\Desktop\\film.bin";
+    char *fileName = "film.bin";
     FILE* file = NULL;
     
     file = fopen(fileName, "rb+");
