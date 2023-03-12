@@ -1,10 +1,10 @@
-class Child {
+class ChildModel {
   String? name;
   int? age;
 
-  Child({this.name, this.age});
+  ChildModel({this.name, this.age});
 
-  Child.fromJson(Map<String, dynamic> json) {
+  ChildModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     age = json['age'];
   }
@@ -17,20 +17,20 @@ class Child {
   }
 }
 
-class Person {
+class PersonModel {
   String? name;
   int? age;
-  List? children = [];
+  List<ChildModel>? children;
 
-  Person({this.name, this.age, this.children});
+  PersonModel({this.name, this.age, this.children});
 
-  Person.fromJson(Map<String, dynamic> json) {
+  PersonModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     age = json['age'];
     if (json['children'] != null) {
       children = [];
       json['children'].forEach((v) {
-        children!.add(new Person.fromJson(v));
+        children!.add(new ChildModel.fromJson(v));
       });
     }
   }
@@ -47,17 +47,18 @@ class Person {
 }
 
 void main() {
-  var person = Person(
+  var person = PersonModel(
     name: 'John',
     age: 30,
     children: [
-      Person(name: 'Mary', age: 5, children: []),
-      Person(name: 'Peter', age: 3, children: []),
+      ChildModel(name: 'Tom', age: 5),
+      ChildModel(name: 'Elsa', age: 6),
     ],
   );
+
   print(person.toJson());
 
-  Map<String, dynamic> json = person.toJson();
-  Person person2 = Person.fromJson(json);
+  var person2 = PersonModel.fromJson(person.toJson());
+
   print(person2.toJson());
 }
