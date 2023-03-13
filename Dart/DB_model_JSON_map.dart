@@ -1,64 +1,71 @@
-class ChildModel {
+class Person {
   String? name;
   int? age;
+  List<String>? hobbies; // contains primitive types
+  List<Person>? children; // contains objects
 
-  ChildModel({this.name, this.age});
+  Person({
+    this.name,
+    this.age,
+    this.hobbies,
+    this.children,
+  });
 
-  ChildModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    age = json['age'];
+  factory Person.fromJson(Map<String, dynamic> json) {
+    return Person(
+      name: json['name'],
+      age: json['age'],
+      hobbies: json['hobbies'],
+      children: json['children'] != null
+          ? (json['children'] as List).map(
+              (i) {
+                return Person.fromJson(i);
+              },
+            ).toList()
+          : null,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['age'] = this.age;
-    return data;
-  }
-}
-
-class PersonModel {
-  String? name;
-  int? age;
-  List<ChildModel>? children;
-
-  PersonModel({this.name, this.age, this.children});
-
-  PersonModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    age = json['age'];
-    if (json['children'] != null) {
-      children = [];
-      json['children'].forEach((v) {
-        children!.add(new ChildModel.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['age'] = this.age;
+    final Map<String, dynamic> json = new Map<String, dynamic>();
+    json['name'] = this.name;
+    json['age'] = this.age;
+    json['hobbies'] = this.hobbies;
     if (this.children != null) {
-      data['children'] = this.children!.map((v) => v.toJson()).toList();
+      json['children'] = this.children!.map(
+        (i) {
+          return i.toJson();
+        },
+      ).toList();
     }
-    return data;
+    return json;
   }
 }
 
 void main() {
-  var person = PersonModel(
+  Person p1 = Person(
     name: 'John',
     age: 30,
+    hobbies: ['swimming', 'reading'],
     children: [
-      ChildModel(name: 'Tom', age: 5),
-      ChildModel(name: 'Elsa', age: 6),
+      Person(
+        name: 'Mary',
+        age: 5,
+        hobbies: ['dancing', 'singing'],
+      ),
+      Person(
+        name: 'Peter',
+        age: 3,
+        hobbies: ['playing'],
+      ),
     ],
   );
 
-  print(person.toJson());
-
-  var person2 = PersonModel.fromJson(person.toJson());
-
-  print(person2.toJson());
+  print(p1.toJson());
+  Person p2 = Person.fromJson(p1.toJson());
+  print(p2.toJson());
 }
+
+// Output:
+// {name: John, age: 30, hobbies: [swimming, reading], children: [{name: Mary, age: 5, hobbies: [dancing, singing]}, {name: Peter, age: 3, hobbies: [playing]}]}
+// {name: John, age: 30, hobbies: [swimming, reading], children: [{name: Mary, age: 5, hobbies: [dancing, singing]}, {name: Peter, age: 3, hobbies: [playing]}]}
