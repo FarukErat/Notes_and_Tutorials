@@ -4,15 +4,20 @@
 #include <stdio.h>
 #include <limits.h> /* CHAR_BIT */
 
-const int sizeOfInt = (int)(CHAR_BIT * sizeof(void *));
+const unsigned sizeOfInt = (unsigned)(CHAR_BIT * sizeof(void *));
 
+/**
+ * @brief Displays bits of passed value
+ *
+ * @param value
+ */
 void displayBits(unsigned value)
 {
-    unsigned mask = 1 << (CHAR_BIT * sizeof(unsigned) - 1);
+    unsigned mask = 1 << (sizeOfInt - 1);
     /* mask in binary: 10000000 00000000 00000000 00000000 */
     /* to get digits from left to right, the passed value is operated with "and" and mask,
     so that it will produce 1 if the leftmost digit is 1 and 0 if it is 0 */
-    for (unsigned c = 1; c <= CHAR_BIT * sizeof(unsigned); c++)
+    for (unsigned c = 1; c <= sizeOfInt; c++)
     {
         /* puts leftmost digit */
         putchar(value & mask ? '1' : '0');
