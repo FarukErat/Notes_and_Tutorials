@@ -9,7 +9,7 @@ int main()
     lli number, endSearch;
     // endSearch is an end-point for the loop
     // since pairs of factors are found, the loop can stop at the square root of the number
-    lli divider = 2;
+    lli divider = 3;
     lli lastDivider = 1;
     unsigned power = 0;
 
@@ -45,6 +45,20 @@ int main()
     }
 
     endSearch = sqrt(number);
+    // handle even numbers
+    if (number % 2 == 0)
+    {
+        printf("\n2");
+        do
+        {
+            number /= 2;
+            power++;
+        } while (number % 2 == 0);
+        if (power > 1)
+            printf(" ^ %d", power);
+        power = 0;
+    }
+
     // main loop
     while (number != 1)
     {
@@ -75,7 +89,7 @@ int main()
         // iterate the divider
         else
         {
-            divider++;
+            divider += 2; // only odd numbers can be divisors
             if (divider > endSearch)
                 divider = number;
         }
