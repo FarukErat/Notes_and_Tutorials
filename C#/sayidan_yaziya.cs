@@ -23,6 +23,13 @@ class Program
             return;
         }
 
+        // check if the number is negative
+        if (number < 0)
+        {
+            Console.Write("eksi ");
+            number = -number;
+        }
+
         // main loop
         for (int j = digits.Length - 1; j >= 0; j--)
         {
