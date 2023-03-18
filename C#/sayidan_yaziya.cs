@@ -86,7 +86,8 @@ class Program
                         case '8': Console.Write("sekiz "); break;
                         case '9': Console.Write("dokuz "); break;
                     }
-                    Console.Write("yuz ");
+                    if (digits[j] != '0')
+                    { Console.Write("yuz "); }
                     break;
             }
             switch (j)
