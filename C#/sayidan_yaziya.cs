@@ -5,19 +5,23 @@ class Program
         // hold digits of a number in an array
         Console.WriteLine("Enter a number: ");
         string? digits = Console.ReadLine();
-        if (digits == null)
+
+        // check if the input is valid
+        if (digits == null || !int.TryParse(digits, out int number))
         {
             Console.WriteLine("Invalid input!");
             return;
         }
+
         // reverse the string for easier processing
         digits = new string(digits.ToCharArray().Reverse().ToArray());
-        // print the number verbaly
+
+        // main loop
         for (int j = digits.Length - 1; j >= 0; j--)
         {
             switch (j % 3)
             {
-                // birler basamagi
+                // ones
                 case 0:
                     switch (digits[j])
                     {
@@ -32,7 +36,7 @@ class Program
                         case '9': Console.Write("dokuz "); break;
                     }
                     break;
-                // onlar basamagi
+                // tens
                 case 1:
                     switch (digits[j])
                     {
@@ -47,7 +51,7 @@ class Program
                         case '9': Console.Write("doksan "); break;
                     }
                     break;
-                // yuzler basamagi
+                // hundreds
                 case 2:
                     switch (digits[j])
                     {
