@@ -1,5 +1,20 @@
 class Program
 {
+    static bool validateInput(string? input)
+    {
+        if (input == null)
+        {
+            return false;
+        }
+        foreach (char c in input)
+        {
+            if (c < '0' || c > '9')
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     static void Main()
     {
         // hold digits of a number in an array
@@ -7,27 +22,20 @@ class Program
         string? digits = Console.ReadLine();
 
         // check if the input is valid
-        if (digits == null || !int.TryParse(digits, out int number))
+        if (!validateInput(digits!))
         {
             Console.WriteLine("Invalid input!");
             return;
         }
 
         // reverse the string for easier processing
-        digits = new string(digits.ToCharArray().Reverse().ToArray());
+        digits = new string(digits!.ToCharArray().Reverse().ToArray());
 
         // check if the number is zero
-        if (number == 0)
+        if (digits.Length == 1 && digits[0] == '0')
         {
             Console.WriteLine("sifir");
             return;
-        }
-
-        // check if the number is negative
-        if (number < 0)
-        {
-            Console.Write("eksi ");
-            number = -number;
         }
 
         // main loop
