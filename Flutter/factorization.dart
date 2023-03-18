@@ -12,9 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Factorization',
-      home: MyHomePage(title: 'Factorization'),
+      home: const MyHomePage(title: 'Factorization'),
+      theme: ThemeData.dark(),
     );
   }
 }
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Future<List<String>> factorize(int number) async {
+List<String> factorize(int number) {
   List<int> factors = [];
   List<int> powers = [];
   List<String> result = [];
@@ -118,7 +119,7 @@ Future<List<String>> factorize(int number) async {
           lastDivider = divider;
         }
       } else {
-        divider++;
+        divider += 2;
         if (divider > stop) {
           divider = number;
         }
