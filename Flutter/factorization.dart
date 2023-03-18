@@ -102,14 +102,13 @@ List<String> factorize(int number) {
       factors.add(2);
       powers.add(0);
       do {
-        number = number ~/ 2;
-        stop = sqrt(number).toInt();
+        number ~/= 2;
         powers[0]++;
       } while (number % 2 == 0);
     }
     while (number > 1) {
       if (number % divider == 0) {
-        number = number ~/ divider;
+        number ~/= divider;
         stop = sqrt(number).toInt();
         if (divider == lastDivider) {
           powers[powers.length - 1]++;
