@@ -16,6 +16,13 @@ class Program
         // reverse the string for easier processing
         digits = new string(digits.ToCharArray().Reverse().ToArray());
 
+        // check if the number is zero
+        if (number == 0)
+        {
+            Console.WriteLine("sifir");
+            return;
+        }
+
         // main loop
         for (int j = digits.Length - 1; j >= 0; j--)
         {
