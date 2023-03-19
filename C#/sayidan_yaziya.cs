@@ -18,7 +18,7 @@ class Program
     static void formatDigits(ref string digits)
     {
         // get rid of leading zeros
-        while (digits[0] == '0')
+        while (digits[0] == '0' && digits.Length > 1)
         {
             digits = digits.Substring(1);
         }
