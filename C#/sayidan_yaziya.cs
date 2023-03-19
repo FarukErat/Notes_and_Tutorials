@@ -1,6 +1,6 @@
 class Program
 {
-    static bool validateInput(string? input)
+    static bool isNumeric(string? input)
     {
         if (input == null)
         {
@@ -15,22 +15,18 @@ class Program
         }
         return true;
     }
-    static void Main()
+    static void formatDigits(ref string digits)
     {
-        // hold digits of a number in an array
-        Console.WriteLine("Enter a number: ");
-        string? digits = Console.ReadLine();
-
-        // check if the input is valid
-        if (!validateInput(digits!))
+        // get rid of leading zeros
+        while (digits[0] == '0')
         {
-            Console.WriteLine("Invalid input!");
-            return;
+            digits = digits.Substring(1);
         }
-
-        // reverse the string for easier processing
+        // reverse the digits for easier processing
         digits = new string(digits!.ToCharArray().Reverse().ToArray());
-
+    }
+    static void printNumber(string digits)
+    {
         // check if the number is zero
         if (digits.Length == 1 && digits[0] == '0')
         {
@@ -47,7 +43,7 @@ class Program
                 case 0:
                     switch (digits[j])
                     {
-                        case '1': Console.Write("bir "); break;
+                        case '1': if (j != 3) Console.Write("bir "); break;
                         case '2': Console.Write("iki "); break;
                         case '3': Console.Write("uc "); break;
                         case '4': Console.Write("dort "); break;
@@ -86,8 +82,7 @@ class Program
                         case '8': Console.Write("sekiz "); break;
                         case '9': Console.Write("dokuz "); break;
                     }
-                    if (digits[j] != '0')
-                    { Console.Write("yuz "); }
+                    if (digits[j] != '0') Console.Write("yuz ");
                     break;
             }
             switch (j)
@@ -101,5 +96,39 @@ class Program
                 default: break;
             }
         }
+    }
+    static void numToTurkish(string? digits)
+    {
+        // check if the input is valid
+        if (digits![0] == '-')
+        {
+            if (!isNumeric(digits.Substring(1)))
+            {
+                Console.WriteLine("Invalid input!");
+                return;
+            }
+            Console.Write("eksi ");
+            digits = digits.Substring(1);
+        }
+        else if (!isNumeric(digits))
+        {
+            Console.WriteLine("Invalid input!");
+            return;
+        }
+
+        // format the digits
+        formatDigits(ref digits);
+
+        // print the number
+        printNumber(digits);
+    }
+    static void Main()
+    {
+        // hold digits of a number in an array
+        Console.WriteLine("Enter a number: ");
+        string? digits = Console.ReadLine();
+
+        // print the number in Turkish
+        numToTurkish(digits);
     }
 }
