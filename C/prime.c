@@ -6,9 +6,9 @@ typedef long long int lli;
 
 int main()
 {
-    lli number, endSearch;
     // endSearch is an end-point for the loop
     // since pairs of factors are found, the loop can stop at the square root of the number
+    lli number, endSearch;
     lli divider = 3;
     lli lastDivider = 1;
     unsigned power = 0;
@@ -44,7 +44,6 @@ int main()
         printf("\n-1");
     }
 
-    endSearch = sqrt(number);
     // handle even numbers
     if (number % 2 == 0)
     {
@@ -59,6 +58,8 @@ int main()
         power = 0;
     }
 
+    endSearch = sqrt(number);
+
     // main loop
     while (number != 1)
     {
@@ -71,14 +72,18 @@ int main()
 
             // increase the power of the divider if it is the same as the last divider
             if (divider == lastDivider)
+            {
                 power++;
+            }
             else
             {
                 // if not, there is a new divisor
                 // update the last divider and print the exponent of the previous divider
                 lastDivider = divider;
                 if (power > 1)
+                {
                     printf(" ^ %d", power);
+                }
                 printf("\n%lld", divider);
 
                 // since the divider is a new divisor, the power is 1
@@ -91,13 +96,17 @@ int main()
         {
             divider += 2; // only odd numbers can be divisors
             if (divider > endSearch)
+            {
                 divider = number;
+            }
         }
     }
 
     // print the last exponent if not 1
     if (power > 1)
+    {
         printf(" ^ %d", power);
+    }
 
     printf("\n----------------");
     printf("\nPress any key to exit...");
