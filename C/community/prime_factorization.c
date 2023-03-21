@@ -53,12 +53,12 @@ void printPrimeFactors(char *input)
     lli lastDivider = 1;
     unsigned power = 0;
 
-    printf("Prime Factors of %lld\n", number);
+    printf("\nPrime Factors of %lld\n", number);
+    printf("----------------");
 
     if (number < 4)
     {
-        printf("----------------\n");
-        printf("%lld\n", number);
+        printf("\n%lld\n", number);
         printf("----------------\n");
         return;
     }
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        printf("Usage: prime <number>\n");
+        printf("Usage: prifac <number>\n");
     }
     return 0;
 }
