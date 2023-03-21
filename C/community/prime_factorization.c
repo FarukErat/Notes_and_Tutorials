@@ -47,7 +47,6 @@ void printPrimeFactors(char *input)
     }
 
     lli number = atoll(input);
-    // endSearch is an end-point for the loop
     // since pairs of factors are found, the loop can stop at the square root of the number
     lli endSearch;
     lli divider = 3;
@@ -62,14 +61,6 @@ void printPrimeFactors(char *input)
         printf("%lld\n", number);
         printf("----------------\n");
         return;
-    }
-
-    // convert negative numbers to positive and print the sign
-    printf("----------------");
-    if (number < 0)
-    {
-        number = -number;
-        printf("\n-1");
     }
 
     // handle even numbers
