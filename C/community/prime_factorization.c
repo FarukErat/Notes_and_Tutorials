@@ -1,39 +1,67 @@
-#include <stdio.h>
-#include <conio.h>
-#include <math.h>
+#include <stdio.h>  // printf(), scanf()
+#include <stdlib.h> // atoll()
+#include <conio.h>  // getch()
+#include <math.h>   // sqrt()
+#include <string.h> // strcpy()
 
 typedef long long int lli;
 
-int main()
+int isValidInput(char *input)
 {
+    int i = 0;
+    while (input[i] != '\0')
+    {
+
+        // check if the input is numeric
+        if (input[i] < '0' || input[i] > '9')
+        {
+            return 0;
+        }
+        i++;
+        // greatest number with long long int is 9,223,372,036,854,775,807
+        // which is 19 digits long
+        if (i > 19)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void formatInput(char *input)
+{
+    while (input[0] == '0')
+    {
+        // remove leading zeros
+        strcpy(input, input + 1);
+    }
+}
+
+void printPrimeFactors(char *input)
+{
+    formatInput(input);
+    if (!isValidInput(input))
+    {
+        printf("Invalid input!\n");
+        return;
+    }
+
+    lli number = atoll(input);
     // endSearch is an end-point for the loop
     // since pairs of factors are found, the loop can stop at the square root of the number
-    lli number, endSearch;
+    lli endSearch;
     lli divider = 3;
     lli lastDivider = 1;
     unsigned power = 0;
 
-    // get the number from the user and check if the assignment was successful
-    printf("Enter a number to factorize: ");
-    if (scanf("%lld", &number) != 1)
-    {
-        printf("Invalid input.\n");
-        printf("Press any key to exit...");
-        getch();
-        return 1;
-    }
-
     printf("Prime Factors of %lld\n", number);
 
-    // special case for -1, 0 and 1
-    if (number == -1 || number == 0 || number == 1)
+    if (number < 4)
     {
         printf("----------------\n");
         printf("%lld\n", number);
         printf("----------------\n");
-        printf("Press any key to exit...");
-        getch();
-        return 0;
+        return;
     }
 
     // convert negative numbers to positive and print the sign
@@ -108,9 +136,18 @@ int main()
         printf(" ^ %d", power);
     }
 
-    printf("\n----------------");
-    printf("\nPress any key to exit...");
-    getch();
+    printf("\n----------------\n");
+}
 
+int main(int argc, char *argv[])
+{
+    if (argc == 2)
+    {
+        printPrimeFactors(argv[1]);
+    }
+    else
+    {
+        printf("Usage: prime <number>\n");
+    }
     return 0;
 }
