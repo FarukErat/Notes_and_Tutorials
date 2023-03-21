@@ -1,4 +1,4 @@
-#include <stdio.h>  // printf(), scanf()
+#include <stdio.h>  // printf()
 #include <stdlib.h> // atoll()
 #include <conio.h>  // getch()
 #include <math.h>   // sqrt()
