@@ -6,6 +6,43 @@
 
 typedef long long int lli;
 
+/**
+ * @brief Checks if the input is not greater than 19 digits and is numeric
+ *
+ * @param input
+ * @return int 1 if valid, 0 if not
+ */
+int isValidInput(char *input);
+
+/**
+ * @brief Removes leading zeros from the input
+ *
+ * @param input
+ */
+void formatInput(char *input);
+
+/**
+ * @brief Prints the prime factors of the input
+ *
+ * @param input
+ */
+void printPrimeFactors(char *input);
+
+int main(int argc, char *argv[])
+{
+    // switch instead of if-else to allow for more arguments in the future
+    switch (argc)
+    {
+    case 2:
+        printPrimeFactors(argv[1]);
+        break;
+    default:
+        printf("Usage: prifac <number>\n");
+        break;
+    }
+    return 0;
+}
+
 int isValidInput(char *input)
 {
     int i = 0;
@@ -128,17 +165,4 @@ void printPrimeFactors(char *input)
     }
 
     printf("\n----------------\n");
-}
-
-int main(int argc, char *argv[])
-{
-    if (argc == 2)
-    {
-        printPrimeFactors(argv[1]);
-    }
-    else
-    {
-        printf("Usage: prifac <number>\n");
-    }
-    return 0;
 }
