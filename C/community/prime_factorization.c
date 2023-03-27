@@ -1,6 +1,5 @@
 #include <stdio.h>  // printf()
 #include <stdlib.h> // atoll()
-#include <conio.h>  // getch()
 #include <math.h>   // sqrt()
 #include <string.h> // strcpy()
 
