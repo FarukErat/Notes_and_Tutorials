@@ -47,7 +47,6 @@ int isValidInput(char *input)
     int i = 0;
     while (input[i] != '\0')
     {
-
         // check if the input is numeric
         if (input[i] < '0' || input[i] > '9')
         {
