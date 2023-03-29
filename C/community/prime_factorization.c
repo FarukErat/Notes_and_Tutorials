@@ -21,7 +21,7 @@ void formatInput(char *input);
 
 /**
  * @brief Converts a string to a long long unsigned,
- * preffered over strtoull() because this is faster
+ * preffered over stdlib.h::strtoull() because this is faster
  *
  * @param str string to convert
  * @return long long unsigned
