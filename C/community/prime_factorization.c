@@ -112,16 +112,16 @@ int isValid(char *str)
     return 1;
 }
 
-void printPrimeFactors(char *input)
+void printPrimeFactors(char *str)
 {
-    formatInput(input);
-    if (!isValid(input))
+    formatInput(str);
+    if (!isValid(str))
     {
         printf("Invalid input!\n");
         return;
     }
 
-    llu number = strtoull(input, NULL, 10);
+    llu number = strtoull(str, NULL, 10);
     // since pairs of factors are found, the loop can stop at the square root of the number
     llu endSearch;
     llu divider = 3;
