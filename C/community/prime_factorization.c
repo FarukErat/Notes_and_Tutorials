@@ -1,14 +1,13 @@
 #include <stdio.h>  // printf()
-#include <stdlib.h> // strtoull()
 #include <math.h>   // sqrt()
 #include <string.h> // strcpy()
 
-typedef long long unsigned lli;
+typedef long long unsigned llu;
 
 /**
  * @brief Checks if the input is not greater than 19 digits and is numeric
  *
- * @param input
+ * @param input string to check
  * @return int 1 if valid, 0 if not
  */
 int isValidInput(char *input);
@@ -16,14 +15,23 @@ int isValidInput(char *input);
 /**
  * @brief Removes leading zeros from the input
  *
- * @param input
+ * @param input string to remove leading zeros from
  */
 void formatInput(char *input);
 
 /**
+ * @brief Converts a string to a long long unsigned,
+ * preffered over strtoull() because this is faster
+ *
+ * @param str string to convert
+ * @return long long unsigned
+ */
+llu str_to_llu(char *str);
+
+/**
  * @brief Prints the prime factors of the input
  *
- * @param input
+ * @param input string to print the prime factors of
  */
 void printPrimeFactors(char *input);
 
@@ -49,6 +57,18 @@ void formatInput(char *input)
         // remove leading zeros
         strcpy(input, input + 1);
     }
+}
+
+llu str_to_llu(char *str)
+{
+    llu result = 0;
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+    return result;
 }
 
 int isValidInput(char *input)
@@ -82,11 +102,11 @@ void printPrimeFactors(char *input)
         return;
     }
 
-    lli number = strtoull(input, NULL, 10);
+    llu number = str_to_llu(input);
     // since pairs of factors are found, the loop can stop at the square root of the number
-    lli endSearch;
-    lli divider = 3;
-    lli lastDivider = 1;
+    llu endSearch;
+    llu divider = 3;
+    llu lastDivider = 1;
     unsigned power = 0;
 
     printf("\nPrime Factors of %llu\n", number);
