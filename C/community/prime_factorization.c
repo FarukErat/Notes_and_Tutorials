@@ -1,9 +1,9 @@
 #include <stdio.h>  // printf()
-#include <stdlib.h> // atoll()
+#include <stdlib.h> // strtoull()
 #include <math.h>   // sqrt()
 #include <string.h> // strcpy()
 
-typedef long long int lli;
+typedef long long unsigned lli;
 
 /**
  * @brief Checks if the input is not greater than 19 digits and is numeric
@@ -42,6 +42,15 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+void formatInput(char *input)
+{
+    while (input[0] == '0')
+    {
+        // remove leading zeros
+        strcpy(input, input + 1);
+    }
+}
+
 int isValidInput(char *input)
 {
     int i = 0;
@@ -53,23 +62,15 @@ int isValidInput(char *input)
             return 0;
         }
         i++;
-        // greatest number with long long int is 9,223,372,036,854,775,807
-        // which is 19 digits long
-        if (i > 19)
+        // greatest number with long long unsigned is 18,446,744,073,709,551,615
+        // which is 20 digits long
+        // to copy: 18446744073709551615
+        if (i > 20)
         {
             return 0;
         }
     }
     return 1;
-}
-
-void formatInput(char *input)
-{
-    while (input[0] == '0')
-    {
-        // remove leading zeros
-        strcpy(input, input + 1);
-    }
 }
 
 void printPrimeFactors(char *input)
@@ -81,14 +82,14 @@ void printPrimeFactors(char *input)
         return;
     }
 
-    lli number = atoll(input);
+    lli number = strtoull(input, NULL, 10);
     // since pairs of factors are found, the loop can stop at the square root of the number
     lli endSearch;
     lli divider = 3;
     lli lastDivider = 1;
     unsigned power = 0;
 
-    printf("\nPrime Factors of %lld\n", number);
+    printf("\nPrime Factors of %llu\n", number);
     printf("----------------");
 
     if (number < 4)
