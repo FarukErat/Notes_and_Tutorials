@@ -6,19 +6,35 @@
 typedef long long unsigned llu;
 
 /**
- * @brief Checks if the input is not greater than 19 digits and is numeric
- *
- * @param input string to check
- * @return int 1 if valid, 0 if not
- */
-int isValidInput(char *input);
-
-/**
  * @brief Removes leading zeros from the input
  *
  * @param input string to remove leading zeros from
  */
 void formatInput(char *input);
+
+/**
+ * @brief Checks if the input is numeric
+ *
+ * @param str string to check
+ * @return int 1 if numeric, 0 if not
+ */
+int isNumeric(char *str);
+
+/**
+ * @brief Checks if the input is in the range of a long long unsigned int
+ *
+ * @param str string to check
+ * @return int 1 if in range, 0 if not
+ */
+int isInRange(char *str);
+
+/**
+ * @brief Checks if the input is valid (numeric and in range)
+ *
+ * @param input string to check
+ * @return int 1 if valid, 0 if not
+ */
+int isValid(char *input);
 
 /**
  * @brief Prints the prime factors of the input
@@ -51,32 +67,55 @@ void formatInput(char *input)
     }
 }
 
-int isValidInput(char *input)
+int isNumeric(char *str)
 {
     int i = 0;
-    while (input[i] != '\0')
+    while (str[i] != '\0')
     {
-        // check if the input is numeric
-        if (input[i] < '0' || input[i] > '9')
+        if (str[i] < '0' || str[i] > '9')
         {
             return 0;
         }
         i++;
-        // greatest number with long long unsigned is 18,446,744,073,709,551,615
-        // which is 20 digits long
-        // to copy: 18446744073709551615
-        if (i > 20)
+    }
+    return 1;
+}
+
+int isInRange(char *str)
+{
+    char *biggestLLU = "18446744073709551615";
+    int j = 0;
+    while (j < 20)
+    {
+        if (str[j] > biggestLLU[j])
         {
             return 0;
         }
+        else if (str[j] < biggestLLU[j])
+        {
+            return 1;
+        }
+        j++;
     }
+    return 1;
+}
+
+int isValid(char *str)
+{
+    unsigned size = strlen(str);
+    if (size > 20)
+        return 0;
+    if (size == 20 && !isInRange(str))
+        return 0;
+    if (!isNumeric(str))
+        return 0;
     return 1;
 }
 
 void printPrimeFactors(char *input)
 {
     formatInput(input);
-    if (!isValidInput(input))
+    if (!isValid(input))
     {
         printf("Invalid input!\n");
         return;
