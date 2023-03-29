@@ -1,4 +1,5 @@
 #include <stdio.h>  // printf()
+#include <stdlib.h> // strtoull()
 #include <math.h>   // sqrt()
 #include <string.h> // strcpy()
 
@@ -18,15 +19,6 @@ int isValidInput(char *input);
  * @param input string to remove leading zeros from
  */
 void formatInput(char *input);
-
-/**
- * @brief Converts a string to a long long unsigned,
- * preffered over stdlib.h::strtoull() because this is faster
- *
- * @param str string to convert
- * @return long long unsigned
- */
-llu str_to_llu(char *str);
 
 /**
  * @brief Prints the prime factors of the input
@@ -57,18 +49,6 @@ void formatInput(char *input)
         // remove leading zeros
         strcpy(input, input + 1);
     }
-}
-
-llu str_to_llu(char *str)
-{
-    llu result = 0;
-    int i = 0;
-    while (str[i] != '\0')
-    {
-        result = result * 10 + (str[i] - '0');
-        i++;
-    }
-    return result;
 }
 
 int isValidInput(char *input)
@@ -102,7 +82,7 @@ void printPrimeFactors(char *input)
         return;
     }
 
-    llu number = str_to_llu(input);
+    llu number = strtoull(input, NULL, 10);
     // since pairs of factors are found, the loop can stop at the square root of the number
     llu endSearch;
     llu divider = 3;
