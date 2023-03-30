@@ -1,7 +1,7 @@
 #include <stdio.h>  // printf()
-#include <stdlib.h> // strtoull()
 #include <math.h>   // sqrt()
 #include <string.h> // strcpy()
+// #include <stdlib.h> // strtoull()
 
 typedef long long unsigned llu;
 
@@ -35,6 +35,15 @@ int isInRange(char *str);
  * @return int 1 if valid, 0 if not
  */
 int isValid(char *input);
+
+/**
+ * @brief Converts the input to a long long unsigned int,
+ * instead of using strtoull() to avoid the overhead of error checking
+ *
+ * @param str string to convert
+ * @return llu
+ */
+llu str_to_llu(char *str);
 
 /**
  * @brief Prints the prime factors of the input
@@ -105,11 +114,24 @@ int isValid(char *str)
     unsigned size = strlen(str);
     if (size > 20)
         return 0;
-    if (size == 20 && !isInRange(str))
-        return 0;
+    if (size == 20)
+        if (!isInRange(str))
+            return 0;
     if (!isNumeric(str))
         return 0;
     return 1;
+}
+
+llu str_to_llu(char *str)
+{
+    llu result = 0;
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+    return result;
 }
 
 void printPrimeFactors(char *str)
@@ -121,7 +143,7 @@ void printPrimeFactors(char *str)
         return;
     }
 
-    llu number = strtoull(str, NULL, 10);
+    llu number = str_to_llu(str);
     // since pairs of factors are found, the loop can stop at the square root of the number
     llu endSearch;
     llu divider = 3;
