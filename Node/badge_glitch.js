@@ -17,7 +17,7 @@ setInterval(() => {
         counter++;
         const visitors = match[1];
         process.stdout.write(
-          `Total Visitors: ${visitors}, New Visitors: ${counter}\r`
+          `\rTotal Visitors: ${visitors}, New Visitors: ${counter}`
         );
       }
     });
