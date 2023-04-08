@@ -20,6 +20,7 @@ setInterval(() => {
           `\rTotal Visitors: ${visitors}, New Visitors: ${counter}`
         );
       }
+      data = "";
     });
   });
 }, delayMs);
