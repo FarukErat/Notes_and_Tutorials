@@ -30,7 +30,7 @@ class Program
         // check if the number is zero
         if (digits.Length == 1 && digits[0] == '0')
         {
-            Console.WriteLine("sifir");
+            Console.WriteLine("sıfır");
             return;
         }
 
@@ -45,10 +45,10 @@ class Program
                     {
                         case '1': if (j != 3) Console.Write("bir "); break;
                         case '2': Console.Write("iki "); break;
-                        case '3': Console.Write("uc "); break;
-                        case '4': Console.Write("dort "); break;
-                        case '5': Console.Write("bes "); break;
-                        case '6': Console.Write("alti "); break;
+                        case '3': Console.Write("üç "); break;
+                        case '4': Console.Write("dört "); break;
+                        case '5': Console.Write("beş "); break;
+                        case '6': Console.Write("altı "); break;
                         case '7': Console.Write("yedi "); break;
                         case '8': Console.Write("sekiz "); break;
                         case '9': Console.Write("dokuz "); break;
@@ -61,10 +61,10 @@ class Program
                         case '1': Console.Write("on "); break;
                         case '2': Console.Write("yirmi "); break;
                         case '3': Console.Write("otuz "); break;
-                        case '4': Console.Write("kirk "); break;
+                        case '4': Console.Write("kırk "); break;
                         case '5': Console.Write("elli "); break;
-                        case '6': Console.Write("altmis "); break;
-                        case '7': Console.Write("yetmis "); break;
+                        case '6': Console.Write("altmış "); break;
+                        case '7': Console.Write("yetmiş "); break;
                         case '8': Console.Write("seksen "); break;
                         case '9': Console.Write("doksan "); break;
                     }
@@ -74,15 +74,15 @@ class Program
                     switch (digits[j])
                     {
                         case '2': Console.Write("iki "); break;
-                        case '3': Console.Write("uc "); break;
-                        case '4': Console.Write("dort "); break;
-                        case '5': Console.Write("bes "); break;
-                        case '6': Console.Write("alti "); break;
+                        case '3': Console.Write("üç "); break;
+                        case '4': Console.Write("dört "); break;
+                        case '5': Console.Write("beş "); break;
+                        case '6': Console.Write("altı "); break;
                         case '7': Console.Write("yedi "); break;
                         case '8': Console.Write("sekiz "); break;
                         case '9': Console.Write("dokuz "); break;
                     }
-                    if (digits[j] != '0') Console.Write("yuz ");
+                    if (digits[j] != '0') Console.Write("yüz ");
                     break;
             }
             switch (j)
@@ -124,6 +124,8 @@ class Program
     }
     static void Main()
     {
+        // set the encoding to UTF-8
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
         // hold digits of a number in an array
         Console.WriteLine("Enter a number: ");
         string? digits = Console.ReadLine();
