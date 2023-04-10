@@ -18,10 +18,13 @@ class Program
     static void formatDigits(ref string digits)
     {
         // get rid of leading zeros
-        while (digits[0] == '0' && digits.Length > 1)
+        int i = 0;
+        while (i < digits.Length - 1 && digits[i] == '0')
         {
-            digits = digits.Substring(1);
+            i++; // count the number of leading zeros
         }
+        digits = digits.Substring(i);
+        // TODO: avoid reversing the digits for better performance
         // reverse the digits for easier processing
         digits = new string(digits!.ToCharArray().Reverse().ToArray());
     }
