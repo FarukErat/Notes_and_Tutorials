@@ -1,5 +1,5 @@
-#include <iostream>
-#include <ctime>
+#include <iostream> // cout, endl
+#include <ctime>    // clock_t, clock()
 
 using std::cout;
 using std::endl;
