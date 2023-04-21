@@ -1,0 +1,94 @@
+# taken from https://reqres.in/
+
+# list users
+GET https://reqres.in/users?page=2
+###
+
+# single user
+GET https://reqres.in/users/2
+###
+
+# single user not found
+GET https://reqres.in/users/23
+###
+
+# list <resource>
+GET https://reqres.in/api/unknown
+###
+
+# single <resource>
+GET https://reqres.in/api/unknown/2
+###
+
+# single <resource> not found
+GET https://reqres.in/api/unknown/23
+###
+
+# create
+POST https://reqres.in/api/users
+
+{
+    "name": "morpheus",
+    "job": "leader"
+}
+###
+
+# update
+PUT https://reqres.in/api/users/2
+
+{
+    "name": "morpheus",
+    "job": "zion resident"
+}
+###
+
+# update
+PATCH https://reqres.in/api/users/2
+
+{
+    "name": "morpheus",
+    "job": "zion resident"
+}
+###
+
+# delete
+DELETE https://reqres.in/api/users/2
+###
+
+# register - succesfull
+POST https://reqres.in/api/register
+
+{
+    "email": "eve.holt@reqres.in",
+    "password": "pistol"
+}
+###
+
+# register - unsuccesfull
+POST https://reqres.in/api/register
+
+{
+    "email": "sydney@fife"
+}
+###
+
+# login - succesfull
+POST https://reqres.in/api/login
+
+{
+    "email": "eve.holt@reqres.in",
+    "password": "cityslicka"
+}
+###
+
+# login - unsuccesfull
+POST https://reqres.in/api/login
+
+{
+    "email": "peter@klaven"
+}
+###
+
+# delayed response
+GET https://reqres.in/api/users?delay=3
+###
