@@ -11,13 +11,13 @@ class Person {
     this.children,
   });
 
-  factory Person.fromMap(Map<String, dynamic> json) {
+  factory Person.fromMap(Map<String, dynamic> data) {
     return Person(
-      name: json['name'],
-      age: json['age'],
-      hobbies: json['hobbies'],
-      children: json['children'] != null
-          ? (json['children'] as List).map(
+      name: data['name'],
+      age: data['age'],
+      hobbies: data['hobbies'],
+      children: data['children'] != null
+          ? (data['children'] as List).map(
               (i) {
                 return Person.fromMap(i);
               },
@@ -27,18 +27,18 @@ class Person {
   }
 
   Map<String, dynamic> toMap() {
-    final Map<String, dynamic> json = new Map<String, dynamic>();
-    json['name'] = this.name;
-    json['age'] = this.age;
-    json['hobbies'] = this.hobbies;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['age'] = this.age;
+    data['hobbies'] = this.hobbies;
     if (this.children != null) {
-      json['children'] = this.children!.map(
+      data['children'] = this.children!.map(
         (i) {
           return i.toMap();
         },
       ).toList();
     }
-    return json;
+    return data;
   }
 }
 
