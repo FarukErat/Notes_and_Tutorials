@@ -1,10 +1,10 @@
 const { createServer } = require("http");
 
 const myServer = {
-  _routes: [],
+  _endpoints: [],
   handleRequest: (req, res) => {
     const { method, url } = req;
-    const route = myServer._routes.find(
+    const route = myServer._endpoints.find(
       (route) => route.method === method && route.url === url
     );
     if (route) {
@@ -16,12 +16,13 @@ const myServer = {
     }
   },
   addRequestListener: (url, method, todo) =>
-    myServer._routes.push({ url, method, todo }),
+    myServer._endpoints.push({ url, method, todo }),
   listen: (port) => {
     const server = createServer(myServer.handleRequest);
     server.listen(port);
     console.log(`server running on http://localhost:${port}`);
   },
+  getRoutes: () => myServer._endpoints,
 };
 
 myServer.addRequestListener("/", "GET", (req, res) => {
@@ -29,6 +30,6 @@ myServer.addRequestListener("/", "GET", (req, res) => {
   res.write("Hello, world!");
 });
 
-console.log(myServer._routes);
+console.log(myServer._endpoints);
 
 myServer.listen(3001);
