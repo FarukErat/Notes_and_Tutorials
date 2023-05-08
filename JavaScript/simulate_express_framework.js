@@ -30,6 +30,6 @@ myServer.addRequestListener("/", "GET", (req, res) => {
   res.write("Hello, world!");
 });
 
-console.log(myServer._endpoints);
+console.log(myServer.getRoutes());
 
 myServer.listen(3001);
