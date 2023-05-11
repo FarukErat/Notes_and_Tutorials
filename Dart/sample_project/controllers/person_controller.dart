@@ -3,12 +3,12 @@ import '../models/person_model.dart';
 
 class PersonController {
   // Fetch all people from the database
-  List<Person>? getPeople() {
+  static List<Person>? getPeople() {
     return peopleDB;
   }
 
   // Add a new person to the database with a random ID
-  void addPerson(Person person) {
+  static void addPerson(Person person) {
     if (peopleDB == null) {
       peopleDB = [person];
     } else {
@@ -17,7 +17,7 @@ class PersonController {
   }
 
   // Update an existing person in the database
-  void updatePerson(String id, Person updatedPerson) {
+  static void updatePerson(String id, Person updatedPerson) {
     if (peopleDB != null) {
       int index = peopleDB!.indexWhere((person) => person.id == id);
       if (index >= 0) {
@@ -27,14 +27,14 @@ class PersonController {
   }
 
   // Delete an existing person from the database
-  void deletePerson(String id) {
+  static void deletePerson(String id) {
     if (peopleDB != null) {
       peopleDB!.removeWhere((person) => person.id == id);
     }
   }
 
   // Find a person by ID
-  Person? getPersonById(String id) {
+  static Person? getPersonById(String id) {
     if (peopleDB != null) {
       return peopleDB!.firstWhere((person) => person.id == id);
     }
@@ -42,7 +42,7 @@ class PersonController {
   }
 
   // Find people by name
-  List<Person>? getPeopleByName(String name) {
+  static List<Person>? getPeopleByName(String name) {
     if (peopleDB != null) {
       return peopleDB!
           .where((person) =>
@@ -53,7 +53,7 @@ class PersonController {
   }
 
   // Find people by hobby
-  List<Person>? getPeopleByHobby(String hobby) {
+  static List<Person>? getPeopleByHobby(String hobby) {
     if (peopleDB != null) {
       return peopleDB!
           .where((person) => person.hobbies!.contains(hobby))
@@ -63,7 +63,7 @@ class PersonController {
   }
 
   // Find all children of a person by ID
-  List<Person>? getChildrenById(String id) {
+  static List<Person>? getChildrenById(String id) {
     Person? person = getPersonById(id);
     if (person != null) {
       return person.children;
@@ -72,7 +72,7 @@ class PersonController {
   }
 
   // Add a child to a person by ID
-  void addChildById(String id, Person child) {
+  static void addChildById(String id, Person child) {
     Person? person = getPersonById(id);
     if (person != null) {
       if (person.children == null) {
@@ -84,14 +84,14 @@ class PersonController {
   }
 
   // Remove a child from a person by ID and child ID
-  void removeChildById(String id, String childId) {
+  static void removeChildById(String id, String childId) {
     Person? person = getPersonById(id);
     if (person != null) {
       person.children?.removeWhere((child) => child.id == childId);
     }
   }
 
-  void addHobbyToPersonById(String id, String hobby) {
+  static void addHobbyToPersonById(String id, String hobby) {
     Person? person = getPersonById(id);
     if (person != null) {
       if (person.hobbies == null) {
@@ -102,7 +102,7 @@ class PersonController {
     }
   }
 
-  void removeHobbyFromPersonById(String id, String hobby) {
+  static void removeHobbyFromPersonById(String id, String hobby) {
     Person? person = getPersonById(id);
     if (person != null) {
       person.hobbies?.remove(hobby);
