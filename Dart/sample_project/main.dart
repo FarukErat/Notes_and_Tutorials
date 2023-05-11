@@ -1,11 +1,9 @@
 import './controllers/person_controller.dart';
 import './views/person_view.dart';
-import 'models/person_model.dart';
-
-PersonController personController = PersonController();
+import './models/person_model.dart';
 
 void main() {
-  personController.addPerson(
+  PersonController.addPerson(
     Person(
       name: "Faruk Erat",
       age: 21,
@@ -28,5 +26,5 @@ void main() {
       ],
     ),
   );
-  PersonView.displayPeople(personController.getPeople());
+  PersonView.displayPeople(PersonController.getPeople());
 }
