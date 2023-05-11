@@ -26,5 +26,5 @@ void main() {
       ],
     ),
   );
-  PersonView.displayPeople(PersonController.getPeople());
+  PersonView.displayPeople(PersonController.getPeopleByName("Faruk Erat"));
 }
