@@ -1,0 +1,12 @@
+name: sample_project
+description: My project description
+version: 1.0.0
+
+# Define the minimum required Dart SDK version
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  # Add the yaml package as a dependency
+  yaml: ^3.0.0
+  json2yaml: ^3.0.0
