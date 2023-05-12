@@ -7,7 +7,7 @@ class PersonView {
       return;
     }
     final indent = ' ' * depth * 2;
-    print('${indent}------------------');
+    print(indent + '-' * 18);
     if (person.id != null) {
       print('${indent}id: ${person.id}');
     }
@@ -41,7 +41,7 @@ class PersonView {
     } else {
       for (Person person in people) {
         displayPerson(person);
-        print('------------------');
+        print('-' * 18);
       }
     }
   }
