@@ -6,6 +6,7 @@ import '../database/people_database.dart';
 class Person {
   String? id;
   String? name;
+  String? surname;
   int? age;
   List<String>? hobbies; // contains primitive types
   List<Person>? children; // contains objects
@@ -13,6 +14,7 @@ class Person {
   Person({
     this.id,
     this.name,
+    this.surname,
     this.age,
     this.hobbies,
     this.children,
@@ -20,9 +22,9 @@ class Person {
     if (id == null) {
       int salt = Random().nextInt(1000000000);
       children?.forEach((c) {
-        salt = '$salt${c.id}'.hashCode.abs();
+        salt = '${c.id}$salt'.hashCode.abs();
       });
-      String seed = "$name$age$hobbies$salt";
+      String seed = "$name$surname$age$hobbies$salt";
       int hash = seed.hashCode.abs();
       this.id = hash.toString();
       if (peopleDB != null) {
@@ -39,6 +41,7 @@ class Person {
     return Person(
       id: data['id'],
       name: data['name'],
+      surname: data['surname'],
       age: data['age'],
       hobbies: (data['hobbies'] as List).cast<String>(),
       children: data['children'] != null
@@ -55,6 +58,7 @@ class Person {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['surname'] = this.surname;
     data['age'] = this.age;
     data['hobbies'] = this.hobbies;
     if (this.children != null) {
