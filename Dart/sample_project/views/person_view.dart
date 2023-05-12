@@ -1,3 +1,4 @@
+import 'package:json2yaml/json2yaml.dart';
 import '../models/person_model.dart';
 
 class PersonView {
@@ -6,29 +7,8 @@ class PersonView {
     if (person == null) {
       return;
     }
-    final indent = ' ' * depth * 2;
-    print(indent + '-' * 18);
-    if (person.id != null) {
-      print('${indent}id: ${person.id}');
-    }
-    if (person.name != null) {
-      print('${indent}Name: ${person.name}');
-    }
-    if (person.age != null) {
-      print('${indent}Age: ${person.age}');
-    }
-    if (person.hobbies != null && person.hobbies!.isNotEmpty) {
-      print('${indent}Hobbies:');
-      for (String hobby in person.hobbies!) {
-        print('${indent}- $hobby');
-      }
-    }
-    if (person.children != null && person.children!.isNotEmpty) {
-      print('${indent}Children:');
-      for (Person child in person.children!) {
-        displayPerson(child, depth: depth + 1);
-      }
-    }
+    // print the attributes in yaml format
+    print(json2yaml(person.toMap()));
   }
 
   // Displays information about a list of people
