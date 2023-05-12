@@ -6,7 +6,7 @@ void main() {
   PersonController.addPerson(
     Person(
       name: "Faruk Erat",
-      age: 21,
+      age: 55,
       hobbies: [
         "playing reversi",
         "coding",
@@ -14,15 +14,21 @@ void main() {
       children: [
         Person(
           name: "Cengiz",
+          age: 30,
           hobbies: [
             "surfing but on the internet",
           ],
           children: [
             Person(
               name: "Metehan",
+              age: 5,
             )
           ],
         ),
+        Person(name: "Timur", age: 30, hobbies: [
+          "hunting",
+          "riding horse",
+        ])
       ],
     ),
   );
