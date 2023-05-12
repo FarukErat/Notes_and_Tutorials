@@ -26,10 +26,14 @@ void main() {
             )
           ],
         ),
-        Person(name: "Timur", age: 30, hobbies: [
-          "hunting",
-          "riding horse",
-        ])
+        Person(
+          name: "Timur",
+          age: 30,
+          hobbies: [
+            "hunting",
+            "riding horse",
+          ],
+        )
       ],
     ),
   );
