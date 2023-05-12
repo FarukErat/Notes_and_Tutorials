@@ -68,11 +68,11 @@ class Person {
     return data;
   }
 
-  String toJson() {
-    return jsonEncode(this.toMap());
-  }
-
   factory Person.fromJson(String jsonEncoded) {
     return Person.fromMap(jsonDecode(jsonEncoded));
+  }
+
+  String toJson() {
+    return jsonEncode(this.toMap());
   }
 }
