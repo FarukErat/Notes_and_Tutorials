@@ -5,7 +5,8 @@ import './models/person_model.dart';
 void main() {
   PersonController.addPerson(
     Person(
-      name: "Faruk Erat",
+      name: "Faruk",
+      surname: "Erat",
       age: 55,
       hobbies: [
         "playing reversi",
@@ -32,5 +33,5 @@ void main() {
       ],
     ),
   );
-  PersonView.displayPeople(PersonController.getPeopleByName("Faruk Erat"));
+  PersonView.displayPeople(PersonController.getPeopleByName("Faruk"));
 }
