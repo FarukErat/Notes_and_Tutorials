@@ -20,7 +20,7 @@ class Person {
     this.children,
   }) {
     if (id == null) {
-      int salt = Random().nextInt(1000000000);
+      int salt = Random().nextInt(4294967296);
       children?.forEach((c) {
         salt = '${c.id}$salt'.hashCode.abs();
       });
