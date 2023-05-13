@@ -1,5 +1,3 @@
-import 'package:json2yaml/json2yaml.dart';
-
 import '../models/person_model.dart';
 
 class PersonView {
@@ -9,7 +7,7 @@ class PersonView {
       return;
     }
     // print the attributes in yaml format
-    print(json2yaml(person.toMap()));
+    print(person.toYaml());
   }
 
   // Displays information about a list of people
