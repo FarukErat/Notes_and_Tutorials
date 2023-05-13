@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:yaml/yaml.dart';
+import 'package:json2yaml/json2yaml.dart';
+
 import '../database/people_database.dart';
 
 class Person {
@@ -78,5 +81,14 @@ class Person {
 
   String toJson() {
     return jsonEncode(this.toMap());
+  }
+
+  factory Person.fromYaml(String yamlEncoded) {
+    final yamlMap = loadYaml(yamlEncoded);
+    return Person.fromMap(Map<String, dynamic>.from(yamlMap));
+  }
+
+  String toYaml() {
+    return json2yaml(this.toMap());
   }
 }
