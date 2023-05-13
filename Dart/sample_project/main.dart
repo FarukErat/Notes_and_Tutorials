@@ -37,5 +37,8 @@ void main() {
       ],
     ),
   );
-  PersonView.displayPeople(PersonController.getPeopleByName("Faruk"));
+  var p = PersonController.getPeopleByName("Faruk");
+  PersonView.displayPeople(p);
+  print(p![0].toMap());
+  print(p[0].toJson());
 }
