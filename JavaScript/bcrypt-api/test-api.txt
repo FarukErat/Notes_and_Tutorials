@@ -1,0 +1,16 @@
+POST http://localhost:3013/hash
+content-type: application/json
+
+{
+  "password":"1234"
+}
+
+###
+
+POST http://localhost:3013/validate
+content-type: application/json
+
+{
+  "password":"1234",
+  "hash": "$2b$10$YFYI9qF5mPuW6bUo6m9Hee8mpSFYQYjKZUoK.15bEnW3FEXHtyVc6"
+}
