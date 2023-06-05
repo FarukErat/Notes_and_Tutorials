@@ -59,7 +59,7 @@
         var selectedText = window.getSelection().toString();
         $('#selected-text').val(selectedText);
         mouseFocusChanged = true;
-        $('#focus-blur').text("Focus");
+        $('#focus-blur').text("Focus-In");
       });
 
       $(window).keyup(function (e) {
@@ -67,14 +67,14 @@
           var selectedText = window.getSelection().toString();
           $('#copied-text').val(selectedText);
           mouseFocusChanged = true;
-          $('#focus-blur').text("Focus");
+          $('#focus-blur').text("Focus-In");
         }
       });
 
       $(window).blur(function () {
         if (mouseFocusChanged) {
           mouseFocusChanged = false;
-          $('#focus-blur').text("Blur");
+          $('#focus-blur').text("Focus-Out");
         }
       });
     });
