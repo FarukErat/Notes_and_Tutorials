@@ -9,3 +9,4 @@ environment:
 dependencies:
   # Add the yaml package as a dependency
   json2yaml: ^3.0.0
+  uuid: ^3.0.6
