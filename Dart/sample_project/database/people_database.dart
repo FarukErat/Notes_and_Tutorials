@@ -1,3 +1,3 @@
 import '../models/person_model.dart';
 
-List<Person>? peopleDB;
+List<Person> peopleDB = [];
