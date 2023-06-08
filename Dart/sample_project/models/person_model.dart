@@ -10,17 +10,13 @@ class Person {
   List<Person>? children; // contains objects
 
   Person({
-    this.id,
+    String? id,
     this.name,
     this.surname,
     this.age,
     this.hobbies,
     this.children,
-  }) {
-    if (id == null) {
-      id = Uuid().v4();
-    }
-  }
+  }) : id = id ?? Uuid().v4();
 
   factory Person.fromMap(Map<String, dynamic> data) {
     return Person(
