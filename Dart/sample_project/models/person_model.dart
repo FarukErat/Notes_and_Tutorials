@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
-
-import '../database/people_database.dart';
+import 'package:uuid/uuid.dart';
 
 class Person {
   String? id;
@@ -20,20 +18,7 @@ class Person {
     this.children,
   }) {
     if (id == null) {
-      int salt = Random().nextInt(4294967296);
-      children?.forEach((c) {
-        salt = '${c.id}$salt'.hashCode.abs();
-      });
-      String seed = "$name$surname$age$hobbies$salt";
-      int hash = seed.hashCode.abs();
-      this.id = hash.toString();
-      if (peopleDB != null) {
-        while (peopleDB!.any((p) => p.id == this.id)) {
-          // Regenerate the hash if the id is not unique
-          hash = (hash + 1).hashCode.abs();
-          this.id = hash.toString();
-        }
-      }
+      id = Uuid().v4();
     }
   }
 
