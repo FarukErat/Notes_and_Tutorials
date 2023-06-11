@@ -1,0 +1,57 @@
+POST http://localhost:3001/create-jws
+
+Content-Type: application/json
+
+{
+
+    "name": "Faruk",
+
+    "email": "faruk@example.com"
+
+}
+
+###
+
+POST http://localhost:3001/verify-jws
+
+Content-Type: application/json
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRmFydWsiLCJlbWFpbCI6ImZhcnVrQGV4YW1wbGUuY29tIiwiaWF0IjoxNjg2NDgzMDE2fQ.O8cCwH1_qKZTOacDTVSjKiAGPEPAybdsfBzUTw58dhs
+
+{
+
+    "name": "Faruk",
+
+    "email": "faruk@example.com"
+
+}
+
+###
+
+POST http://localhost:3001/create-jwe
+
+Content-Type: application/json
+
+{
+
+    "name": "Faruk",
+
+    "email": "faruk@example.com"
+
+}
+
+###
+
+POST http://localhost:3001/verify-jwe
+
+Content-Type: application/json
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRUb2tlbiI6ImM4OTk4ODEzOWZmNDQ0NTBhODQ1MjllYzZhNzRiNTI3NDJiM2EzN2FkMjkzNzkwNzk1NTJhZWU4MTA3ZTUxYjMzZTUyNDdjNjA1ODNlNGE5NmQ2YjdiN2MzOTM0MmQ1ZCIsImlhdCI6MTY4NjQ4MzA1MH0.YAlxPWUsUM4Q5v8iNEEoo37Zo9bXWBexmHhg0vKDyog
+
+{
+
+    "name": "Faruk",
+
+    "email": "faruk@example.com"
+
+}
