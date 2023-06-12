@@ -1,4 +1,4 @@
-POST http://localhost:3001/create-jws
+POST http://localhost:3002/create-jws
 Content-Type: application/json
 
 {
@@ -7,12 +7,12 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:3001/verify-jws
+POST http://localhost:3002/verify-jws
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRmFydWsiLCJlbWFpbCI6ImZhcnVrQGV4YW1wbGUuY29tIiwiaWF0IjoxNjg2NTE1NjkyfQ.Dif9--NQ3EsmTLY09NRPTcPrtsCcIO1lpGCvrfECal0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRmFydWsiLCJlbWFpbCI6ImZhcnVrQGV4YW1wbGUuY29tIiwiaWF0IjoxNjg2NjA3MjIzfQ.eEuMWwtofw2Bb6eOIsUB8sLZSpxT9nw920LZRxXaSig
 ###
 
-POST http://localhost:3001/create-jwe
+POST http://localhost:3002/create-jwe
 Content-Type: application/json
 
 {
@@ -21,6 +21,6 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:3001/verify-jwe
+POST http://localhost:3002/verify-jwe
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.MmNmZDFhZDYyNTYzMDI4MzAxMDgzYjYwYzRlZDU1OTIxN2I4ZmViNzVmNjVjZDBiZWNkM2E3NTczY2JmYjI4NzA2ZWJhNTk2MTRhZWQ5ZmE0YzEzMTQyZWM5YzcwNzAwMzFiNmZjMTkyMjFmNmU4YWY4YzdjMDVhMmJkMzE5MzM._IXkhmcAoNBL6IQmFTmoxLFBhv2l1LDrVZ8iYf1vka0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.ZTE0MDJkMmU4ZmZjNTkxOTQwNzk5NDdmY2YxOTc5YjhjY2UyNzZhMjIxNDkzMWQ1NGM5MjNiYWJjM2QxODQ2YzZmYjBjZjdiMTdmNmIzNWE3MDcxYzBjMmViZjFlZDA3NDNmMmJmNmUxZTMxNDYwZjhkYTJmYTI5NGZhNzYwNWJmOGFhN2ExZTUzMGYxNTgyMzk0YWI2ZjZhNWFkYTBhOA.9LnJBp7WjTZncY9j6aN7ZNimPLsrPK7qOdDEa9qByPI
