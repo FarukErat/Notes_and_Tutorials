@@ -45,13 +45,7 @@ function encrypt(text) {
   return new Promise((resolve, reject) => {
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv("aes-256-cbc", jweSecret, iv);
-
-    // add "iat" field manually because it will not be added automatically like jws
-    // since the payload will not be a json but a random encrypted string in the jwt.sign()
-    const payload = JSON.parse(text);
-    payload["iat"] = Math.floor(Date.now() / 1000);
-
-    let encrypted = cipher.update(JSON.stringify(payload), "utf8", "hex");
+    let encrypted = cipher.update(text, "utf8", "hex");
     encrypted += cipher.final("hex");
     resolve(iv.toString("hex") + encrypted);
   });
@@ -71,7 +65,7 @@ app.post("/create-jwe", async (req, res) => {
   try {
     const tokenData = JSON.stringify(req.body);
     const encryptedToken = await encrypt(tokenData, jweSecret);
-    const token = toJwt(encryptedToken);
+    const token = toJwt({ encryptedToken });
     res.status(200).json({ token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -81,10 +75,12 @@ app.post("/create-jwe", async (req, res) => {
 app.post("/verify-jwe", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const encryptedToken = fromJwt(token);
+    const decodedToken = fromJwt(token);
+    const encryptedToken = decodedToken.encryptedToken;
     const decryptedToken = await decrypt(encryptedToken, jweSecret);
     const decoded = JSON.parse(decryptedToken);
-    res.status(200).json(decoded);
+    decodedToken.encryptedToken = decoded;
+    res.status(200).json(decodedToken);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
