@@ -9,8 +9,8 @@ const port = 3002;
 app.use(express.json());
 
 const jwsSecret = process.env.JWS_SECRET;
-const toJwt = (data) => jwt.sign(data, jwsSecret);
-const fromJwt = (data) => jwt.verify(data, jwsSecret);
+const toJwt = (payload) => jwt.sign(payload, jwsSecret);
+const fromJwt = (payload) => jwt.verify(payload, jwsSecret);
 
 app.post("/create-jws", async (req, res) => {
   try {
@@ -24,8 +24,8 @@ app.post("/create-jws", async (req, res) => {
 app.post("/verify-jws", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decoded = fromJwt(token);
-    res.status(200).json(decoded);
+    const payload = fromJwt(token);
+    res.status(200).json(payload);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -63,9 +63,9 @@ function decrypt(encryptedText) {
 
 app.post("/create-jwe", async (req, res) => {
   try {
-    const tokenData = JSON.stringify(req.body);
-    const encryptedToken = await encrypt(tokenData, jweSecret);
-    const token = toJwt({ encryptedToken });
+    const tokenPayload = JSON.stringify(req.body);
+    const encryptedPayload = await encrypt(tokenPayload, jweSecret);
+    const token = toJwt({ encryptedPayload });
     res.status(200).json({ token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -75,12 +75,12 @@ app.post("/create-jwe", async (req, res) => {
 app.post("/verify-jwe", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = fromJwt(token);
-    const encryptedToken = decodedToken.encryptedToken;
-    const decryptedToken = await decrypt(encryptedToken, jweSecret);
-    const decoded = JSON.parse(decryptedToken);
-    decodedToken.encryptedToken = decoded;
-    res.status(200).json(decodedToken);
+    const payload = fromJwt(token);
+    const encryptedPayload = payload.encryptedPayload;
+    const decryptedPayload = await decrypt(encryptedPayload, jweSecret);
+    const decoded = JSON.parse(decryptedPayload);
+    delete payload.encryptedPayload;
+    res.status(200).json({ ...decoded, ...payload });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
