@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  title: Bcrypt Hash-Validate API
+  description: Hash and validate passwords using Bcrypt
+  version: 1.0.0
+  contact:
+    name: Faruk Erat
+servers:
+  - url: http://localhost:3013
+paths:
+  /hash:
+    post:
+      summary: Hash password
+      description: Hashes the provided password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HashRequest"
+      responses:
+        "200":
+          description: Hash of the password.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HashResponse"
+  /validate:
+    post:
+      summary: Validate password hash
+      description: Compares the provided password with the given hash.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValidateRequest"
+      responses:
+        "200":
+          description: Boolean indicating whether the password matches the hash.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidateResponse"
+components:
+  schemas:
+    HashRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          description: The password to be hashed.
+    HashResponse:
+      type: object
+      properties:
+        hash:
+          type: string
+          description: The hashed password.
+    ValidateRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          description: The password to be validated.
+        hash:
+          type: string
+          description: The hash to compare against.
+    ValidateResponse:
+      type: object
+      properties:
+        match:
+          type: boolean
+          description: Indicates if the password matches the hash.
