@@ -10,10 +10,11 @@ const app = express();
 const port = 3013;
 const workFactor = 12;
 const swaggerDocument = YAML.load(path.join(__dirname, "swagger.yaml"));
+const swaggerPath = "/api-docs";
 
 app.use(express.json());
 app.use(cors());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(swaggerPath, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.post("/hash", async (req, res) => {
   const { password } = req.body;
@@ -30,4 +31,5 @@ app.post("/validate", async (req, res) => {
 
 app.listen(port, () => {
   console.log(`app listening at http://${ip.address()}:${port}`);
+  console.log(`can be tested at http://${ip.address()}:${port}${swaggerPath}`);
 });
