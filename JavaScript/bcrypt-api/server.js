@@ -20,13 +20,13 @@ app.post("/hash", async (req, res) => {
   const { password } = req.body;
   const salt = await bcrypt.genSalt(workFactor);
   const hash = await bcrypt.hash(password, salt);
-  res.send({ hash: hash });
+  res.send({ hash });
 });
 
 app.post("/validate", async (req, res) => {
   const { password, hash } = req.body;
   const match = await bcrypt.compare(password, hash);
-  res.send({ match: match });
+  res.send({ match });
 });
 
 app.listen(port, () => {
