@@ -1,47 +1,163 @@
-#include <stdio.h>
-#include <conio.h>
-#include <math.h>
+#include <stdio.h>  // printf()
+#include <math.h>   // sqrt()
+#include <string.h> // strcpy()
+// #include <stdlib.h> // strtoull()
 
-typedef long long int lli;
+typedef long long unsigned llu;
 
-int main()
+/**
+ * @brief Removes leading zeros from the input
+ *
+ * @param input string to remove leading zeros from
+ */
+void formatInput(char *input);
+
+/**
+ * @brief Checks if the input is numeric
+ *
+ * @param str string to check
+ * @return int 1 if numeric, 0 if not
+ */
+int isNumeric(char *str);
+
+/**
+ * @brief Checks if the input is in the range of a long long unsigned int
+ *
+ * @param str string to check
+ * @return int 1 if in range, 0 if not
+ */
+int isInRange(char *str);
+
+/**
+ * @brief Checks if the input is valid (numeric and in range)
+ *
+ * @param input string to check
+ * @return int 1 if valid, 0 if not
+ */
+int isValid(char *input);
+
+/**
+ * @brief Converts the input to a long long unsigned int,
+ * instead of using strtoull() to avoid the overhead of error checking
+ *
+ * @param str string to convert
+ * @return llu
+ */
+llu str_to_llu(char *str);
+
+/**
+ * @brief Prints the prime factors of the input
+ *
+ * @param input string to print the prime factors of
+ */
+void printPrimeFactors(char *input);
+
+int main(int argc, char *argv[])
 {
-    // endSearch is an end-point for the loop
+    // switch instead of if-else to allow for more arguments in the future
+    switch (argc)
+    {
+    case 2:
+        printPrimeFactors(argv[1]);
+        break;
+    default:
+        printf("Usage: prifac <number>\n");
+        break;
+    }
+    return 0;
+}
+
+void formatInput(char *input)
+{
+    while (input[0] == '0')
+    {
+        // remove leading zeros
+        strcpy(input, input + 1);
+    }
+}
+
+int isNumeric(char *str)
+{
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        if (str[i] < '0' || str[i] > '9')
+        {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
+int isInRange(char *str)
+{
+    char *biggestLLU = "18446744073709551615";
+    int j = 0;
+    while (j < 20)
+    {
+        if (str[j] > biggestLLU[j])
+        {
+            return 0;
+        }
+        else if (str[j] < biggestLLU[j])
+        {
+            return 1;
+        }
+        j++;
+    }
+    return 1;
+}
+
+int isValid(char *str)
+{
+    unsigned size = strlen(str);
+    if (size > 20)
+        return 0;
+    if (size == 20)
+        if (!isInRange(str))
+            return 0;
+    if (!isNumeric(str))
+        return 0;
+    return 1;
+}
+
+llu str_to_llu(char *str)
+{
+    llu result = 0;
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+    return result;
+}
+
+void printPrimeFactors(char *str)
+{
+    formatInput(str);
+    if (!isValid(str))
+    {
+        printf("Invalid input!\n");
+        return;
+    }
+
+    llu number = str_to_llu(str);
     // since pairs of factors are found, the loop can stop at the square root of the number
-    lli number, endSearch;
-    lli divider = 3;
-    lli lastDivider = 1;
+    llu endSearch;
+    llu divider = 3;
+    llu lastDivider = 1;
     unsigned power = 0;
 
-    // get the number from the user and check if the assignment was successful
-    printf("Enter a number to factorize: ");
-    if (scanf("%lld", &number) != 1)
-    {
-        printf("Invalid input.\n");
-        printf("Press any key to exit...");
-        getch();
-        return 1;
-    }
-
-    printf("Prime Factors of %lld\n", number);
-
-    // special case for -1, 0 and 1
-    if (number == -1 || number == 0 || number == 1)
-    {
-        printf("----------------\n");
-        printf("%lld\n", number);
-        printf("----------------\n");
-        printf("Press any key to exit...");
-        getch();
-        return 0;
-    }
-
-    // convert negative numbers to positive and print the sign
+    printf("\nPrime Factors of %llu\n", number);
     printf("----------------");
-    if (number < 0)
+
+    if (number < 4)
     {
-        number = -number;
-        printf("\n-1");
+        printf("\n%lld\n", number);
+        printf("----------------\n");
+        return;
     }
 
     // handle even numbers
@@ -108,9 +224,5 @@ int main()
         printf(" ^ %d", power);
     }
 
-    printf("\n----------------");
-    printf("\nPress any key to exit...");
-    getch();
-
-    return 0;
+    printf("\n----------------\n");
 }
