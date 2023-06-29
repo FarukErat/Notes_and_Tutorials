@@ -1,9 +1,13 @@
-first get the server up and running<br>
-<br>
-set serverIp in the bcryptHash() function as stated in the definition<br>
-<br>
-type following commands on terminal<br>
-cd bcrypt_hash<br>
-flutter run -d web-server --web-port 8080 --web-hostname 0.0.0.0<br>
-<br>
-open the uri on browser which is http://$serverIp:8080 not http://$serverIp:3013<br>
+# Frontend - Flutter
+
+Before running the Flutter frontend, make sure the server is up and running.
+
+1. Set the `serverIp` in the `bcryptHash()` function as stated in the definition.
+
+2. Open the terminal and type the following commands:
+   ```
+   cd bcrypt_hash
+   flutter run -d web-server --web-port 8080 --web-hostname 0.0.0.0
+   ```
+
+3. Open the following URL in your browser: `http://$serverIp:8080` (not `http://$serverIp:3013`).
