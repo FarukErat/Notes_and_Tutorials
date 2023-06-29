@@ -1,6 +1,8 @@
-A very simple fullstack project
+# Simple Fullstack Project
 
-Frontend: Flutter
-Backend:  ExpressJS
+This is a very simple fullstack project.
 
-Since Flutter projects consists of many files wheter or not used, the files that are provided are the only ones that are different from initial files.
+**Frontend:** Flutter  
+**Backend:** ExpressJS
+
+Please note that Flutter projects consist of many files, whether or not they are used. The files provided here are the only ones that are different from the initial files.
