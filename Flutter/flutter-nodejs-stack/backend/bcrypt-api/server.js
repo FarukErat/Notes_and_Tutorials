@@ -12,6 +12,16 @@ app.use(cors());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method, req.body);
+
+  // when a request is made, res.send is set to a custom function to log response
+  const originalSend = res.send;
+  res.send = function (data) {
+    console.log(data);
+    // such a custom function that when it is called, it is set back to the original
+    res.send = originalSend;
+    res.send(data);
+  };
+
   next();
 });
 
@@ -19,7 +29,6 @@ app.post("/hash", async (req, res) => {
   const { password } = req.body;
   const salt = await bcrypt.genSalt(workFactor);
   const hash = await bcrypt.hash(password, salt);
-  console.log({ hash });
   res.send({ hash });
 });
 
