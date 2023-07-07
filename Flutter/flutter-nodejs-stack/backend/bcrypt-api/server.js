@@ -11,13 +11,25 @@ app.use(express.json());
 app.use(cors());
 
 app.use((req, res, next) => {
-  console.log(req.path, req.method, req.body);
+  const start = Date.now();
 
+  // log request
+  console.log("-".repeat(40));
+  console.log("\x1b[36m%s\x1b[0m", `${req.path} [${req.method}]`);
+  console.log("\x1b[33m%s\x1b[0m", "Request Body:", req.body);
+
+  // log response
   // when a request is made, res.send is set to a custom function to log response
   const originalSend = res.send;
   res.send = function (data) {
-    console.log(data);
-    // such a custom function that when it is called, it is set back to the original
+    const end = Date.now();
+    const elapsedTime = end - start;
+
+    console.log("\x1b[32m%s\x1b[0m", "Response:", data);
+    console.log(`Elapsed Time: ${elapsedTime}ms`);
+    console.log("+".repeat(40));
+
+    // Restore the original send function
     res.send = originalSend;
     res.send(data);
   };
