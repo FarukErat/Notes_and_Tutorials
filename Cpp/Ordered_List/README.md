@@ -9,7 +9,6 @@ The `BBTree` is a C++ template class that implements basic operations for adding
 - [Usage](#usage)
 - [Example](#example)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -84,9 +83,6 @@ int main() {
 
 Contributions to the `BBTree` class are welcome. If you'd like to contribute, please follow the guidelines outlined in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## License
-
-The `BBTree` class is provided under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
