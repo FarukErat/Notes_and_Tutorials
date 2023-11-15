@@ -91,6 +91,7 @@ int isInRange(char* str) {
     if (size < 20) {
         return 1;
     }
+    // biggest prime -> 18446744069414584321 that is in range for testing
     char* biggestLLU = "18446744073709551615";
     int j = 0;
     while (j < 20) {
@@ -144,7 +145,7 @@ void printPrimeFactors(char* str) {
     printf("----------------");
 
     if (number < 4) {
-        printf("\n%lld\n", number);
+        printf("\n%llu\n", number);
         printf("----------------\n");
         return;
     }
@@ -182,7 +183,7 @@ void printPrimeFactors(char* str) {
                 if (power > 1) {
                     printf(" ^ %d", power);
                 }
-                printf("\n%lld", divider);
+                printf("\n%llu", divider);
 
                 // since the divider is a new divisor, the power is 1
                 power = 1;
