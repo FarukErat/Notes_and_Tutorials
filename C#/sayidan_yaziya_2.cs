@@ -1,5 +1,43 @@
 class Program
 {
+    static void Main()
+    {
+        // set the encoding to UTF-8
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        // hold digits of a number in an array
+        Console.WriteLine("Enter a number: ");
+        string? digits = Console.ReadLine();
+
+        // print the number in Turkish
+        NumToTurkish(digits);
+    }
+
+    static void NumToTurkish(string? digits)
+    {
+        // check if the input is valid
+        if (digits![0] == '-')
+        {
+            if (!IsNumeric(digits.Substring(1)))
+            {
+                Console.WriteLine("Invalid input!");
+                return;
+            }
+            Console.Write("eksi ");
+            digits = digits[1..];
+        }
+        else if (!IsNumeric(digits))
+        {
+            Console.WriteLine("Invalid input!");
+            return;
+        }
+
+        // format the digits
+        FormatDigits(ref digits);
+
+        // print the number
+        PrintNumber(digits);
+    }
+
     static bool IsNumeric(string? input)
     {
         if (input == null)
@@ -25,6 +63,7 @@ class Program
         }
         digits = digits[i..];
     }
+
     static void PrintNumber(string digits)
     {
         // check if the number is zero
@@ -99,40 +138,5 @@ class Program
             }
         }
     }
-    static void NumToTurkish(string? digits)
-    {
-        // check if the input is valid
-        if (digits![0] == '-')
-        {
-            if (!IsNumeric(digits.Substring(1)))
-            {
-                Console.WriteLine("Invalid input!");
-                return;
-            }
-            Console.Write("eksi ");
-            digits = digits[1..];
-        }
-        else if (!IsNumeric(digits))
-        {
-            Console.WriteLine("Invalid input!");
-            return;
-        }
 
-        // format the digits
-        FormatDigits(ref digits);
-
-        // print the number
-        PrintNumber(digits);
-    }
-    static void Main()
-    {
-        // set the encoding to UTF-8
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-        // hold digits of a number in an array
-        Console.WriteLine("Enter a number: ");
-        string? digits = Console.ReadLine();
-
-        // print the number in Turkish
-        NumToTurkish(digits);
-    }
 }
