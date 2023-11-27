@@ -35,15 +35,17 @@ class Program
         }
 
         // main loop
+        int reverseIndex;
         for (int j = 0; j < digits.Length; j++)
         {
-            switch ((digits.Length - 1 - j) % 3)
+            reverseIndex = digits.Length - 1 - j;
+            switch (reverseIndex % 3)
             {
                 // ones
                 case 0:
                     switch (digits[j])
                     {
-                        case '1': if (j != 3) Console.Write("bir "); break;
+                        case '1': if (reverseIndex != 3) Console.Write("bir "); break;
                         case '2': Console.Write("iki "); break;
                         case '3': Console.Write("üç "); break;
                         case '4': Console.Write("dört "); break;
@@ -85,7 +87,7 @@ class Program
                     if (digits[j] != '0') Console.Write("yüz ");
                     break;
             }
-            switch (digits.Length - 1 - j)
+            switch (reverseIndex)
             {
                 case 3: Console.Write("bin "); break;
                 case 6: Console.Write("milyon "); break;
