@@ -53,6 +53,7 @@ class Program
         }
         return true;
     }
+
     static void FormatDigits(ref string digits)
     {
         // get rid of leading zeros
