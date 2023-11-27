@@ -1,6 +1,44 @@
 class Program
 {
-    static bool isNumeric(string? input)
+    static void Main()
+    {
+        // set the encoding to UTF-8
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        // hold digits of a number in an array
+        Console.WriteLine("Enter a number: ");
+        string? digits = Console.ReadLine();
+
+        // print the number in Turkish
+        NumToTurkish(digits);
+    }
+
+    static void NumToTurkish(string? digits)
+    {
+        // check if the input is valid
+        if (digits![0] == '-')
+        {
+            if (!IsNumeric(digits[1..]))
+            {
+                Console.WriteLine("Invalid input!");
+                return;
+            }
+            Console.Write("eksi ");
+            digits = digits[1..];
+        }
+        else if (!IsNumeric(digits))
+        {
+            Console.WriteLine("Invalid input!");
+            return;
+        }
+
+        // format the digits
+        FormatDigits(ref digits);
+
+        // print the number
+        PrintNumber(digits);
+    }
+
+    static bool IsNumeric(string? input)
     {
         if (input == null)
         {
@@ -15,7 +53,8 @@ class Program
         }
         return true;
     }
-    static void formatDigits(ref string digits)
+
+    static void FormatDigits(ref string digits)
     {
         // get rid of leading zeros
         int i = 0;
@@ -23,12 +62,13 @@ class Program
         {
             i++; // count the number of leading zeros
         }
-        digits = digits.Substring(i);
+        digits = digits[i..];
         // TODO: avoid reversing the digits for better performance
         // reverse the digits for easier processing
         digits = new string(digits!.ToCharArray().Reverse().ToArray());
     }
-    static void printNumber(string digits)
+
+    static void PrintNumber(string digits)
     {
         // check if the number is zero
         if (digits.Length == 1 && digits[0] == '0')
@@ -46,7 +86,7 @@ class Program
                 case 0:
                     switch (digits[j])
                     {
-                        case '1': if (j != 3) Console.Write("bir "); break;
+                        case '1': if (digits.Length > 4) Console.Write("bir "); break;
                         case '2': Console.Write("iki "); break;
                         case '3': Console.Write("üç "); break;
                         case '4': Console.Write("dört "); break;
@@ -99,41 +139,5 @@ class Program
                 default: break;
             }
         }
-    }
-    static void numToTurkish(string? digits)
-    {
-        // check if the input is valid
-        if (digits![0] == '-')
-        {
-            if (!isNumeric(digits.Substring(1)))
-            {
-                Console.WriteLine("Invalid input!");
-                return;
-            }
-            Console.Write("eksi ");
-            digits = digits.Substring(1);
-        }
-        else if (!isNumeric(digits))
-        {
-            Console.WriteLine("Invalid input!");
-            return;
-        }
-
-        // format the digits
-        formatDigits(ref digits);
-
-        // print the number
-        printNumber(digits);
-    }
-    static void Main()
-    {
-        // set the encoding to UTF-8
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-        // hold digits of a number in an array
-        Console.WriteLine("Enter a number: ");
-        string? digits = Console.ReadLine();
-
-        // print the number in Turkish
-        numToTurkish(digits);
     }
 }
