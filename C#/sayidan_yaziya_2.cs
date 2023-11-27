@@ -45,7 +45,7 @@ class Program
                 case 0:
                     switch (digits[j])
                     {
-                        case '1': if (reverseIndex != 3) Console.Write("bir "); break;
+                        case '1': if (digits.Length > 4) Console.Write("bir "); break;
                         case '2': Console.Write("iki "); break;
                         case '3': Console.Write("üç "); break;
                         case '4': Console.Write("dört "); break;
