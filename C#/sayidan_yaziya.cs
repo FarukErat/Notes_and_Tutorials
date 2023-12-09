@@ -63,8 +63,6 @@ class Program
             i++; // count the number of leading zeros
         }
         digits = digits[i..];
-        // reverse the digits for easier processing
-        digits = new string(digits!.ToCharArray().Reverse().ToArray());
     }
 
     static void PrintNumber(string digits)
@@ -75,6 +73,9 @@ class Program
             Console.WriteLine("sıfır");
             return;
         }
+
+        // reverse the digits for easier processing
+        digits = new string(digits!.ToCharArray().Reverse().ToArray());
 
         // main loop
         for (int j = digits.Length - 1; j >= 0; j--)
