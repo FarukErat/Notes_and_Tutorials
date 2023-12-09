@@ -63,7 +63,6 @@ class Program
             i++; // count the number of leading zeros
         }
         digits = digits[i..];
-        // TODO: avoid reversing the digits for better performance
         // reverse the digits for easier processing
         digits = new string(digits!.ToCharArray().Reverse().ToArray());
     }
