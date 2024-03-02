@@ -26,6 +26,7 @@ class Turkish
         {
             PrintByReversingString(digits);
         }
+        Console.WriteLine();
     }
 
     private static void PrintWithReverseIndex(string digits)
@@ -36,7 +37,6 @@ class Turkish
             reverseIndex = digits.Length - 1 - i;
             PrintDigit(digits[i], reverseIndex, digits.Length);
         }
-        Console.WriteLine();
     }
 
     private static void PrintByReversingString(string digits)
@@ -46,7 +46,6 @@ class Turkish
         {
             PrintDigit(digits[i], i, digits.Length);
         }
-        Console.WriteLine();
     }
 
     private static bool IsValidNumber(string? input)
@@ -85,62 +84,59 @@ class Turkish
             return;
         }
 
-        string toPrint = "";
-        switch (index % 3)
+        string toPrint = (index % 3) switch
         {
             // ones
-            case 0:
-                toPrint = digit switch
-                {
-                    '1' => (index != 3 || length > 4) ? "bir " : "",
-                    '2' => "iki ",
-                    '3' => "üç ",
-                    '4' => "dört ",
-                    '5' => "beş ",
-                    '6' => "altı ",
-                    '7' => "yedi ",
-                    '8' => "sekiz ",
-                    '9' => "dokuz ",
-                    _ => ""
-                };
-                break;
+            0 => digit switch
+            {
+                '1' => (index != 3 || length > 4) ? "bir " : "",
+                '2' => "iki ",
+                '3' => "üç ",
+                '4' => "dört ",
+                '5' => "beş ",
+                '6' => "altı ",
+                '7' => "yedi ",
+                '8' => "sekiz ",
+                '9' => "dokuz ",
+                _ => ""
+            },
             // tens
-            case 1:
-                toPrint = digit switch
-                {
-                    '1' => "on ",
-                    '2' => "yirmi ",
-                    '3' => "otuz ",
-                    '4' => "kırk ",
-                    '5' => "elli ",
-                    '6' => "altmış ",
-                    '7' => "yetmiş ",
-                    '8' => "seksen ",
-                    '9' => "doksan ",
-                    _ => ""
-                };
-                break;
+            1 => digit switch
+            {
+                '1' => "on ",
+                '2' => "yirmi ",
+                '3' => "otuz ",
+                '4' => "kırk ",
+                '5' => "elli ",
+                '6' => "altmış ",
+                '7' => "yetmiş ",
+                '8' => "seksen ",
+                '9' => "doksan ",
+                _ => ""
+            },
             // hundreds
-            case 2:
-                toPrint = digit switch
-                {
-                    '2' => "iki ",
-                    '3' => "üç ",
-                    '4' => "dört ",
-                    '5' => "beş ",
-                    '6' => "altı ",
-                    '7' => "yedi ",
-                    '8' => "sekiz ",
-                    '9' => "dokuz ",
-                    _ => ""
-                };
-                if (digit != '0') toPrint += "yüz ";
-                break;
+            2 => digit switch
+            {
+                '2' => "iki ",
+                '3' => "üç ",
+                '4' => "dört ",
+                '5' => "beş ",
+                '6' => "altı ",
+                '7' => "yedi ",
+                '8' => "sekiz ",
+                '9' => "dokuz ",
+                _ => ""
+            },
+            _ => "",
+        };
+
+        if ((index % 3 == 2) && (digit != '0'))
+        {
+            toPrint += "yüz ";
         }
-        Console.Write(toPrint);
 
         // powers of 1,000
-        toPrint = index switch
+        toPrint += index switch
         {
             3 => "bin ",
             6 => "milyon ",
