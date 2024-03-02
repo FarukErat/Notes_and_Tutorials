@@ -41,7 +41,7 @@ class Turkish
 
     private static void PrintByReversingString(string digits)
     {
-        digits = new string(digits!.ToCharArray().Reverse().ToArray());
+        digits = new string(digits.Reverse().ToArray());
         for (int i = digits.Length - 1; i >= 0; i--)
         {
             PrintDigit(digits[i], i, digits.Length);
