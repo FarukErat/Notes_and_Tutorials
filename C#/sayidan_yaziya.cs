@@ -85,69 +85,76 @@ class Turkish
             return;
         }
 
+        string toPrint = "";
         switch (index % 3)
         {
             // ones
             case 0:
-                switch (digit)
+                toPrint = digit switch
                 {
-                    case '1': if (index != 3 || length > 4) Console.Write("bir "); break;
-                    case '2': Console.Write("iki "); break;
-                    case '3': Console.Write("üç "); break;
-                    case '4': Console.Write("dört "); break;
-                    case '5': Console.Write("beş "); break;
-                    case '6': Console.Write("altı "); break;
-                    case '7': Console.Write("yedi "); break;
-                    case '8': Console.Write("sekiz "); break;
-                    case '9': Console.Write("dokuz "); break;
-                }
+                    '1' => (index != 3 || length > 4) ? "bir " : "",
+                    '2' => "iki ",
+                    '3' => "üç ",
+                    '4' => "dört ",
+                    '5' => "beş ",
+                    '6' => "altı ",
+                    '7' => "yedi ",
+                    '8' => "sekiz ",
+                    '9' => "dokuz ",
+                    _ => ""
+                };
                 break;
             // tens
             case 1:
-                switch (digit)
+                toPrint = digit switch
                 {
-                    case '1': Console.Write("on "); break;
-                    case '2': Console.Write("yirmi "); break;
-                    case '3': Console.Write("otuz "); break;
-                    case '4': Console.Write("kırk "); break;
-                    case '5': Console.Write("elli "); break;
-                    case '6': Console.Write("altmış "); break;
-                    case '7': Console.Write("yetmiş "); break;
-                    case '8': Console.Write("seksen "); break;
-                    case '9': Console.Write("doksan "); break;
-                }
+                    '1' => "on ",
+                    '2' => "yirmi ",
+                    '3' => "otuz ",
+                    '4' => "kırk ",
+                    '5' => "elli ",
+                    '6' => "altmış ",
+                    '7' => "yetmiş ",
+                    '8' => "seksen ",
+                    '9' => "doksan ",
+                    _ => ""
+                };
                 break;
             // hundreds
             case 2:
-                switch (digit)
+                toPrint = digit switch
                 {
-                    case '2': Console.Write("iki "); break;
-                    case '3': Console.Write("üç "); break;
-                    case '4': Console.Write("dört "); break;
-                    case '5': Console.Write("beş "); break;
-                    case '6': Console.Write("altı "); break;
-                    case '7': Console.Write("yedi "); break;
-                    case '8': Console.Write("sekiz "); break;
-                    case '9': Console.Write("dokuz "); break;
-                }
-                if (digit != '0') Console.Write("yüz ");
+                    '2' => "iki ",
+                    '3' => "üç ",
+                    '4' => "dört ",
+                    '5' => "beş ",
+                    '6' => "altı ",
+                    '7' => "yedi ",
+                    '8' => "sekiz ",
+                    '9' => "dokuz ",
+                    _ => ""
+                };
+                if (digit != '0') toPrint += "yüz ";
                 break;
         }
+        Console.Write(toPrint);
+
         // powers of 1,000
-        switch (index)
+        toPrint = index switch
         {
-            case 3: Console.Write("bin "); break;
-            case 6: Console.Write("milyon "); break;
-            case 9: Console.Write("milyar "); break;
-            case 12: Console.Write("trilyon "); break;
-            case 15: Console.Write("katrilyon "); break;
-            case 18: Console.Write("kentilyon "); break;
-            case 21: Console.Write("sekstilyon "); break;
-            case 24: Console.Write("septilyon "); break;
-            case 27: Console.Write("oktilyon "); break;
-            case 30: Console.Write("nonilyon "); break;
-            case 33: Console.Write("desilyon "); break;
-            default: break;
-        }
+            3 => "bin ",
+            6 => "milyon ",
+            9 => "milyar ",
+            12 => "trilyon ",
+            15 => "katrilyon ",
+            18 => "kentilyon ",
+            21 => "sekstilyon ",
+            24 => "septilyon ",
+            27 => "oktilyon ",
+            30 => "nonilyon ",
+            33 => "desilyon ",
+            _ => ""
+        };
+        Console.Write(toPrint);
     }
 }
