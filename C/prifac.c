@@ -178,7 +178,7 @@ Calculates and prints the prime factors of a given number.\n\
 Arguments: \n\
 - number: The integer for which prime factors are to be calculated.\n\
 - max-prime: The biggest prime number representable by a long long unsigned int. (18446744069414584321)\n\
-- max-number: The biggest representable number by a long long unsigned int. (18446744073709551615)\n\
+- max-number: The biggest representable number by a long long unsigned int.      (18446744073709551615)\n\
 \n\
 Options: \n\
 - -h, --help: Display this help message.\n\
