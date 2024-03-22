@@ -2,7 +2,7 @@
 #include <math.h>   // sqrt()
 #include <string.h> // strcpy()
 #include <ctype.h>  // isdigit()
-// #include <stdlib.h> // strtoull()
+// #include <stdlib.h> // strtoull() // not used to avoid the overhead of error checking
 
 typedef long long unsigned llu;
 
@@ -11,7 +11,11 @@ typedef long long unsigned llu;
  *
  * @param input string to remove leading zeros from
  */
-void formatInput(char** input);
+void formatInput(const char** input) {
+    while ((*input)[0] == '0') {
+        (*input)++;
+    }
+}
 
 /**
  * @brief Checks if the input is numeric
@@ -19,60 +23,7 @@ void formatInput(char** input);
  * @param str string to check
  * @return int 1 if numeric, 0 if not
  */
-int isNumeric(char* str);
-
-/**
- * @brief Checks if the input is in the range of a long long unsigned int
- *
- * @param str string to check
- * @return int 1 if in range, 0 if not
- */
-int isInRange(char* str);
-
-/**
- * @brief Checks if the input is valid (numeric and in range)
- *
- * @param input string to check
- * @return int 1 if valid, 0 if not
- */
-int isValid(char* input);
-
-/**
- * @brief Converts the input to a long long unsigned int,
- * instead of using strtoull() to avoid the overhead of error checking
- *
- * @param str string to convert
- * @return llu
- */
-llu str_to_llu(char* str);
-
-/**
- * @brief Prints the prime factors of the input
- *
- * @param input string to print the prime factors of
- */
-void printPrimeFactors(char* input);
-
-int main(int argc, char* argv[]) {
-    // switch instead of if-else to allow for more arguments in the future
-    switch (argc) {
-    case 2:
-        printPrimeFactors(argv[1]);
-        break;
-    default:
-        printf("Usage: prifac <number>\n");
-        break;
-    }
-    return 0;
-}
-
-void formatInput(char** input) {
-    while ((*input)[0] == '0') {
-        (*input)++;
-    }
-}
-
-int isNumeric(char* str) {
+int isNumeric(const char* str) {
     int i = 0;
     while (str[i] != '\0') {
         if (!isdigit(str[i])) {
@@ -83,7 +34,13 @@ int isNumeric(char* str) {
     return 1;
 }
 
-int isInRange(char* str) {
+/**
+ * @brief Checks if the input is in the range of a long long unsigned int
+ *
+ * @param str string to check
+ * @return int 1 if in range, 0 if not
+ */
+int isInRange(const char* str) {
     unsigned size = strlen(str);
     if (size > 20) {
         return 0;
@@ -91,7 +48,7 @@ int isInRange(char* str) {
     if (size < 20) {
         return 1;
     }
-    // biggest prime -> 18446744069414584321 that is in range for testing
+
     char* biggestLLU = "18446744073709551615";
     int j = 0;
     while (j < 20) {
@@ -106,19 +63,14 @@ int isInRange(char* str) {
     return 1;
 }
 
-int isValid(char* str) {
-    if (!isInRange(str)) {
-        printf("Input out of range!\n");
-        return 0;
-    }
-    if (!isNumeric(str)) {
-        printf("Input is not a number!\n");
-        return 0;
-    }
-    return 1;
-}
-
-llu str_to_llu(char* str) {
+/**
+ * @brief Converts the input to a long long unsigned int,
+ * instead of using strtoull() to avoid the overhead of error checking
+ *
+ * @param str string to convert
+ * @return llu
+ */
+llu str_to_llu(const char* str) {
     llu result = 0;
     int i = 0;
     while (str[i] != '\0') {
@@ -128,19 +80,29 @@ llu str_to_llu(char* str) {
     return result;
 }
 
-void printPrimeFactors(char* str) {
+/**
+ * @brief Prints the prime factors of the input
+ *
+ * @param input string to print the prime factors of
+ */
+void printPrimeFactors(const char* str) {
     formatInput(&str);
-    if (!isValid(str)) {
+    if (!isInRange(str)) {
+        printf("Input out of range!\n");
+        return;
+    }
+    if (!isNumeric(str)) {
+        printf("Input is not a number!\n");
         return;
     }
 
     llu number = str_to_llu(str);
-    // since pairs of factors are found, the loop can stop at the square root of the number
     llu endSearch;
     llu divider = 3;
     llu lastDivider = 1;
     unsigned power = 0;
 
+    // handle 1, 2 and 3
     printf("\nPrime Factors of %llu\n", number);
     printf("----------------");
 
@@ -162,8 +124,8 @@ void printPrimeFactors(char* str) {
         power = 0;
     }
 
+    // since pairs of factors are found, the loop can stop at the square root of the number
     endSearch = sqrt(number);
-
     // main loop
     while (number != 1) {
         // check if the divider is a factor of the number
@@ -189,11 +151,11 @@ void printPrimeFactors(char* str) {
                 power = 1;
             }
         }
-
         // iterate the divider
         else {
             divider += 2; // only odd numbers can be divisors
             if (divider > endSearch) {
+                // jump to the end since there cannot be any more divisors in between
                 divider = number;
             }
         }
@@ -205,4 +167,58 @@ void printPrimeFactors(char* str) {
     }
 
     printf("\n----------------\n");
+}
+
+void displayHelp() {
+    printf("Usage: prifac <number>\n\
+\n\
+Description: \n\
+Calculates and prints the prime factors of a given number.\n\
+\n\
+Arguments: \n\
+- number: The integer for which prime factors are to be calculated.\n\
+- max-prime: The biggest prime number representable by a long long unsigned int. (18446744069414584321)\n\
+- max-number: The biggest representable number by a long long unsigned int. (18446744073709551615)\n\
+\n\
+Options: \n\
+- -h, --help: Display this help message.\n\
+\n\
+Examples: \n\
+1. To calculate the prime factors of a specific number: \n\
+   prifac 123456 \n\
+2. To calculate the prime factors of the biggest prime number: \n\
+   prifac max-prime \n\
+3. To calculate the prime factors of the biggest representable number: \n\
+   prifac max-number \n\
+4. To display the help message: \n\
+   prifac -h\n\
+\n\
+Note: \n\
+- For extremely large numbers, the program might take longer to compute. \n\
+- Use Ctrl+C to terminate the program if it's taking too long for calculation.");
+}
+
+int main(const int argc, const char** argv) {
+    // switch instead of if-else to allow for more arguments in the future
+    switch (argc) {
+    case 2:
+        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
+            displayHelp();
+            break;
+        }
+        if (strcmp(argv[1], "max-prime") == 0) {
+            printPrimeFactors("18446744069414584321");
+            break;
+        }
+        if (strcmp(argv[1], "max-number") == 0) {
+            printPrimeFactors("18446744073709551615");
+            break;
+        }
+        printPrimeFactors(argv[1]);
+        break;
+    default:
+        displayHelp();
+        break;
+    }
+    return 0;
 }
