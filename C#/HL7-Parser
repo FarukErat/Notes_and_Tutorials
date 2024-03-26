@@ -1,0 +1,95 @@
+﻿using System.Text.Json;
+
+namespace HL7Parser;
+
+public class Component
+{
+    public List<string> Subcomponents { get; set; }
+
+    public Component()
+    {
+        Subcomponents = [];
+    }
+}
+
+public class Field
+{
+    public List<Component> Components { get; set; }
+
+    public Field()
+    {
+        Components = [];
+    }
+}
+
+public class Segment
+{
+    public List<Field> Fields { get; set; }
+
+    public Segment()
+    {
+        Fields = [];
+    }
+}
+
+public class Message
+{
+    public List<Segment> Segments { get; set; }
+
+    public Message()
+    {
+        Segments = [];
+    }
+}
+
+public class HL7Parser
+{
+    private const char SEGMENT_DELIMITER = '\r';
+    private const char FIELD_DELIMITER = '|';
+    private const char COMPONENT_DELIMITER = '^';
+    private const char SUBCOMPONENT_DELIMITER = '&';
+
+    public static Message Parse(string hl7Message)
+    {
+        Message message = new();
+        string[] segmentStrings = hl7Message.Split(SEGMENT_DELIMITER);
+        foreach (string segmentString in segmentStrings)
+        {
+            Segment segment = new();
+            string[] fieldStrings = segmentString.Split(FIELD_DELIMITER);
+            foreach (string fieldString in fieldStrings)
+            {
+                Field field = new();
+                string[] componentStrings = fieldString.Split(COMPONENT_DELIMITER);
+                foreach (string componentString in componentStrings)
+                {
+                    Component component = new();
+                    string[] subcomponentStrings = componentString.Split(SUBCOMPONENT_DELIMITER);
+                    foreach (string subcomponentString in subcomponentStrings)
+                    {
+                        component.Subcomponents.Add(subcomponentString);
+                    }
+                    field.Components.Add(component);
+                }
+                segment.Fields.Add(field);
+            }
+            message.Segments.Add(segment);
+        }
+
+        return message;
+    }
+}
+
+class Program
+{
+    private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
+
+    static void Main()
+    {
+        string hl7Message = File.ReadAllText("message.hl7");
+        Message message = HL7Parser.Parse(hl7Message);
+
+        string messageJson = JsonSerializer.Serialize(message, jsonSerializerOptions);
+        Console.WriteLine(messageJson);
+    }
+}
