@@ -176,8 +176,8 @@ Description: \n\
 Calculates and prints the prime factors of a given number.\n\
 \n\
 Arguments: \n\
-- number: The integer for which prime factors are to be calculated.\n\
-- max-prime: The biggest prime number representable by a long long unsigned int. (18446744069414584321)\n\
+- <number>: The integer for which prime factors are to be calculated.\n\
+- max-prime: The biggest prime number representable by a long long unsigned int. (18446744073709551557)\n\
 - max-number: The biggest representable number by a long long unsigned int.      (18446744073709551615)\n\
 \n\
 Options: \n\
@@ -207,7 +207,7 @@ int main(const int argc, const char** argv) {
             break;
         }
         if (strcmp(argv[1], "max-prime") == 0) {
-            printPrimeFactors("18446744069414584321");
+            printPrimeFactors("18446744073709551557");
             break;
         }
         if (strcmp(argv[1], "max-number") == 0) {
