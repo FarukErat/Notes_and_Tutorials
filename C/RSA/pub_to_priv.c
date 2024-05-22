@@ -5,8 +5,8 @@
 
 uint64_t main(int argc, char* argv[]) {
     if (argc != 3) {
-        printf("Usage: %s <exponent1> <product>\n", argv[0]);
-        return 0;
+        printf("Usage: %s <exponent> <product>\n", argv[0]);
+        return 1;
     }
 
     uint64_t exponent1 = strtoull(argv[1], NULL, 10);
@@ -14,7 +14,7 @@ uint64_t main(int argc, char* argv[]) {
 
     uint64_t exponent2 = find_unknown_exponent(exponent1, product);
 
-    printf("Private Key (exponent2, product): (%llu, %llu)\n", exponent2, product);
+    printf("%llu", exponent2);
 
-    return exponent2;
+    return 0;
 }

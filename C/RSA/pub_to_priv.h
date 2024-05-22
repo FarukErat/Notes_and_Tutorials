@@ -40,7 +40,7 @@ uint64_t mod_inverse(uint64_t a, uint64_t m) {
 uint64_t find_unknown_exponent(uint64_t exponent, uint64_t product) {
     uint64_t prime1, prime2; // Prime factors of product (prime1 and prime2 are typically not known in practice)
 
-    prime1 = smallest_prime_factor_in_range_async(product, 2, product);
+    prime1 = smallest_factor_in_range_async(product, 2, product);
     prime2 = product / prime1;
 
     uint64_t phi_n = (prime1 - 1) * (prime2 - 1);

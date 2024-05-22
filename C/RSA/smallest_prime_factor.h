@@ -9,55 +9,52 @@
 #include <windows.h> // DWORD, HANDLE, LPVOID, INFINITE, CreateThread(), WaitForSingleObject(), CloseHandle()
 
 typedef struct {
-    uint64_t n;
-    uint64_t start;
-    uint64_t end;
+    uint64_t number;
+    uint64_t lowerBound;
+    uint64_t upperBound;
     uint64_t result;
     int found;
 } ThreadData;
 
-DWORD WINAPI thread_func(LPVOID lpParam) {
-    ThreadData* data = (ThreadData*)lpParam;
+uint64_t smallest_odd_factor_in_range(uint64_t number, uint64_t lowerBound, uint64_t upperBound) {
+    if (upperBound > number) {
+        upperBound = number;
+    }
 
-    for (uint64_t i = data->start; i <= data->end; i++) {
-        if (data->n % i == 0) {
-            data->result = i;
-            data->found = 1;
-            return 0;
+    if ((lowerBound % 2 == 0) && (lowerBound + 1 <= number)) {
+        ++lowerBound;
+    }
+
+    if (lowerBound > upperBound) {
+        return 0;
+    }
+
+    for (uint64_t i = lowerBound; i <= upperBound; i += 2) {
+        if (number % i == 0) {
+            return i;
         }
     }
 
     return 0;
 }
 
-uint64_t smallest_prime_factor_in_range(uint64_t n, uint64_t start, uint64_t end) {
-    if (n <= 1 || start > end) {
-        return 0;
+DWORD WINAPI thread_func(LPVOID lpParam) {
+    ThreadData* data = (ThreadData*)lpParam;
+
+    data->result = smallest_odd_factor_in_range(data->number, data->lowerBound, data->upperBound);
+    if (data->result != 0) {
+        data->found = 1;
     }
 
-    uint64_t sqrt_n = sqrt(n);
-    if (end > sqrt_n) {
-        end = sqrt_n;
-    }
-    for (uint64_t i = start; i <= end; i += 2) {
-        if (n % i == 0) {
-            return i;
-        }
-    }
-
-    return n;
+    return 0;
 }
 
-uint64_t smallest_prime_factor_in_range_async(uint64_t n, uint64_t start, uint64_t end) {
-    if (n <= 1) {
+uint64_t smallest_factor_in_range_async(uint64_t number, uint64_t lowerBound, uint64_t upperBound) {
+    if (lowerBound > upperBound) {
         return 0;
     }
 
-    if (n % 2 == 0) {
-        return 2;
-    }
-
-    int num_threads = 8;
+    int num_threads = 64;
     HANDLE* threads = (HANDLE*)malloc(num_threads * sizeof(HANDLE));
     ThreadData* thread_data = (ThreadData*)malloc(num_threads * sizeof(ThreadData));
 
@@ -66,14 +63,13 @@ uint64_t smallest_prime_factor_in_range_async(uint64_t n, uint64_t start, uint64
         exit(EXIT_FAILURE);
     }
 
-    uint64_t sqrt_n = (uint64_t)sqrt(n);
-    uint64_t range = (sqrt_n - start) / num_threads;
+    uint64_t range = (upperBound - lowerBound) / num_threads;
 
-    for (int i = 0; i < num_threads; i++) {
-        thread_data[i].n = n;
-        thread_data[i].start = start + i * range;
-        thread_data[i].end = (i == num_threads - 1) ? sqrt_n : (start + (i + 1) * range - 1);
-        thread_data[i].result = n;
+    for (int i = 0; i < num_threads; ++i) {
+        thread_data[i].number = number;
+        thread_data[i].lowerBound = lowerBound + i * range;
+        thread_data[i].upperBound = i == (num_threads - 1) ? upperBound : lowerBound + (i + 1) * range; // due to int truncation
+        thread_data[i].result = 0;
         thread_data[i].found = 0;
 
         threads[i] = CreateThread(NULL, 0, thread_func, &thread_data[i], 0, NULL);
@@ -85,12 +81,17 @@ uint64_t smallest_prime_factor_in_range_async(uint64_t n, uint64_t start, uint64
         }
     }
 
-    uint64_t smallest_prime_factor = n;
-    for (int i = 0; i < num_threads; i++) {
+    uint64_t smallest_prime_factor = 0;
+    for (int i = 0; i < num_threads; ++i) {
         WaitForSingleObject(threads[i], INFINITE);
         CloseHandle(threads[i]);
-        if (thread_data[i].found && thread_data[i].result < smallest_prime_factor) {
-            smallest_prime_factor = thread_data[i].result;
+        if (thread_data[i].found) {
+            if (smallest_prime_factor == 0) {
+                smallest_prime_factor = thread_data[i].result;
+            }
+            else if (thread_data[i].result < smallest_prime_factor) {
+                smallest_prime_factor = thread_data[i].result;
+            }
         }
     }
 
