@@ -169,8 +169,8 @@ void printPrimeFactors(const char* str) {
     printf("\n----------------\n");
 }
 
-void displayHelp() {
-    printf("Usage: prifac <number>\n\
+void displayHelp(const char* appName) {
+    printf("Usage: %s <number>\n\
 \n\
 Description: \n\
 Calculates and prints the prime factors of a given number.\n\
@@ -195,7 +195,7 @@ Examples: \n\
 \n\
 Note: \n\
 - For extremely large numbers, the program might take longer to compute. \n\
-- Use Ctrl+C to terminate the program if it's taking too long for calculation.");
+- Use Ctrl+C to terminate the program if it's taking too long for calculation.", appName);
 }
 
 int main(const int argc, const char** argv) {
@@ -203,7 +203,7 @@ int main(const int argc, const char** argv) {
     switch (argc) {
     case 2:
         if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
-            displayHelp();
+            displayHelp(argv[0]);
             break;
         }
         if (strcmp(argv[1], "max-prime") == 0) {
@@ -217,7 +217,7 @@ int main(const int argc, const char** argv) {
         printPrimeFactors(argv[1]);
         break;
     default:
-        displayHelp();
+        displayHelp(argv[0]);
         break;
     }
     return 0;
