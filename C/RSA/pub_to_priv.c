@@ -3,13 +3,14 @@
 
 #include "pub_to_priv.h"
 
-
 int main() {
-    uint64_t exponent1 = 6427, product = 4168061; // obtain these values from the public key
+    uint64_t exponent1 = 12375, product = 1040839753; // obtain these values from the public key
     uint64_t prime1, prime2; // Prime factors of product (prime1 and prime2 are typically not known in practice)
 
-    prime1 = find_smallest_prime_factor(product);
+    prime1 = smallest_prime_factor_in_range(product, 2, product);
     prime2 = product / prime1;
+    printf("Prime 1: %llu\n", prime1);
+    printf("Prime 2: %llu\n", prime2);
 
     // Calculate Euler's totient function φ(product)
     uint64_t phi_n = (prime1 - 1) * (prime2 - 1);
