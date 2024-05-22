@@ -16,6 +16,20 @@ typedef struct {
     int found;
 } ThreadData;
 
+DWORD WINAPI thread_func(LPVOID lpParam) {
+    ThreadData* data = (ThreadData*)lpParam;
+
+    for (uint64_t i = data->start; i <= data->end; i++) {
+        if (data->n % i == 0) {
+            data->result = i;
+            data->found = 1;
+            return 0;
+        }
+    }
+
+    return 0;
+}
+
 uint64_t find_smallest_prime_factor_in_range(uint64_t n, uint64_t start, uint64_t end) {
     if (n <= 1 || start > end) {
         return 0;
@@ -34,19 +48,7 @@ uint64_t find_smallest_prime_factor_in_range(uint64_t n, uint64_t start, uint64_
     return n;
 }
 
-DWORD WINAPI thread_func(LPVOID arg) {
-    ThreadData* data = (ThreadData*)arg;
-    uint64_t result = find_smallest_prime_factor_in_range(data->n, data->start, data->end);
-
-    if (result != data->n) {
-        data->result = result;
-        data->found = 1;
-    }
-
-    return 0;
-}
-
-uint64_t find_smallest_prime_factor(uint64_t n) {
+uint64_t smallest_prime_factor_in_range(uint64_t n, uint64_t start, uint64_t end) {
     if (n <= 1) {
         return 0;
     }
@@ -65,8 +67,7 @@ uint64_t find_smallest_prime_factor(uint64_t n) {
     }
 
     uint64_t sqrt_n = (uint64_t)sqrt(n);
-    uint64_t range = (sqrt_n - 3) / num_threads;
-    uint64_t start = 3;
+    uint64_t range = (sqrt_n - start) / num_threads;
 
     for (int i = 0; i < num_threads; i++) {
         thread_data[i].n = n;
