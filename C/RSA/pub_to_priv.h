@@ -131,4 +131,17 @@ uint64_t mod_inverse(uint64_t a, uint64_t m) {
     return x1;
 }
 
+uint64_t exponent_of_missing_key(uint64_t exponent, uint64_t product) {
+    uint64_t prime1, prime2; // Prime factors of product (prime1 and prime2 are typically not known in practice)
+
+    prime1 = smallest_prime_factor_in_range(product, 2, product);
+    prime2 = product / prime1;
+
+    uint64_t phi_n = (prime1 - 1) * (prime2 - 1);
+
+    uint64_t exponent2 = mod_inverse(exponent, phi_n);
+
+    return exponent2;
+}
+
 #endif // PUB_TO_PRIV
