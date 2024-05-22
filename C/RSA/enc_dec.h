@@ -5,9 +5,9 @@
 #define MIN_PRIME 10000
 #define MAX_PRIME 100000
 
-#include <stdlib.h> // For rand() and srand()
-#include <stdint.h> // For uint64_t
-#include <time.h> // For time()
+#include <stdlib.h> // rand(), srand()
+#include <stdint.h> // uint64_t
+#include <time.h> // time()
 
 // Euclidean algorithm to find the greatest common divisor of two numbers
 // For example, given num1 = 24 and num2 = 18, the gcd(24, 18) = 6
