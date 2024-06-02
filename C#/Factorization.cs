@@ -1,6 +1,6 @@
 namespace Services;
 
-// 9223372036854775783 is the largest prime number that fits in a long
+// 9_223_372_036_854_775_783 is the largest prime number that fits in a long
 // to test the performance of the IsPrime method
 
 public static class Factorization
