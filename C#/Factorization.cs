@@ -25,11 +25,11 @@ public static class Factorization
         long sqrtN = (long)Math.Sqrt(number);
         object lockObject = new();
         bool result = true;
-        long count = sqrtN / 6 + 1;
+        long count = sqrtN / 6 + 1; // +1 due to integer truncation
 
         Parallel.For(
-            fromInclusive: 1,
-            toExclusive: count + 1,
+            fromInclusive: 1, // 1 since the first candidate is 5
+            toExclusive: count + 1, // +1 due to exclusive upper bound
             parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
             body: (i, state) =>
             {
