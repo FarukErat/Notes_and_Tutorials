@@ -127,3 +127,6 @@ exec ls
 ```
 - Replaces the current shell with `ls`, so no further commands are executed in the original shell.
 
+### Key Points
+- **`set -x`**: Enables trace mode, showing each command and its expanded arguments.
+- **`set +x`**: Disables trace mode, stopping the trace output.
