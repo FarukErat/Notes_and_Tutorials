@@ -37,3 +37,16 @@
 8. **Behavioral Authentication:**
    - **How it works:** This method analyzes user behavior, such as typing speed, mouse movements, or browsing patterns, to authenticate users. It creates a unique profile for each user and checks for consistency during login.
    - **Common usage:** Continuous authentication in sensitive systems, reducing the need for repeated logins.
+
+
+# Terminology
+
+- **Coding:** Transforming data into a specific format (e.g., base64). No secrets are used; it’s for data formatting or transmission.
+- **Decoding:** Reversing the coding process to retrieve the original data. No secrets are involved.
+
+- **Encryption:** Converting data into a secure format using an encryption algorithm, typically requiring a secret key or password. This ensures data confidentiality.
+- **Decryption:** Reversing the encryption process to restore the original data. This also requires some keys.
+
+- **Hash:** Generating a fixed-size hash value from input data. It’s a one-way process, and no secrets are involved. Hashing is used for data integrity checks and securely storing passwords by comparing hashes.
+
+- **HMAC (Hash-Based Message Authentication Code):** Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity. The secret key is used along with the hash function to create a MAC (Message Authentication Code). The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.
