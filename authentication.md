@@ -1,120 +1,183 @@
-Authentication Methods
+AUTHENTICATION METHODS
+
+
 
 Password Authentication:
 
 User sets a password.
+    A random piece of data, so called salt, is generated.
+    The salt is appended to the password in such a way that it is possible to parse.
+    If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.
+    The result is stored in a database
 
-A random piece of data, so called salt, is generated.
-The salt is appended to the password in such a way that it is possible to parse.
-If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.
-The result is stored in a database
+User enters a password for login.
+    The entry from database is retrieved.
+    The hash, salt and parameters are parsed.
+    The entered password is hashed according to the parsed salt and paramaters.
+    Check is done by comparing the calculated hash and the parsed hash.
 
-User enters password for login.
+Why do we need to hash password anyway?
+    People tend to use the same password on different platforms.
+    Once you learn their password on a platform, you can try to login with that password on different platforms.
+    Therefore, passwords should be kept secret, as it should be, even from developers and admins.
+    Since, plain text passwords can be read easily.
+    If passwords are encrypted, it can be decrypted using keys.
+    If keys are note used, passwords cannot be validated agains ciphertexts.
+    We need a way to obfuscate passwords irreversibly.
+    That's why we use hash functions.
 
-The entry from database is retrieved.
-The hash, salt and parameters are parsed.
-The entered password is hashed according to the parsed salt and paramaters.
-Check is done by comparing the calculated hash and the parsed hash.
+Why do we even use salts?
+    We can simply hash passwords using SHA256.
+    However, there is a catch.
+    Hash functions always produce the same output, so called digest, when fed with the same input.
+    That leads to users having same password, having same hash.
+    Which makes it easier to guess ones password.
+    Moreover, an attacker can pre-hash some common passwords and store them in a database,
+    when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called "dictionary attack".
 
-Why do we need to hash password?
-People tend to use the same password on different platforms.
-Once you learn their password on a platform, you can try to login with that password on different platforms.
-Therefore, passwords should be kept secret, as it should be, even from developers and admins.
-Since, plain text passwords can be read easily.
-If passwords are encrypted, it can be decrypted using keys.
-If keys are note used, passwords cannot be validated agains cipher texts.
-We need a way to obfuscate passwords irreversibly.
-That's why we use hash functions.
+Why don't we just use SHA256?
+    We can use salt to create different digests and store salt appended to the password.
+    This way an attacker cannot use a dictionary database since the salt makes the difference.
+    However, hash functions like SHA256 are developed to be fast to do integrity check with big files.
+    Therefore, an attacker can focus on one single password hash,
+    hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time.
+    We need to slow down the attacker so much to make the process infeasible.
+    There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).
+    These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
+    It does not harm login process that much since it does it once (O(1)).
 
-Why do we use salts?
-We can simply hash passwords using SHA256.
-However, there is a catch.
-Hash functions always produce the same output, so called digest, when fed with the same input.
-That leads to users having same password, having same hash.
-Which makes it easier to guess ones password.
-Moreover, an attacker can pre-hash some common passwords and store them in a database,
-when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called "dictionary attack".
+------------------------------------------------------------------------------------------
 
-Why don't we use SH256?
-We can use salt to create different digests and store salt appended to the password.
-This way an attacker cannot use a dictionary database since the salt makes the difference.
-However, hash functions like SH256 are developed to be fast to do integrity check with big files.
-Therefore, an attacker can focus on one single password hash,
-hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time.
-We need to slow down the attacker so much to make the process infeasible.
-There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).
-These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
-It does not harm login process that much since it does it once (O(1)).
+Public Key Authentication:
+
+If A sends public key to B
+and B wants to check if A has the corresponding private key
+
+1. method
+    B generates some random data
+    and encrypt it with the public key
+    sends the ciphertext to A
+
+    A decrypts the ciphertext with the private key
+    and sends the plain data to B
+
+    B then checks if the generated and received data match
+
+2. method
+    B generates some random data
+    sends it to A without encrypting
+
+    A encrypts the plain data with the private key
+    then sends the ciphertext to B
+
+    B decrypts with the ciphertext the public key
+    then checks if the data sent and decrypted match
+
+3. method
+    B generates some random data
+    and encrypt it with the public key
+    sends the ciphertext to A
+
+    A decrypts the ciphertext with the private key
+    then encrypts it with the private key
+    then send the ciphertext to B
+
+    B decrypts the ciphertext with the public key
+    then checks if the data generated and decrypted match
+
+------------------------------------------------------------------------------------------
+
+Time-Based One-Time Password(TOTP):
+
+When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.
+An authenticator app scans the QR code and gets the secret.
+From this point on, they are able to create the same authentication code without even communicating anymore,
+using the secret and current time.
+The code may be valid for 30 or 60 second by a simple modulus operation on current time.
+Once a code is used, it is marked as used in the server.
+
+------------------------------------------------------------------------------------------
+
+Read / Write Authentication:
+
+Read (One Time Password - OTP - 2FA):
+    A code is generated and stored in a cache or database.
+    The code is sent throug a channel like email, phone, or SMS.
+    If user enters the same code, then it is proven that the user has read access to those.
+
+Write:
+    The user is asked to make a specific modification to some resource.
+    The service then checks if the modification has been made to verify write access.
+    Such as DNS/HTTP challenge to prove domain ownership.
+
+------------------------------------------------------------------------------------------
+
+Hash based Message Authentication Code:
+
+Symmetric:
+    The hash of a message (e.g., JSON data) is generated using a secret key.
+    The generated hash is then compared with the provided hash to verify the message's integrity and authenticity. (HS256)
+
+Asymmetric:
+    The message's hash is created and then encrypted with a private key.
+    The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message.
+    If they match, the message is authenticated. (RS256)
+
+------------------------------------------------------------------------------------------
+
+Smart Card / Hardware Authentication:
+
+Users authenticate by inserting a smart card into a reader. The card contains a secure cryptographic key that is used to verify the user's identity.
+
+------------------------------------------------------------------------------------------
+
+Biometric Authentication:
+
+This method uses unique biological traits of the user, such as fingerprints, facial recognition, iris scans, or voice recognition, to authenticate them.
+
+------------------------------------------------------------------------------------------
+
+CAPTCHA
+
+CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) challenges the user with a task that is easy for humans but difficult for bots, like recognizing distorted text or identifying objects in images.
+
+------------------------------------------------------------------------------------------
+
+Behavioral Authentication:
+
+This method analyzes user behavior, such as typing speed, mouse movements, or browsing patterns, to authenticate users. It creates a unique profile for each user and checks for consistency during login.
+
+------------------------------------------------------------------------------------------
+
+Kerberos Authentication:
+
+Kerberos is a network authentication protocol designed to provide strong authentication for client-server applications using secret-key cryptography. It works based on the concept of "tickets" to allow nodes to prove their identity in a secure manner. When a user tries to authenticate, they first request a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). Once they have the TGT, they can use it to request service tickets for access to specific services. The service tickets are used to authenticate the user to each service without needing to transmit passwords across the network.
+
+------------------------------------------------------------------------------------------
 
 
+Terminology:
 
+Coding
+    Transforming data into a specific format (e.g., base64). No secrets are used; it’s for data formatting or transmission.
+Decoding
+    Reversing the coding process to retrieve the original data. No secrets are involved.
 
+Encryption
+    Converting data into a secure format using an encryption algorithm, typically requiring a secret key or password. This ensures data confidentiality.
+Decryption
+    Reversing the encryption process to restore the original data. This also requires some keys.
 
+Hash
+    Generating a fixed-size hash value from input data. It’s a one-way process, and no secrets are involved.
+    Hashing is used for data integrity checks and securely storing passwords by comparing hashes.
+HMAC
+    Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity.
+    The secret key is used along with the hash function to create a MAC (Message Authentication Code).
+    The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.
 
-
-
-
-
-
-
-1. **Password Authentication:**
-   - **How it works:** The user's password is hashed using a secure hashing algorithm (e.g., bcrypt, argon2id) and stored in a database. When the user logs in, the entered password is hashed, and this hash is compared with the stored hash.
-   - **Security considerations:** It's important to use a slow hashing algorithm (like bcrypt) to make brute-force attacks more difficult. Salting is also crucial to prevent rainbow table attacks.
-
-2. **HMAC / Signature:**
-
-   - **Symmetric:**
-     - **How it works:** The hash of a message (e.g., JSON data) is generated using a secret key. The generated hash is then compared with the provided hash to verify the message's integrity and authenticity.
-     - **Common usage:** Often used in JSON Web Tokens (JWT) for signing tokens (JWS, HS256).
-
-   - **Asymmetric:**
-     - **How it works:** The message's hash is created and then encrypted with a private key. The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message. If they match, the message is authenticated.
-     - **Common usage:** Also used in JWTs, especially when tokens need to be verified by parties other than the issuer (RS256).
-
-3. **Public Key Authentication:**
-   - **How it works:** A pair of keys (public and private) is generated. The public key is stored on the server, and the private key remains securely on the client’s machine. When the client attempts to authenticate, the server sends a challenge (random data) that is encrypted with the public key. The client uses its private key to decrypt the challenge and sends back the decrypted data. If it matches the server’s expectation, the client is authenticated.
-   - **Common usage:** Used in SSH to provide a secure, passwordless login. The private key never leaves the client machine, making it highly secure as long as the private key is kept safe.
-
-4. **Time-Based One-Time Password (TOTP, Authenticator Apps):**
-   - **How it works:** When a service requires an authenticator app, it generates a secret and a qr code to transfer the secret. An authenticator app scans the qr code and gets the secret. From this point on, they are able to create the same authentication code without even communicating anymore, using the secret and current time. The code may be valid for 30 or 60 second by a simple modulus operation on current time. Once a code is used, it is marked as used in the server.
-    - **Common usage:** Authenticator apps are most commonly used to add an extra layer of security to login processes. They are used in combination with passwords to ensure that even if a password is compromised, a malicious actor would still need the time-based code generated by the app to gain access.
-
-5. **Two-Factor Authentication(2FA/OTP):**
-   - **How it works:** A code is sent to the user's email, phone, or via SMS. The user must input this code to verify they have access to the channel, which adds an additional layer of security beyond just the password.
-   - **Common usage:** Used as a second factor in two-factor authentication (2FA) to enhance security.
-
-6. **Biometric Authentication:**
-   - **How it works:** This method uses unique biological traits of the user, such as fingerprints, facial recognition, iris scans, or voice recognition, to authenticate them.
-   - **Security considerations:** While biometric data is difficult to forge, it also cannot be changed if compromised. Systems using biometrics often combine them with other factors (like passwords) for multi-factor authentication (MFA).
-
-7. **DNS/HTTP Challenge (Ownership Verification):**
-   - **How it works:** To prove domain ownership, the user is asked to make a specific modification to their DNS records or host a specific file at a certain URL. The service then checks if the modification has been made to verify ownership.
-   - **Common usage:** Often used in obtaining SSL certificates (e.g., Let's Encrypt) or verifying domain ownership for various services.
-
-8. **CAPTCHA:**
-   - **How it works:** CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) challenges the user with a task that is easy for humans but difficult for bots, like recognizing distorted text or identifying objects in images.
-   - **Common usage:** Preventing automated attacks on websites, such as spam submissions or brute-force login attempts.
-
-9. **Behavioral Authentication:**
-   - **How it works:** This method analyzes user behavior, such as typing speed, mouse movements, or browsing patterns, to authenticate users. It creates a unique profile for each user and checks for consistency during login.
-   - **Common usage:** Continuous authentication in sensitive systems, reducing the need for repeated logins.
-
-10. **Smart Card / Hardware Authentication:**
-   - **How it works:** Users authenticate by inserting a smart card into a reader. The card contains a secure cryptographic key that is used to verify the user's identity.
-   - **Common usage:** Used in high-security environments (e.g., government or financial institutions) where physical security is crucial.
-
-11. **Kerberos Authentication:**
-   - **How it works:** Kerberos is a network authentication protocol designed to provide strong authentication for client-server applications using secret-key cryptography. It works based on the concept of "tickets" to allow nodes to prove their identity in a secure manner. When a user tries to authenticate, they first request a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). Once they have the TGT, they can use it to request service tickets for access to specific services. The service tickets are used to authenticate the user to each service without needing to transmit passwords across the network.
-   - **Common usage:** Kerberos is widely used in secure environments, especially for network services. It is the default authentication method for Microsoft's Active Directory and is also supported in various Unix/Linux systems for services like SSH, web applications, databases, etc.
-
-# Terminology
-
-- **Coding:** Transforming data into a specific format (e.g., base64). No secrets are used; it’s for data formatting or transmission.
-- **Decoding:** Reversing the coding process to retrieve the original data. No secrets are involved.
-
-- **Encryption:** Converting data into a secure format using an encryption algorithm, typically requiring a secret key or password. This ensures data confidentiality.
-- **Decryption:** Reversing the encryption process to restore the original data. This also requires some keys.
-
-- **Hash:** Generating a fixed-size hash value from input data. It’s a one-way process, and no secrets are involved. Hashing is used for data integrity checks and securely storing passwords by comparing hashes.
-
-- **HMAC (Hash-Based Message Authentication Code):** Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity. The secret key is used along with the hash function to create a MAC (Message Authentication Code). The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.
+Asymmetric Encryption
+    A kind of encryption that requires two different keys that are mathematically paired.
+    Data that was encrypted by one can only be decrypted by another.
+    It is not practical to find the other if one is used.
+    Both keys have the exact same functionalities like encryption and decryption.
