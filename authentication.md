@@ -4,7 +4,7 @@
    - **How it works:** The user's password is hashed using a secure hashing algorithm (e.g., bcrypt, argon2id) and stored in a database. When the user logs in, the entered password is hashed, and this hash is compared with the stored hash.
    - **Security considerations:** It's important to use a slow hashing algorithm (like bcrypt) to make brute-force attacks more difficult. Salting is also crucial to prevent rainbow table attacks.
 
-2. **HMAC (Hash-Based Message Authentication Code):**
+2. **HMAC / Signature:**
 
    - **Symmetric:**
      - **How it works:** The hash of a message (e.g., JSON data) is generated using a secret key. The generated hash is then compared with the provided hash to verify the message's integrity and authenticity.
