@@ -46,11 +46,7 @@
    - **How it works:** Users authenticate by inserting a smart card into a reader. The card contains a secure cryptographic key that is used to verify the user's identity.
    - **Common usage:** Used in high-security environments (e.g., government or financial institutions) where physical security is crucial.
 
-10. **LDAP Authentication:**
-   - **How it works:** LDAP is a protocol used for accessing and maintaining distributed directory information services. With LDAP authentication, user credentials (typically username and password) are verified against an LDAP directory, such as Microsoft Active Directory or OpenLDAP. When a user attempts to log in, the application sends a bind request to the LDAP server using the provided credentials. If the credentials are valid, the LDAP server allows access; otherwise, the authentication fails. Not too different from Password Authentication.
-   - **Common usage:** LDAP is commonly used in enterprise environments for centralized authentication across multiple systems, services, and applications. It allows for user management in one place, making it easier for organizations to control and maintain access to various resources.
-
-11. **Kerberos Authentication:**
+10. **Kerberos Authentication:**
    - **How it works:** Kerberos is a network authentication protocol designed to provide strong authentication for client-server applications using secret-key cryptography. It works based on the concept of "tickets" to allow nodes to prove their identity in a secure manner. When a user tries to authenticate, they first request a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). Once they have the TGT, they can use it to request service tickets for access to specific services. The service tickets are used to authenticate the user to each service without needing to transmit passwords across the network.
    - **Common usage:** Kerberos is widely used in secure environments, especially for network services. It is the default authentication method for Microsoft's Active Directory and is also supported in various Unix/Linux systems for services like SSH, web applications, databases, etc.
 
