@@ -47,7 +47,7 @@
    - **Common usage:** Used in high-security environments (e.g., government or financial institutions) where physical security is crucial.
 
 10. **LDAP Authentication:**
-   - **How it works:** LDAP is a protocol used for accessing and maintaining distributed directory information services. With LDAP authentication, user credentials (typically username and password) are verified against an LDAP directory, such as Microsoft Active Directory or OpenLDAP. When a user attempts to log in, the application sends a bind request to the LDAP server using the provided credentials. If the credentials are valid, the LDAP server allows access; otherwise, the authentication fails.
+   - **How it works:** LDAP is a protocol used for accessing and maintaining distributed directory information services. With LDAP authentication, user credentials (typically username and password) are verified against an LDAP directory, such as Microsoft Active Directory or OpenLDAP. When a user attempts to log in, the application sends a bind request to the LDAP server using the provided credentials. If the credentials are valid, the LDAP server allows access; otherwise, the authentication fails. Not too different from Password Authentication.
    - **Common usage:** LDAP is commonly used in enterprise environments for centralized authentication across multiple systems, services, and applications. It allows for user management in one place, making it easier for organizations to control and maintain access to various resources.
 
 11. **Kerberos Authentication:**
