@@ -16,35 +16,38 @@ User enters a password for login.
     The entered password is hashed according to the parsed salt and paramaters.
     Check is done by comparing the calculated hash and the parsed hash.
 
-Why do we need to hash password anyway?
-    People tend to use the same password on different platforms.
-    Once you learn their password on a platform, you can try to login with that password on different platforms.
-    Therefore, passwords should be kept secret, as it should be, even from developers and admins.
-    Since, plain text passwords can be read easily.
-    If passwords are encrypted, it can be decrypted using keys.
-    If keys are note used, passwords cannot be validated agains ciphertexts.
-    We need a way to obfuscate passwords irreversibly.
-    That's why we use hash functions.
+### Why do we need to hash password anyway?
 
-Why do we even use salts?
-    We can simply hash passwords using SHA256.
-    However, there is a catch.
-    Hash functions always produce the same output, so called digest, when fed with the same input.
-    That leads to users having same password, having same hash.
-    Which makes it easier to guess ones password.
-    Moreover, an attacker can pre-hash some common passwords and store them in a database,
-    when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called "dictionary attack".
+People tend to use the same password on different platforms.
+Once you learn their password on a platform, you can try to login with that password on different platforms.
+Therefore, passwords should be kept secret, as it should be, even from developers and admins.
+Since, plain text passwords can be read easily.
+If passwords are encrypted, it can be decrypted using keys.
+If keys are note used, passwords cannot be validated agains ciphertexts.
+We need a way to obfuscate passwords irreversibly.
+That's why we use hash functions.
 
-Why don't we just use SHA256?
-    We can use salt to create different digests and store salt appended to the password.
-    This way an attacker cannot use a dictionary database since the salt makes the difference.
-    However, hash functions like SHA256 are developed to be fast to do integrity check with big files.
-    Therefore, an attacker can focus on one single password hash,
-    hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time.
-    We need to slow down the attacker so much to make the process infeasible.
-    There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).
-    These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
-    It does not harm login process that much since it does it once (O(1)).
+### Why do we even use salts?
+
+We can simply hash passwords using SHA256.
+However, there is a catch.
+Hash functions always produce the same output, so called digest, when fed with the same input.
+That leads to users having same password, having same hash.
+Which makes it easier to guess ones password.
+Moreover, an attacker can pre-hash some common passwords and store them in a database,
+when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called "dictionary attack".
+
+### Why don't we just use SHA256?
+
+We can use salt to create different digests and store salt appended to the password.
+This way an attacker cannot use a dictionary database since the salt makes the difference.
+However, hash functions like SHA256 are developed to be fast to do integrity check with big files.
+Therefore, an attacker can focus on one single password hash,
+hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time.
+We need to slow down the attacker so much to make the process infeasible.
+There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).
+These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
+It does not harm login process that much since it does it once (O(1)).
 
 ---
 
@@ -53,37 +56,37 @@ Why don't we just use SHA256?
 If A sends public key to B
 and B wants to check if A has the corresponding private key
 
-1. method
-    B generates some random data
-    and encrypt it with the public key
-    sends the ciphertext to A
+- **1. method**
+    - B generates some random data
+    - and encrypt it with the public key
+    - sends the ciphertext to A
 
-    A decrypts the ciphertext with the private key
-    and sends the plain data to B
+    - A decrypts the ciphertext with the private key
+    - and sends the plain data to B
 
-    B then checks if the generated and received data match
+    - B then checks if the generated and received data match
 
-2. method
-    B generates some random data
-    sends it to A without encrypting
+- **2. method**
+    - B generates some random data
+    - sends it to A without encrypting
 
-    A encrypts the plain data with the private key
-    then sends the ciphertext to B
+    - A encrypts the plain data with the private key
+    - then sends the ciphertext to B
 
-    B decrypts with the ciphertext the public key
-    then checks if the data sent and decrypted match
+    - B decrypts the ciphertext with the public key
+    - then checks if the data sent and decrypted match
 
-3. method
-    B generates some random data
-    and encrypt it with the public key
-    sends the ciphertext to A
+- **3. method**
+    - B generates some random data
+    - and encrypt it with the public key
+    - sends the ciphertext to A
 
-    A decrypts the ciphertext with the private key
-    then encrypts it with the private key
-    then send the ciphertext to B
+    - A decrypts the ciphertext with the private key
+    - then encrypts it with the private key
+    - then sends the ciphertext to B
 
-    B decrypts the ciphertext with the public key
-    then checks if the data generated and decrypted match
+    - B decrypts the ciphertext with the public key
+    - then checks if the data generated and decrypted match
 
 ---
 
