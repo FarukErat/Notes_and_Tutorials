@@ -1,8 +1,8 @@
-AUTHENTICATION METHODS
+# AUTHENTICATION METHODS
 
 
 
-Password Authentication:
+## Password Authentication:
 
 User sets a password.
     A random piece of data, so called salt, is generated.
@@ -46,9 +46,9 @@ Why don't we just use SHA256?
     These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
     It does not harm login process that much since it does it once (O(1)).
 
-------------------------------------------------------------------------------------------
+---
 
-Public Key Authentication:
+## Public Key Authentication:
 
 If A sends public key to B
 and B wants to check if A has the corresponding private key
@@ -85,9 +85,9 @@ and B wants to check if A has the corresponding private key
     B decrypts the ciphertext with the public key
     then checks if the data generated and decrypted match
 
-------------------------------------------------------------------------------------------
+---
 
-Time-Based One-Time Password(TOTP):
+## Time-Based One-Time Password(TOTP):
 
 When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.
 An authenticator app scans the QR code and gets the secret.
@@ -96,9 +96,9 @@ using the secret and current time.
 The code may be valid for 30 or 60 second by a simple modulus operation on current time.
 Once a code is used, it is marked as used in the server.
 
-------------------------------------------------------------------------------------------
+---
 
-Read / Write Authentication:
+## Read / Write Authentication:
 
 Read (One Time Password - OTP - 2FA):
     A code is generated and stored in a cache or database.
@@ -110,9 +110,9 @@ Write:
     The service then checks if the modification has been made to verify write access.
     Such as DNS/HTTP challenge to prove domain ownership.
 
-------------------------------------------------------------------------------------------
+---
 
-Hash based Message Authentication Code:
+## Hash based Message Authentication Code:
 
 Symmetric:
     The hash of a message (e.g., JSON data) is generated using a secret key.
@@ -123,40 +123,40 @@ Asymmetric:
     The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message.
     If they match, the message is authenticated. (RS256)
 
-------------------------------------------------------------------------------------------
+---
 
-Smart Card / Hardware Authentication:
+## Smart Card / Hardware Authentication:
 
 Users authenticate by inserting a smart card into a reader. The card contains a secure cryptographic key that is used to verify the user's identity.
 
-------------------------------------------------------------------------------------------
+---
 
-Biometric Authentication:
+## Biometric Authentication:
 
 This method uses unique biological traits of the user, such as fingerprints, facial recognition, iris scans, or voice recognition, to authenticate them.
 
-------------------------------------------------------------------------------------------
+---
 
-CAPTCHA
+## CAPTCHA
 
 CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) challenges the user with a task that is easy for humans but difficult for bots, like recognizing distorted text or identifying objects in images.
 
-------------------------------------------------------------------------------------------
+---
 
-Behavioral Authentication:
+## Behavioral Authentication:
 
 This method analyzes user behavior, such as typing speed, mouse movements, or browsing patterns, to authenticate users. It creates a unique profile for each user and checks for consistency during login.
 
-------------------------------------------------------------------------------------------
+---
 
-Kerberos Authentication:
+## Kerberos Authentication:
 
 Kerberos is a network authentication protocol designed to provide strong authentication for client-server applications using secret-key cryptography. It works based on the concept of "tickets" to allow nodes to prove their identity in a secure manner. When a user tries to authenticate, they first request a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). Once they have the TGT, they can use it to request service tickets for access to specific services. The service tickets are used to authenticate the user to each service without needing to transmit passwords across the network.
 
-------------------------------------------------------------------------------------------
+---
 
 
-Terminology:
+## Terminology:
 
 Coding
     Transforming data into a specific format (e.g., base64). No secrets are used; it’s for data formatting or transmission.
