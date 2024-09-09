@@ -8,7 +8,7 @@ User sets a password.
     A random piece of data, so called salt, is generated.
     The salt is appended to the password in such a way that it is possible to parse.
     If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.
-    The result is stored in a database
+    The result is stored in a database.
 
 User enters a password for login.
     The entry from database is retrieved.
