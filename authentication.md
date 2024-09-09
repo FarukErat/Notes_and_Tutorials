@@ -162,6 +162,12 @@ The service tickets are used to authenticate the user to each service without ne
 
 ---
 
+## SAML
+---
+## OAuth
+---
+## OpenID Connect
+---
 
 ## Terminology:
 
