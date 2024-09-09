@@ -35,7 +35,7 @@ Hash functions always produce the same output, so called digest, when fed with t
 That leads to users having same password, having same hash.
 Which makes it easier to guess ones password.
 Moreover, an attacker can pre-hash some common passwords and store them in a database,
-when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called **dictionary attack**.
+when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called `dictionary attack`.
 
 ### Why don't we just use SHA256?
 
@@ -43,7 +43,7 @@ We can use salt to create different digests and store salt appended to the passw
 This way an attacker cannot use a dictionary database since the salt makes the difference.
 However, hash functions like SHA256 are developed to be fast to do integrity check with big files.
 Therefore, an attacker can focus on one single password hash,
-hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time, which is called **rainbow table attack**.
+hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time, which is called ``rainbow table attack``.
 We need to slow down the attacker so much to make the process infeasible.
 There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).
 These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
