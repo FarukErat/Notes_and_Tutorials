@@ -18,36 +18,36 @@ Check is done by comparing the calculated hash and the parsed hash.<br>
 
 ### Why do we need to hash password anyway?
 
-People tend to use the same password on different platforms.
-Once you learn their password on a platform, you can try to login with that password on different platforms.
-Therefore, passwords should be kept secret, as it should be, even from developers and admins.
-Since, plain text passwords can be read easily.
-If passwords are encrypted, it can be decrypted using keys.
-If keys are note used, passwords cannot be validated agains ciphertexts.
-We need a way to obfuscate passwords irreversibly.
-That's why we use hash functions.
+People tend to use the same password on different platforms.<br>
+Once you learn their password on a platform, you can try to login with that password on different platforms.<br>
+Therefore, passwords should be kept secret, as it should be, even from developers and admins.<br>
+Since, plain text passwords can be read easily.<br>
+If passwords are encrypted, it can be decrypted using keys.<br>
+If keys are note used, passwords cannot be validated agains ciphertexts.<br>
+We need a way to obfuscate passwords irreversibly.<br>
+That's why we use hash functions.<br>
 
 ### Why do we even use salts?
 
-We can simply hash passwords using SHA256.
-However, there is a catch.
-Hash functions always produce the same output, so called digest, when fed with the same input.
-That leads to users having same password, having same hash.
-Which makes it easier to guess ones password.
-Moreover, an attacker can pre-hash some common passwords and store them in a database,
-when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called `dictionary attack`.
+We can simply hash passwords using SHA256.<br>
+However, there is a catch.<br>
+Hash functions always produce the same output, so called digest, when fed with the same input.<br>
+That leads to users having same password, having same hash.<br>
+Which makes it easier to guess ones password.<br>
+Moreover, an attacker can pre-hash some common passwords and store them in a database,<br>
+when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called `dictionary attack`.<br>
 
 ### Why don't we just use SHA256?
 
-We can use salt to create different digests and store salt appended to the password.
-This way an attacker cannot use a dictionary database since the salt makes the difference.
-However, hash functions like SHA256 are developed to be fast to do integrity check with big files.
-Therefore, an attacker can focus on one single password hash,
-hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time, which is called ``rainbow table attack``.
-We need to slow down the attacker so much to make the process infeasible.
-There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).
-These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).
-It does not harm login process that much since it does it once (O(1)).
+We can use salt to create different digests and store salt appended to the password.<br>
+This way an attacker cannot use a dictionary database since the salt makes the difference.<br>
+However, hash functions like SHA256 are developed to be fast to do integrity check with big files.<br>
+Therefore, an attacker can focus on one single password hash,<br>
+hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time, which is called ``rainbow table attack``.<br>
+We need to slow down the attacker so much to make the process infeasible.<br>
+There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).<br>
+These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).<br>
+It does not harm login process that much since it does it once (O(1)).<br>
 
 ---
 
