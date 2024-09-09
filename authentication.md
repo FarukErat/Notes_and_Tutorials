@@ -4,17 +4,17 @@
 
 ## Password Authentication:
 
-User sets a password.
-    A random piece of data, so called salt, is generated.
-    The salt is appended to the password in such a way that it is possible to parse.
-    If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.
-    The result is stored in a database.
+User sets a password.<br>
+A random piece of data, so called salt, is generated.<br>
+The salt is appended to the password in such a way that it is possible to parse.<br>
+If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.<br>
+The result is stored in a database.<br>
 
-User enters a password for login.
-    The entry from database is retrieved.
-    The hash, salt and parameters are parsed.
-    The entered password is hashed according to the parsed salt and paramaters.
-    Check is done by comparing the calculated hash and the parsed hash.
+User enters a password for login.<br>
+The entry from database is retrieved.<br>
+The hash, salt and parameters are parsed.<br>
+The entered password is hashed according to the parsed salt and paramaters.<br>
+Check is done by comparing the calculated hash and the parsed hash.<br>
 
 ### Why do we need to hash password anyway?
 
