@@ -92,39 +92,39 @@ and B wants to check if A has the corresponding private key
 
 ## Time-Based One-Time Password(TOTP):
 
-When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.
-An authenticator app scans the QR code and gets the secret.
-From this point on, they are able to create the same authentication code without even communicating anymore,
-using the secret and current time.
-The code may be valid for 30 or 60 second by a simple modulus operation on current time.
-Once a code is used, it is marked as used in the server.
+When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.<br>
+An authenticator app scans the QR code and gets the secret.<br>
+From this point on, they are able to create the same authentication code without even communicating anymore,<br>
+using the secret and current time.<br>
+The code may be valid for 30 or 60 second by a simple modulus operation on current time.<br>
+Once a code is used, it is marked as used in the server.<br>
 
 ---
 
 ## Read / Write Authentication:
 
-Read (One Time Password - OTP - 2FA):
-    A code is generated and stored in a cache or database.
-    The code is sent throug a channel like email, phone, or SMS.
-    If user enters the same code, then it is proven that the user has read access to those.
+Read (One Time Password - OTP - 2FA):<br>
+    A code is generated and stored in a cache or database.<br>
+    The code is sent throug a channel like email, phone, or SMS.<br>
+    If user enters the same code, then it is proven that the user has read access to those.<br>
 
-Write:
-    The user is asked to make a specific modification to some resource.
-    The service then checks if the modification has been made to verify write access.
-    Such as DNS/HTTP challenge to prove domain ownership.
+Write:<br>
+    The user is asked to make a specific modification to some resource.<br>
+    The service then checks if the modification has been made to verify write access.<br>
+    Such as DNS/HTTP challenge to prove domain ownership.<br>
 
 ---
 
 ## Hash based Message Authentication Code:
 
 Symmetric:
-    The hash of a message (e.g., JSON data) is generated using a secret key.
-    The generated hash is then compared with the provided hash to verify the message's integrity and authenticity. (HS256)
+    The hash of a message (e.g., JSON data) is generated using a secret key.<br>
+    The generated hash is then compared with the provided hash to verify the message's integrity and authenticity. (HS256)<br>
 
 Asymmetric:
-    The message's hash is created and then encrypted with a private key.
-    The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message.
-    If they match, the message is authenticated. (RS256)
+    The message's hash is created and then encrypted with a private key.<br>
+    The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message.<br>
+    If they match, the message is authenticated. (RS256)<br>
 
 ---
 
@@ -154,7 +154,11 @@ This method analyzes user behavior, such as typing speed, mouse movements, or br
 
 ## Kerberos Authentication:
 
-Kerberos is a network authentication protocol designed to provide strong authentication for client-server applications using secret-key cryptography. It works based on the concept of "tickets" to allow nodes to prove their identity in a secure manner. When a user tries to authenticate, they first request a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC). Once they have the TGT, they can use it to request service tickets for access to specific services. The service tickets are used to authenticate the user to each service without needing to transmit passwords across the network.
+Kerberos is a network authentication protocol designed to provide strong authentication for client-server applications using secret-key cryptography.<br>
+It works based on the concept of "tickets" to allow nodes to prove their identity in a secure manner.<br>
+When a user tries to authenticate, they first request a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC).<br>
+Once they have the TGT, they can use it to request service tickets for access to specific services.<br>
+The service tickets are used to authenticate the user to each service without needing to transmit passwords across the network.<br>
 
 ---
 
@@ -178,12 +182,12 @@ Generating a fixed-size hash value from input data. It’s a one-way process, an
 Hashing is used for data integrity checks and securely storing passwords by comparing hashes.
 
 ### HMAC
-Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity.
-The secret key is used along with the hash function to create a MAC (Message Authentication Code).
-The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.
+Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity.<br>
+The secret key is used along with the hash function to create a MAC (Message Authentication Code).<br>
+The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.<br>
 
 ### Asymmetric Encryption
-A kind of encryption that requires two different keys that are mathematically paired.
-Data that was encrypted by one can only be decrypted by another.
-It is not practical to find the other if one is used.
-Both keys have the exact same functionalities like encryption and decryption.
+A kind of encryption that requires two different keys that are mathematically paired.<br>
+Data that was encrypted by one can only be decrypted by another.<br>
+It is not practical to find the other if one is used.<br>
+Both keys have the exact same functionalities like encryption and decryption.<br>
