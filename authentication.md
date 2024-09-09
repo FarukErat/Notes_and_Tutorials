@@ -161,26 +161,29 @@ Kerberos is a network authentication protocol designed to provide strong authent
 
 ## Terminology:
 
-Coding
-    Transforming data into a specific format (e.g., base64). No secrets are used; it’s for data formatting or transmission.
-Decoding
-    Reversing the coding process to retrieve the original data. No secrets are involved.
+### Coding
+Transforming data into a specific format (e.g., base64). No secrets are used; it’s for data formatting or transmission.
 
-Encryption
-    Converting data into a secure format using an encryption algorithm, typically requiring a secret key or password. This ensures data confidentiality.
-Decryption
-    Reversing the encryption process to restore the original data. This also requires some keys.
+### Decoding
+Reversing the coding process to retrieve the original data. No secrets are involved.
 
-Hash
-    Generating a fixed-size hash value from input data. It’s a one-way process, and no secrets are involved.
-    Hashing is used for data integrity checks and securely storing passwords by comparing hashes.
-HMAC
-    Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity.
-    The secret key is used along with the hash function to create a MAC (Message Authentication Code).
-    The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.
+### Encryption
+Converting data into a secure format using an encryption algorithm, typically requiring a secret key or password. This ensures data confidentiality.
 
-Asymmetric Encryption
-    A kind of encryption that requires two different keys that are mathematically paired.
-    Data that was encrypted by one can only be decrypted by another.
-    It is not practical to find the other if one is used.
-    Both keys have the exact same functionalities like encryption and decryption.
+### Decryption
+Reversing the encryption process to restore the original data. This also requires some keys.
+
+### Hash
+Generating a fixed-size hash value from input data. It’s a one-way process, and no secrets are involved.
+Hashing is used for data integrity checks and securely storing passwords by comparing hashes.
+
+### HMAC
+Combines a cryptographic hash function with a secret key to ensure both data integrity and authenticity.
+The secret key is used along with the hash function to create a MAC (Message Authentication Code).
+The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.
+
+### Asymmetric Encryption
+A kind of encryption that requires two different keys that are mathematically paired.
+Data that was encrypted by one can only be decrypted by another.
+It is not practical to find the other if one is used.
+Both keys have the exact same functionalities like encryption and decryption.
