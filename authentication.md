@@ -204,6 +204,6 @@ The sender and receiver use the same secret key to validate that the message has
 
 ### Asymmetric Encryption
 A kind of encryption that requires two different keys that are mathematically paired.<br>
-Data that was encrypted by one can only be decrypted by another.<br>
-It is not practical to find the other if one is used.<br>
-Both keys have the exact same functionalities like encryption and decryption.<br>
+Both keys have the exact same functionalities like encryption and decryption, meaning that any of the pairs can encrypt and decrypt data.<br>
+Data that was encrypted by one of the pairs can only be decrypted the other pair.<br>
+It is not feasible to brute force or calculate one of the pair, if the other one is known.<br>
