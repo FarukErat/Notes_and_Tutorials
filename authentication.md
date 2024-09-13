@@ -48,8 +48,8 @@ Therefore, an attacker can focus on one single password hash,<br>
 hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time, which is called ``rainbow table attack``.<br>
 We need to slow down the attacker so much to make the process infeasible.<br>
 There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).<br>
-These hash functions create digests too slow for an attacker to do brute-force attacke, since the attacker has to do a lot of guess (O(n)).<br>
-It does not harm login process that much since it does it once (O(1)).<br>
+These hash functions create digests too slow for an attacker to do brute-force attack, since the attacker has to do a lot of guesses (O(n)).<br>
+It does not harm login process that much since it does it only once (O(1)).<br>
 
 ---
 
