@@ -90,7 +90,13 @@ and B wants to check if A has the corresponding private key
     - B decrypts the ciphertext with the public key
     - then checks if the data generated and decrypted match
 
- Default authentication method for Certificate Based Authentication, FIDO/WebAuthN(Client to Authenticator Protocol (CTAP)).
+- **A chat app scenario:**
+    - Clients have private key of their own and public key of anyone. 
+    - A wants to send a message to B.
+    - A encyrpts message using the public key of B, so that only B can read the message.
+    - A also encrypts the message with the private key, so that B can verify the message has been sent from A.
+
+Default authentication method for Certificate Based Authentication, FIDO/WebAuthN(Client to Authenticator Protocol (CTAP)).
 
 ---
 
