@@ -16,6 +16,8 @@ The hash, salt and parameters are parsed.<br>
 The entered password is hashed according to the parsed salt and paramaters.<br>
 Check is done by comparing the calculated hash and the parsed hash.<br>
 
+Default authentication method for systems using LDAP.<br>
+
 ### Why do we need to hash password anyway?
 
 People tend to use the same password on different platforms.<br>
@@ -87,6 +89,8 @@ and B wants to check if A has the corresponding private key
 
     - B decrypts the ciphertext with the public key
     - then checks if the data generated and decrypted match
+
+ Default authentication method for Certificate Based Authentication, FIDO/WebAuthN(Client to Authenticator Protocol (CTAP)).
 
 ---
 
