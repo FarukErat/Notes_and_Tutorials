@@ -24,14 +24,14 @@ public static class Factorization
             return false;
         }
 
-        BigInteger sqrtN = (BigInteger)Math.Sqrt((double)number);
+        long sqrtN = (long)Math.Sqrt((double)number);
         object lockObject = new();
         bool result = true;
-        BigInteger count = sqrtN / 6 + 1; // +1 due to integer truncation
+        long count = sqrtN / 6 + 1; // +1 due to integer truncation
 
         Parallel.For(
             fromInclusive: 1, // 1 since the first candidate is 5
-            toExclusive: (long)count + 1, // +1 due to exclusive upper bound
+            toExclusive: count + 1, // +1 due to exclusive upper bound
             parallelOptions: new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
             body: (i, state) =>
             {
