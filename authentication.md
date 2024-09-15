@@ -177,6 +177,7 @@ The service tickets are used to authenticate the user to each service without ne
 ## OAuth & OpenID Connect
 
 ![authorization_code_flow](https://github.com/user-attachments/assets/3d5d70bb-939e-4524-91ff-f8144722a882)
+![authorization_code_flow](https://github.com/user-attachments/assets/1c6306cc-1178-4464-8c10-6e5ce3a25cf4)
 
 ---
 ## Diffie-Hellman Key Exchange
