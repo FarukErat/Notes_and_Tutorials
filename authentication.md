@@ -173,6 +173,9 @@ The service tickets are used to authenticate the user to each service without ne
 ---
 
 ## SAML
+
+![SAML](https://github.com/user-attachments/assets/23fba138-74c4-4002-b3f2-7be363482341)
+
 ---
 ## OAuth & OpenID Connect
 
