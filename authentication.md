@@ -1,4 +1,4 @@
-# AUTHENTICATION METHODS
+AUTHENTICATION METHODS
 
 
 
@@ -174,9 +174,10 @@ The service tickets are used to authenticate the user to each service without ne
 
 ## SAML
 ---
-## OAuth
----
-## OpenID Connect
+## OAuth & OpenID Connect
+
+![authorization_code_flow](https://github.com/user-attachments/assets/44b8f2da-cf75-4c35-bce8-269398681f2e)
+
 ---
 ## Diffie-Hellman Key Exchange
 ---
