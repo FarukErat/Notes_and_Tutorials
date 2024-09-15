@@ -214,3 +214,8 @@ A kind of encryption that requires two different keys that are mathematically pa
 Both keys have the exact same functionalities like encryption and decryption, meaning that any of the pairs can encrypt and decrypt data.<br>
 Data that was encrypted by one of the pairs can only be decrypted the other pair.<br>
 It is not feasible to brute force or calculate one of the pair, if the other one is known.<br>
+
+#### RSA
+---
+#### ECC
+---
