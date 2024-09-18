@@ -161,7 +161,7 @@ Asymmetric:
 
 ## Smart Card / Hardware Authentication:
 
-Users authenticate by inserting a smart card into a reader. The card contains a secure cryptographic key that is used to verify the user's identity.
+Users authenticate by inserting a smart card into a reader. The card contains a secure cryptographic key that is used to verify the user's identity. (YubiKey)
 
 ---
 
