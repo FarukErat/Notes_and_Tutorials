@@ -59,43 +59,43 @@ It does not harm login process that much since it does it only once (O(1)).<br>
 If A sends public key to B
 and B wants to check if A has the corresponding private key
 
-- **1. method**
-    - B generates some random data
-    - and encrypt it with the public key
-    - sends the ciphertext to A
+**1. method**
+- B generates some random data
+- and encrypt it with the public key
+- sends the ciphertext to A
 
-    - A decrypts the ciphertext with the private key
-    - and sends the plain data to B
+- A decrypts the ciphertext with the private key
+- and sends the plain data to B
 
-    - B then checks if the generated and received data match
+- B then checks if the generated and received data match
 
-- **2. method**
-    - B generates some random data
-    - sends it to A without encrypting
+**2. method**
+- B generates some random data
+- sends it to A without encrypting
 
-    - A encrypts the plain data with the private key
-    - then sends the ciphertext to B
+- A encrypts the plain data with the private key
+- then sends the ciphertext to B
 
-    - B decrypts the ciphertext with the public key
-    - then checks if the data sent and decrypted match
+- B decrypts the ciphertext with the public key
+- then checks if the data sent and decrypted match
 
-- **3. method**
-    - B generates some random data
-    - and encrypt it with the public key
-    - sends the ciphertext to A
+**3. method**
+- B generates some random data
+- and encrypt it with the public key
+- sends the ciphertext to A
 
-    - A decrypts the ciphertext with the private key
-    - then encrypts it with the private key
-    - then sends the ciphertext to B
+- A decrypts the ciphertext with the private key
+- then encrypts it with the private key
+- then sends the ciphertext to B
 
-    - B decrypts the ciphertext with the public key
-    - then checks if the data generated and decrypted match
+- B decrypts the ciphertext with the public key
+- then checks if the data generated and decrypted match
 
-- **A chat app scenario:**
-    - Clients have private key of their own and public key of anyone. 
-    - A wants to send a message to B.
-    - A encyrpts message using the public key of B, so that only B can read the message.
-    - A also encrypts the message with the private key, so that B can verify the message has been sent from A.
+**A chat app scenario:**
+- Clients have private key of their own and public key of anyone. 
+- A wants to send a message to B.
+- A encyrpts message using the public key of B, so that only B can read the message.
+- A also encrypts the message with the private key, so that B can verify the message has been sent from A.
 
 Default authentication method for Certificate Based Authentication, FIDO / WebAuthN / Client to Authenticator Protocol.
 
