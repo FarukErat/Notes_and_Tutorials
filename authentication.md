@@ -4,18 +4,18 @@
 
 ## Password Authentication:
 
-User sets a password.<br>
-A random piece of data, so called salt, is generated.<br>
-The salt is appended to the password.<br>
-The resulting text is hashed. This process is intentionally resource intensive, like hashing the resulting text 2^12 times.<br>
-The parameters like salt, iteration number, parallelism and etc. are appended to the digest.<br>
-The result is stored in a database.<br>
+**User sets a password.**
+- A random piece of data, so called salt, is generated.
+- The salt is appended to the password.
+- The resulting text is hashed. This process is intentionally resource intensive, like hashing the resulting text 2^12 times.
+- The parameters like salt, iteration number, parallelism and etc. are appended to the digest.
+- The result is stored in a database.
 
-User enters a password for login.<br>
-The entry from database is retrieved.<br>
-The hash, salt and parameters are parsed.<br>
-The entered password is hashed according to the parsed salt and paramaters.<br>
-Check is done by comparing the calculated hash and the parsed hash.<br>
+**User enters a password for login.**
+- The entry from database is retrieved.
+- The hash, salt and parameters are parsed.
+- The entered password is hashed according to the parsed salt and paramaters.
+- Check is done by comparing the calculated hash and the parsed hash.
 
 Default authentication method for systems using LDAP.<br>
 
