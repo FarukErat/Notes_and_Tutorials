@@ -100,6 +100,26 @@ Default authentication method for Certificate Based Authentication, FIDO / WebAu
 
 ---
 
+## SCRAM (Salted Challenge Response Authentication Mechanism):
+
+When the communication between the client and the server is not encrypted, the system is vulnerable to MITM(man in the middle) attack.
+In order to mitigate password sniffing, password is not sent over the untrusted connection.
+
+**Here is how password authentication works, without passing password over the wire:**
+
+- Client sends a username and a client nonce.
+- Server sends a salt, an iteration count and a server nonce.
+
+- Client hashes the password with the salt, iteration count and the SERVER nonce, then sends the digest to server.
+- Server also hashes the stored password with the salt, iteration count and the CLIENT nonce, then sends the digest to client.
+
+- Client hashes the password with the salt, iteration count and the CLIENT nonce, then checks if server has sent the correct digest.
+- Server also hashes the stored password with the salt, iteration count and the SERVER nonce, then checks if client has sent the correct digest.
+
+- If the digests match, it mutually authenticate both parties.
+
+---
+
 ## Time-Based One-Time Password(TOTP):
 
 When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.<br>
