@@ -6,7 +6,7 @@
 
 User sets a password.<br>
 A random piece of data, so called salt, is generated.<br>
-The salt is appended to the password in such a way that it is possible to parse.<br>
+The salt is appended to the password.<br>
 If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.<br>
 The result is stored in a database.<br>
 
