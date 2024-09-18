@@ -96,7 +96,7 @@ and B wants to check if A has the corresponding private key
     - A encyrpts message using the public key of B, so that only B can read the message.
     - A also encrypts the message with the private key, so that B can verify the message has been sent from A.
 
-Default authentication method for Certificate Based Authentication, FIDO/WebAuthN(Client to Authenticator Protocol (CTAP)).
+Default authentication method for Certificate Based Authentication, FIDO / WebAuthN / Client to Authenticator Protocol.
 
 ---
 
