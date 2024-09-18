@@ -123,39 +123,39 @@ In order to mitigate password sniffing, password is not sent over the untrusted 
 
 ## Time-Based One-Time Password(TOTP):
 
-When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.<br>
-An authenticator app scans the QR code and gets the secret.<br>
-From this point on, they are able to create the same authentication code without even communicating anymore,<br>
-using the secret and current time.<br>
-The code may be valid for 30 or 60 second by a simple modulus operation on current time.<br>
-Once a code is used, it is marked as used in the server.<br>
+- When a service requires an authenticator app, it generates a secret and a QR code to transfer the secret.<br>
+- An authenticator app scans the QR code and gets the secret.<br>
+- From this point on, they are able to create the same authentication code without even communicating anymore,<br>
+- using the secret and current time.<br>
+- The code may be valid for 30 or 60 second by a simple modulus operation on current time.<br>
+- Once a code is used, it is marked as used in the server.<br>
 
 ---
 
 ## Read / Write Authentication:
 
-Read (One Time Password - OTP - 2FA):<br>
-    A code is generated and stored in a cache or database.<br>
-    The code is sent throug a channel like email, phone, or SMS.<br>
-    If user enters the same code, then it is proven that the user has read access to those.<br>
+**Read (One Time Password - OTP - 2FA):**
+- A code is generated and stored in a cache or database.
+- The code is sent throug a channel like email, phone, or SMS.
+- If user enters the same code, then it is proven that the user has read access to those.
 
-Write:<br>
-    The user is asked to make a specific modification to some resource.<br>
-    The service then checks if the modification has been made to verify write access.<br>
-    Such as DNS/HTTP challenge to prove domain ownership.<br>
+**Write:**
+- The user is asked to make a specific modification to some resource.
+- The service then checks if the modification has been made to verify write access.
+- Such as DNS/HTTP challenge to prove domain ownership.
 
 ---
 
 ## Hash based Message Authentication Code:
 
-Symmetric:
-    The hash of a message (e.g., JSON data) is generated using a secret key.<br>
-    The generated hash is then compared with the provided hash to verify the message's integrity and authenticity. (HS256)<br>
+**Symmetric:**
+- The hash of a message (e.g., JSON data) is generated using a secret key.<br>
+- The generated hash is then compared with the provided hash to verify the message's integrity and authenticity. (HS256)<br>
 
-Asymmetric:
-    The message's hash is created and then encrypted with a private key.<br>
-    The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message.<br>
-    If they match, the message is authenticated. (RS256)<br>
+**Asymmetric:**
+- The message's hash is created and then encrypted with a private key.<br>
+- The recipient decrypts the ciphertext using the corresponding public key and compares the decrypted hash with the calculated hash from the message.<br>
+- If they match, the message is authenticated. (RS256)<br>
 
 ---
 
