@@ -108,10 +108,10 @@ In order to mitigate password sniffing, password is not sent over the untrusted 
 **Here is how password authentication works, without passing password over the wire:**
 
 - Client sends a username and a client nonce.
-- Server sends a salt, an iteration count and a server nonce.
+- Server finds the password hash for the given username, then sends the salt, the iteration count and a server nonce.
 
 - Client hashes the password with the salt, iteration count and the SERVER nonce, then sends the digest to server.
-- Server also hashes the stored password with the salt, iteration count and the CLIENT nonce, then sends the digest to client.
+- Server hashes the stored password hash with the CLIENT nonce, then sends the digest to client.
 
 - Client hashes the password with the salt, iteration count and the CLIENT nonce, then checks if server has sent the correct digest.
 - Server also hashes the stored password with the salt, iteration count and the SERVER nonce, then checks if client has sent the correct digest.
