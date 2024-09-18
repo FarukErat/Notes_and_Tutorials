@@ -7,7 +7,8 @@
 User sets a password.<br>
 A random piece of data, so called salt, is generated.<br>
 The salt is appended to the password.<br>
-If there are some parameters like iteration number, parallelism and etc., they are also appended the same manner.<br>
+The resulting text is hashed. This process is intentionally resource intensive, like hashing the resulting text 2^12 times.<br>
+The parameters like salt, iteration number, parallelism and etc. are appended to the digest.<br>
 The result is stored in a database.<br>
 
 User enters a password for login.<br>
