@@ -119,6 +119,8 @@ In order to mitigate password sniffing, password is not sent over the untrusted 
 
 - If the digests match, it mutually authenticate both parties.
 
+Registration can be done with user hashing their own password and sending the digest and the parameters to the server.
+
 ---
 
 ## Time-Based One-Time Password(TOTP):
