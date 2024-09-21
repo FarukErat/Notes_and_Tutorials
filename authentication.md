@@ -13,9 +13,9 @@
 
 **User enters a password for login.**
 - The entry from database is retrieved.
-- The hash, salt and parameters are parsed.
+- The digest, salt and parameters are parsed.
 - The entered password is hashed according to the parsed salt and paramaters.
-- Check is done by comparing the calculated hash and the parsed hash.
+- Check is done by comparing the calculated digest and the parsed digest.
 
 Default authentication method for systems using LDAP.<br>
 
@@ -35,18 +35,18 @@ That's why we use hash functions.<br>
 We can simply hash passwords using SHA256.<br>
 However, there is a catch.<br>
 Hash functions always produce the same output, so called digest, when fed with the same input.<br>
-That leads to users having same password, having same hash.<br>
+That leads to users having same password, having same digest.<br>
 Which makes it easier to guess ones password.<br>
 Moreover, an attacker can pre-hash some common passwords and store them in a database,<br>
-when the attacker obtains a password hash, they can directly search it in the database to find corresponding password, which is called `dictionary attack`.<br>
+when the attacker obtains a password digest, they can directly search it in the database to find corresponding password, which is called `dictionary attack`.<br>
 
 ### Why don't we just use SHA256?
 
 We can use salt to create different digests and store salt appended to the password.<br>
 This way an attacker cannot use a dictionary database since the salt makes the difference.<br>
 However, hash functions like SHA256 are developed to be fast to do integrity check with big files.<br>
-Therefore, an attacker can focus on one single password hash,<br>
-hashes common passwords with the salt to find a hash match and is still fast enough to do it in a feasible time, which is called ``rainbow table attack``.<br>
+Therefore, an attacker can focus on one single password digest,<br>
+hashes common passwords with the salt to find a digest match and is still fast enough to do it in a feasible time, which is called ``rainbow table attack``.<br>
 We need to slow down the attacker so much to make the process infeasible.<br>
 There comes the purposfuly slowed hash functions(bcrypt, scrypt, argon2id).<br>
 These hash functions create digests too slow for an attacker to do brute-force attack, since the attacker has to do a lot of guesses (O(n)).<br>
