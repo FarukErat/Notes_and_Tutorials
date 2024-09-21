@@ -207,6 +207,33 @@ The service tickets are used to authenticate the user to each service without ne
 
 ---
 ## Diffie-Hellman Key Exchange
+
+When two parties need to communicate securly on an untrusted channel, they prefer to encrypt the dialog.<br>
+For this end, they will need to agree on a key so that both sides can understand eachother.<br>
+However, any session they start will be able to be observed.<br>
+Therefore, they cannot exchange keys on this untrusted channel.<br>
+They rather use this algorithm to obtain a shared secret key without sending the key itself.<br>
+They agree on some public values.<br>
+
+Let's say Alice and Bob want to obtain a shared secret.<br>
+
+Public values they agree on
+- `p`: a big prime number
+- `g`: a primitive root of p, in range [1,p)
+
+Private key of Alice `a`: a number in range [1,p)<br>
+Public key of Alice `A`: g^a mod p<br>
+
+Private key of Bob `b`: a number in range [1,p)<br>
+Public key of Bob `B`: g^b mod p<br>
+
+They send their own public key to eachother.
+
+Alice computes the shared key as `B^a mod p` = (g^b mod p)^a mod p = `g^ba mod p`<br>
+Bob computes the shared key as `A^b mod p` = (g^a mod p)^b mod p = `g^ab mod p`<br>
+
+Since g^ba = g^ab, they have the shared secret.
+
 ---
 
 ## Terminology:
