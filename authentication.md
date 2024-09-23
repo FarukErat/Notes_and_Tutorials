@@ -104,7 +104,7 @@ Default authentication method for Certificate Based Authentication, FIDO / WebAu
 ## SCRAM (Salted Challenge Response Authentication Mechanism):
 
 When the communication between the client and the server is not encrypted, the system is vulnerable to MITM(man in the middle) attack.
-In order to mitigate password sniffing, password is not sent over the untrusted connection.
+In order to mitigate password sniffing, password is not sent over the untrusted connection. (Zero Knowledge Proof?)
 
 **Here is how password authentication works, without passing password over the wire:**
 
@@ -233,6 +233,10 @@ Alice computes the shared key as `B^a mod p` = (g^b mod p)^a mod p = `g^ba mod p
 Bob computes the shared key as `A^b mod p` = (g^a mod p)^b mod p = `g^ab mod p`<br>
 
 Since g^ba = g^ab, they have the shared secret.
+
+---
+
+## Login with QR Code
 
 ---
 
