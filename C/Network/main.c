@@ -36,3 +36,27 @@ int main() {
 
     return 0;
 }
+
+/*
+Output:
+
+Graph adjacency matrix:
+0 1 1 0 0
+1 0 1 1 0
+1 1 0 0 1
+0 1 0 0 0
+0 0 1 0 0
+Completeness: 0.50
+Degree Centrality:
+Node 0: 2
+Node 1: 3
+Node 2: 3
+Node 3: 1
+Node 4: 1
+Closeness Centrality:
+Node 0: 0.67
+Node 1: 0.80
+Node 2: 0.80
+Node 3: 0.50
+Node 4: 0.50
+*/
