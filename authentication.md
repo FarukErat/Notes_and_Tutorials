@@ -263,6 +263,9 @@ Combines a cryptographic hash function with a secret key to ensure both data int
 The secret key is used along with the hash function to create a MAC (Message Authentication Code).<br>
 The sender and receiver use the same secret key to validate that the message hasn’t been tampered with and is from a legitimate source.<br>
 
+hash(data + secret_salt) -> data + digest -> data can be trusted and processed<br>
+hash(secret_data + salt) -> salt + digest -> salt can be used to verify someone knows something<br>
+
 ### Asymmetric Encryption
 A kind of encryption that requires two different keys that are mathematically paired.<br>
 Both keys have the exact same functionalities like encryption and decryption, meaning that any of the pairs can encrypt and decrypt data.<br>
