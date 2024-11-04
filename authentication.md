@@ -138,7 +138,7 @@ Registration can be done with user hashing their own password and sending the di
 
 **Read (One Time Password - OTP - 2FA):**
 - A code is generated and stored in a cache or database.
-- The code is sent throug a channel like email, phone, or SMS.
+- The code is sent through a channel like email, phone, or SMS.
 - If user enters the same code, then it is proven that the user has read access to those.
 
 **Write:**
