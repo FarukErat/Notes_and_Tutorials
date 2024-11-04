@@ -111,7 +111,7 @@ In order to mitigate password sniffing, password is not sent over the untrusted 
 - Client sends a username and a client nonce.
 - Server finds the password hash for the given username, then sends the salt, the iteration count and a SERVER nonce.
 
-- Client hashes the password with the salt, iteration count and the SERVER nonce, then sends the digest to server. `client_proof = hash(hash(pass, salt, iter), server_nonce)`
+- Client hashes the password with the salt, iteration count and the SERVER nonce, then sends the digest and a CLIENT nonce to server. `client_proof = hash(hash(pass, salt, iter), server_nonce)`
 - Server hashes the stored password hash with the CLIENT nonce, then sends the digest to client. `server_proof = hash(password_hash, client_nonce)`
 
 - Client hashes the password with the salt, iteration count and the CLIENT nonce, then checks if server has sent the correct digest. `expected_server_proof = hash(hash(pass, salt, iter), client_nonce)`
