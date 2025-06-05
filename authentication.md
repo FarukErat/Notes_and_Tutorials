@@ -92,7 +92,7 @@ and B wants to check if A has the corresponding private key
 - then checks if the data generated and decrypted match
 
 **A chat app scenario:**
-- Clients have private key of their own and public key of anyone. 
+- Clients have private key of their own and public key of anyone.
 - A wants to send a message to B.
 - A encyrpts message using the public key of B, so that only B can read the message.
 - A also encrypts the message with the private key, so that B can verify the message has been sent from A.
@@ -138,12 +138,12 @@ Registration can be done with user hashing their own password and sending the di
 
 **Read (One Time Password - OTP - 2FA):**
 - A code is generated and stored in a cache or database.
-- The code is sent through a channel like email, phone, or SMS.
+- The code is sent through a channel like email, phone, or SMS. (there is a reliance on the authentication of the channel)
 - If user enters the same code, then it is proven that the user has read access to those.
 
 **Write:**
 - The user is asked to make a specific modification to some resource.
-- The service then checks if the modification has been made to verify write access.
+- The service then checks if the modification has been made to verify write access. (there is a reliance on the authentication of the channel)
 - Such as DNS/HTTP challenge to prove domain ownership.
 
 ---
