@@ -197,13 +197,109 @@ The service tickets are used to authenticate the user to each service without ne
 
 ## SAML
 
-![SAML](https://github.com/user-attachments/assets/23fba138-74c4-4002-b3f2-7be363482341)
+```mermaid
+sequenceDiagram
+    title SAML Authentication Flow
+
+    participant User
+    participant Client
+    participant Identity Provider
+    participant Service Provider
+
+    Client->>Identity Provider: registers as a SAML client
+    Identity Provider->>Identity Provider: generates a public/private key pair<br>saves the client details and private key in a database<br>sends the client id and the corresponding public key
+    Identity Provider-->>Client: sends the client id and the public key
+    User->>Client: makes an unauthenticated request
+    Client->>User: redirects user for authentication<br>https://idp.example.com/saml/login<br>?SAMLRequest=base64_encoded_request<br>&RelayState=yourapp.com/callback
+    User->>Identity Provider: redirected with SAML request
+    Identity Provider->>Identity Provider: checks if a client with the SAML entity ID exists
+    Identity Provider-->>User: serves login page
+    User->>Identity Provider: sends credentials
+    Identity Provider->>Identity Provider: authenticates the user
+    Identity Provider-->>User: serves consent (authorization) screen
+    User->>Identity Provider: agrees with the consent (authorizes)
+    Identity Provider->>Identity Provider: creates SAML Assertion<br>using its private key<br>for the client
+    Identity Provider-->>User: redirects user to the RelayState URL<br>with SAML Assertion as parameter
+    User->>Client: redirected with the SAML Assertion
+    Client->>Identity Provider: sends the SAML Assertion
+    Identity Provider->>Identity Provider: verifies the SAML Assertion
+    Identity Provider->>Client: returns user identity and attributes
+    Client->>Service Provider: access with the user identity
+    Service Provider->>Service Provider: verifies the user identity
+    Service Provider-->>Client: response
+```
 
 ---
 ## OAuth & OpenID Connect
 
-![authorization_code_flow](https://github.com/user-attachments/assets/3d5d70bb-939e-4524-91ff-f8144722a882)
-![authorization_code_flow](https://github.com/user-attachments/assets/1c6306cc-1178-4464-8c10-6e5ce3a25cf4)
+```mermaid
+sequenceDiagram
+    title Authorization Code Flow
+
+    participant User
+    participant Client
+    participant Identity Provider
+    participant Resource Server
+
+    Client->>Identity Provider: registers as an oauth client
+    Identity Provider->>Identity Provider: saves the client in a database<br>issues a client id and secret<br>like username and password
+    Identity Provider-->>Client: sends client id and secret
+    User->>Client: makes an unauthenticated request
+    Client->>User: redirects user for authentication<br>https://authorization-server.com/auth<br>?response_type=code<br>&client_id=issued_client_id<br>&redirect_uri=https%3A%2F%2Fyourapp.com%2Fcallback<br>&scope=openid%20profile%20email<br>&state=xyz123
+    User->>Identity Provider: redirected with the query parameters
+    Identity Provider->>Identity Provider: checks if a client with the client id exists
+    Identity Provider-->>User: serves login page
+    User->>Identity Provider: sends credentials
+    Identity Provider->>Identity Provider: authenticates the user
+    Identity Provider-->>User: serves consent (authorization) screen
+    User->>Identity Provider: agrees with the consent (authorizes)
+    Identity Provider->>Identity Provider: issues an authorization code<br>for the client
+    Identity Provider-->>User: redirects user to the redirect_uri<br>with authorization code as parameter
+    User->>Client: redirected with the authorization code
+    Client->>Identity Provider: exchanges authorization code, client id and client secret<br>for access/refresh token
+    Identity Provider->>Identity Provider: verifies authorization code, client id and client secret
+    Identity Provider->>Identity Provider: issues access/refresh tokens<br>only valid for authorized scope
+    Identity Provider-->>Client: access/refresh token
+    Client->>Resource Server: access with the access token
+    Resource Server->>Resource Server: verifies access token
+    Resource Server-->>Client: response
+```
+
+```mermaid
+sequenceDiagram
+    title Proof Key for Code Exchange
+
+    participant User
+    participant Client
+    participant Identity Provider
+    participant Resource Server
+
+    Client->>Identity Provider: registers as an oauth client
+    Identity Provider->>Identity Provider: saves the client in a database<br>issues a client id<br>like username
+    Identity Provider-->>Client: sends client id
+    User->>Client: makes an unauthenticated request
+    Client->>Client: generates a random string<br>called code verifier
+    Client->>Client: hashes the code verifier<br>called code challenge
+    Client->>User: redirects user for authentication<br>https://authorization-server.com/auth<br>?response_type=code<br>&client_id=issued_client_id<br>&redirect_uri=https%3A%2F%2Fyourapp.com%2Fcallback<br>&scope=openid%20profile%20email<br>&state=xyz123<br>&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM<br>&code_challenge_method=S256
+    User->>Identity Provider: redirected with the query parameters
+    Identity Provider->>Identity Provider: checks if a client with the client id exists
+    Identity Provider-->>User: serves login page
+    User->>Identity Provider: sends credentials
+    Identity Provider->>Identity Provider: authenticates the user
+    Identity Provider-->>User: serves consent (authorization) screen
+    User->>Identity Provider: agrees with the consent (authorizes)
+    Identity Provider->>Identity Provider: issues an authorization code<br>for the client
+    Identity Provider->>Identity Provider: saves code challenge
+    Identity Provider-->>User: redirects user to the redirect_uri<br>with authorization code as parameter
+    User->>Client: redirected with the authorization code
+    Client->>Identity Provider: exchanges authorization code, client id and code verifier<br>for access/refresh token
+    Identity Provider->>Identity Provider: verifies authorization code, client id and code verifier<br>by hashing code verifier and comparing with the code challenge
+    Identity Provider->>Identity Provider: issues access/refresh tokens<br>only valid for authorized scope
+    Identity Provider-->>Client: access/refresh token
+    Client->>Resource Server: access with the access token
+    Resource Server->>Resource Server: verifies access token
+    Resource Server-->>Client: response
+```
 
 ---
 ## Diffie-Hellman Key Exchange
