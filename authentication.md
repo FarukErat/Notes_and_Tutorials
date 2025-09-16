@@ -301,6 +301,35 @@ sequenceDiagram
     Resource Server-->>Client: response
 ```
 
+```mermaid
+sequenceDiagram
+    title WebAuthN
+    participant User
+    participant Browser
+    participant RP as Relying Party (Server)
+    participant Authenticator
+
+    note over User,Authenticator: Registration (Create Credential)
+    User->>Browser: Start registration
+    Browser->>RP: Request registration options
+    RP-->>Browser: Send challenge + options
+    Browser->>Authenticator: navigator.credentials.create(options)
+    Authenticator-->>Browser: Public key credential (attestation)
+    Browser->>RP: Send credential response
+    RP-->>RP: Verify attestation & store public key
+    RP-->>User: Registration successful
+
+    note over User,Authenticator: Authentication (Login)
+    User->>Browser: Start login
+    Browser->>RP: Request authentication options
+    RP-->>Browser: Send challenge
+    Browser->>Authenticator: navigator.credentials.get(challenge)
+    Authenticator-->>Browser: Signed assertion (with private key)
+    Browser->>RP: Send assertion response
+    RP-->>RP: Verify signature with stored public key
+    RP-->>User: Login successful
+```
+
 ---
 ## Diffie-Hellman Key Exchange
 
