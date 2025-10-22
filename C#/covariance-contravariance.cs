@@ -1,6 +1,6 @@
 using System;
 
-// COVARIANCE
+// COVARIANCE - out
 // Base Produce() can be replaced with Derived Produce()
 // Derived Produce() cannot replaced with Base Produce()
 Base Produce()
@@ -12,7 +12,7 @@ Derived Produce()
     return new Derived("foo", "bar");
 }
 
-// CONTRAVARIANCE
+// CONTRAVARIANCE - in
 // void Consume(Derived x) can be replaced with void Consume(Base x)
 // void Consume(Base x) cannot replaced with void Consume(Derived x)
 void Consume(Base x)
