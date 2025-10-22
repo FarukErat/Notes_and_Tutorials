@@ -1,18 +1,29 @@
 using System;
-using System.Collections.Generic;
 
 // COVARIANCE
-// accessing an instance of Derived through an instance of Base is safe since a Derived is also a Base
-IEnumerable<Base> bases = new List<Derived>();
-// accessing an instance of Base through an instance of Derived is NOT safe, since not every Base is a Derived
-//IEnumerable<Derived> deriveds = new List<Base>();
+// Base Produce() can be replaced with Derived Produce()
+// Derived Produce() cannot replaced with Base Produce()
+Base Produce()
+{
+    return new Base("foo");
+}
+Derived Produce()
+{
+    return new Derived("foo", "bar");
+}
 
 // CONTRAVARIANCE
-// BaseAction can handle any instance of Base, which is why it can handle instances of Derived
-Action<Base> baseAction = o => Console.WriteLine(o.ToString());
-Action<Derived> derivedAction = baseAction;
-// derivedAction does NOT handle all subtypes of Base
-// baseAction = derivedAction;
+// void Consume(Derived x) can be replaced with void Consume(Base x)
+// void Consume(Base x) cannot replaced with void Consume(Derived x)
+void Consume(Base x)
+{
+    Console.WriteLine(x.Foo);
+}
+void Consume(Derived x)
+{
+    Console.WriteLine(x.Foo);
+    Console.WriteLine(x.Bar);
+}
 
-record Base;
-record Derived : Base;
+record Base(string Foo);
+record Derived(string Foo, string Bar) : Base(Foo);
